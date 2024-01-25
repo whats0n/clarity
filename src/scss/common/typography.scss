@@ -1,0 +1,52 @@
+.title-lg,
+.title-md,
+.title-sm {
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.title-lg {
+  font-size: 56px;
+  line-height: calc(68 / 56);
+
+  @include media($to: sm) {
+    font-size: 42px;
+  }
+}
+
+.title-md {
+  font-size: 36px;
+  line-height: calc(48 / 36);
+
+  @include media($to: sm) {
+    font-size: 32px;
+  }
+}
+
+.title-sm {
+  font-size: 32px;
+  line-height: calc(40 / 32);
+
+  @include media($to: sm) {
+    font-size: 26px;
+  }
+}
+
+.text {
+  font-size: 18px;
+  font-family: var(--font-secondary);
+  line-height: calc(32 / 18);
+
+  @include media($to: sm) {
+    font-size: 16px;
+  }
+}
+
+.label {
+  color: var(--success-color);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}

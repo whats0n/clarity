@@ -1,0 +1,38 @@
+html {
+  font-family: var(--font-primary);
+  font-optical-sizing: auto;
+  font-style: normal;
+
+  * {
+    font-family: inherit;
+  }
+}
+
+body {
+  min-width: 320px;
+  color: var(--primary-color);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+:where(a) {
+  transition: color 0.3s;
+
+  @include hover {
+    color: var(--accent-color);
+  }
+}
+
+.container {
+  max-width: 1200px;
+  padding-inline: 30px;
+  margin-inline: auto;
+
+  @include media($to: sm) {
+    padding-inline: 24px;
+  }
+
+  @include media($to: xs) {
+    padding-inline: 16px;
+  }
+}
