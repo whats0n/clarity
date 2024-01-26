@@ -76,6 +76,7 @@ const opened = ref<boolean>(false)
 <style lang="scss" module>
 .header {
   position: absolute;
+  z-index: 200;
   inset: 0 0 auto;
   padding-block: 26px;
 }

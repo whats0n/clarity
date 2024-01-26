@@ -52,6 +52,7 @@ watch(
 <style lang="scss" module>
 .menu {
   position: fixed;
+  z-index: 500;
   display: flex;
   flex-direction: column;
   gap: 20px;

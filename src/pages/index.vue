@@ -1,5 +1,6 @@
 <template>
   <div :class="$style.page">
+    <SharedSteps />
     <SharedExplore />
   </div>
 </template>
