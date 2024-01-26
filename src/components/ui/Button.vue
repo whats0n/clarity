@@ -68,7 +68,7 @@ const component = computed(() => {
 
     @include hover {
       color: var(--accent-color);
-      background: none;
+      background: #fff;
     }
   }
 

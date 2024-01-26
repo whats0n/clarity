@@ -18,16 +18,16 @@
       <ClientOnly>
         <div v-if="!bp.md" :class="$style.menu">
           <nav :class="$style.nav">
-            <NuxtLink to="/"> Home </NuxtLink>
-            <NuxtLink to="/">
+            <NuxtLink to="/" :class="$style.link"> Home </NuxtLink>
+            <NuxtLink to="/" :class="$style.link">
               Solutions
               <UiFaIcon
                 :icon="['fas', 'angle-down']"
                 :class="$style.link__angle"
               />
             </NuxtLink>
-            <NuxtLink to="/"> Water Quiz </NuxtLink>
-            <NuxtLink to="/"> Contact </NuxtLink>
+            <NuxtLink to="/" :class="$style.link"> Water Quiz </NuxtLink>
+            <NuxtLink to="/" :class="$style.link"> Contact </NuxtLink>
           </nav>
 
           <UiButton

@@ -1,7 +1,7 @@
 <template>
   <div>
     <SharedLayoutHeader />
-    <NuxtPage />
+    <NuxtPage :class="$style.page" />
     <SharedLayoutContacts :class="$style.contacts" />
     <SharedLayoutFooter />
   </div>
@@ -26,6 +26,12 @@ hook('vue:error', (e) => {
 </script>
 
 <style lang="scss" module>
+.page {
+  > *:first-child {
+    padding-top: 100px;
+  }
+}
+
 .contacts {
   margin-bottom: -55px;
 }

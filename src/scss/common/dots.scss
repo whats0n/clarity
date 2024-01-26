@@ -1,0 +1,13 @@
+.dots {
+  width: calc(var(--dots-x) * var(--size));
+  height: calc(var(--dots-y) * var(--size));
+  background-image: radial-gradient(
+    var(--dots-color) var(--dots-radius),
+    transparent var(--dots-radius)
+  );
+  background-position: left top;
+  background-size: var(--size) var(--size);
+  pointer-events: none;
+  --dots-radius: calc(var(--dots-size) / 2);
+  --size: calc((var(--dots-radius) + (var(--dots-distance) / 2)) * 2);
+}

@@ -1,7 +1,11 @@
 <template>
   <div :class="$style.page">
-    <SharedSteps />
-    <SharedExplore />
+    <SharedHomeHero :class="$style.hero" />
+    <SharedServices :class="$style.services" />
+    <SharedExplore :class="$style.explore" />
+    <div :class="$style.steps">
+      <SharedSteps />
+    </div>
   </div>
 </template>
 
@@ -12,8 +16,21 @@ definePageMeta({
 </script>
 
 <style lang="scss" module>
-.page {
-  position: relative;
-  padding-top: 100px;
+.hero {
+  margin-bottom: 150px;
+}
+
+.services {
+  margin-bottom: 144px;
+}
+
+.explore {
+  margin-bottom: 55px;
+}
+
+.steps {
+  padding-block: 105px 40px;
+  margin-bottom: 52px;
+  background: #fff;
 }
 </style>

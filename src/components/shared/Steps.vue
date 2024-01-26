@@ -89,17 +89,6 @@ const items: Array<{
   gap: 60px 30px;
   padding-bottom: 66px;
 
-  &:before {
-    position: absolute;
-    top: 130px;
-    right: -50vw;
-    bottom: 0;
-    left: -70px;
-    background: #f9fbfe;
-    border-radius: 8px 0 0 8px;
-    content: '';
-  }
-
   @include media($from: md) {
     --column: 3;
   }
@@ -110,6 +99,17 @@ const items: Array<{
 
   @include media($to: xs) {
     --column: 1;
+  }
+
+  &:before {
+    position: absolute;
+    top: 130px;
+    right: -50vw;
+    bottom: 0;
+    left: -70px;
+    background: #f9fbfe;
+    border-radius: 8px 0 0 8px;
+    content: '';
   }
 }
 
