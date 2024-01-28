@@ -3,7 +3,7 @@
     <div class="container">
       <div :class="$style.container">
         <div :class="$style.main">
-          <NuxtLink to="/" :class="$style.logo">
+          <NuxtLink :to="links.home" :class="$style.logo">
             <img src="/images/logo-colored.svg" alt="Clarity" />
           </NuxtLink>
           <p :class="$style.description">The easy path to cleaner water</p>
@@ -31,10 +31,10 @@
             <h4 :class="$style.nav__title">Solutions</h4>
             <ul>
               <li>
-                <NuxtLink to="/">Undersink RO</NuxtLink>
+                <NuxtLink :to="links.reverseOsmosis">Undersink RO</NuxtLink>
               </li>
               <li>
-                <NuxtLink to="/">Whole Home</NuxtLink>
+                <NuxtLink :to="links.homeFiltration">Whole Home</NuxtLink>
               </li>
             </ul>
           </div>
@@ -74,6 +74,8 @@
 
 <script lang="ts" setup>
 defineOptions({ name: 'TheFooter' })
+
+const links = useLinks()
 </script>
 
 <style lang="scss" module>

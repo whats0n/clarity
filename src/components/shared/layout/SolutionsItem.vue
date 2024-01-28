@@ -28,6 +28,12 @@ defineProps<{
     grid-template-columns: auto 1fr;
     gap: 28px;
   }
+
+  @include hover {
+    .title {
+      text-decoration: underline;
+    }
+  }
 }
 
 .figure {

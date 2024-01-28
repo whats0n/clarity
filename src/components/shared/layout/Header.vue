@@ -1,7 +1,7 @@
 <template>
   <header :class="$style.header">
     <div :class="['container', $style.container]">
-      <NuxtLink to="/" :class="$style.logo">
+      <NuxtLink :to="links.home" :class="$style.logo">
         <img src="/images/logo-colored.svg" alt="Clarity" />
       </NuxtLink>
 
@@ -18,7 +18,7 @@
       <ClientOnly>
         <div v-if="!bp.md" :class="$style.menu">
           <nav :class="$style.nav">
-            <NuxtLink to="/" :class="$style.link"> Home </NuxtLink>
+            <NuxtLink :to="links.home" :class="$style.link"> Home </NuxtLink>
             <div ref="solutionsRef">
               <button
                 type="button"
@@ -107,6 +107,7 @@
 defineOptions({ name: 'TheHeader' })
 
 const bp = useBreakpoints()
+const links = useLinks()
 
 const opened = ref<boolean>(false)
 const openedSolutionsMobile = ref<boolean>(false)
@@ -116,14 +117,14 @@ const { opened: openedSolutions, containerRef: solutionsRef } = useDropdown()
 const solutions = [
   {
     id: 1,
-    href: '/reverse-osmosis',
+    href: links.reverseOsmosis,
     image: '/images/solutions-01.png',
     title: 'Under Sink Filtration',
     text: 'Maximum filtration for pure and clean drinking water',
   },
   {
     id: 2,
-    href: '/home-filtration',
+    href: links.homeFiltration,
     image: '/images/solutions-02.png',
     title: 'Whole Home Filtration',
     text: 'Improved water for every fixture in your house',
