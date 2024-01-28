@@ -1,17 +1,11 @@
 .page-enter-active,
 .page-leave-active {
-  transition:
-    opacity 0.3s,
-    transform 0.3s;
+  transition: opacity 0.3s;
 }
 
 .page-enter-from,
 .page-leave-to {
   opacity: 0;
-}
-
-.page-enter-from {
-  transform: scale(0.98);
 }
 
 .fade-enter-active,

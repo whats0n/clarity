@@ -19,13 +19,32 @@
         <div v-if="!bp.md" :class="$style.menu">
           <nav :class="$style.nav">
             <NuxtLink to="/" :class="$style.link"> Home </NuxtLink>
-            <NuxtLink to="/" :class="$style.link">
-              Solutions
-              <UiFaIcon
-                :icon="['fas', 'angle-down']"
-                :class="$style.link__angle"
-              />
-            </NuxtLink>
+            <div ref="solutionsRef">
+              <button
+                type="button"
+                :class="$style.link"
+                @click="openedSolutions = !openedSolutions"
+              >
+                Solutions
+                <UiFaIcon
+                  :icon="['fas', 'angle-down']"
+                  :class="$style.link__angle"
+                />
+              </button>
+
+              <Transition name="fade">
+                <div v-if="openedSolutions" :class="$style.solutions">
+                  <SharedLayoutSolutionsItem
+                    v-for="item in solutions"
+                    :key="item.id"
+                    :href="item.href"
+                    :image="item.image"
+                    :title="item.title"
+                    :text="item.text"
+                  />
+                </div>
+              </Transition>
+            </div>
             <NuxtLink to="/" :class="$style.link"> Water Quiz </NuxtLink>
             <NuxtLink to="/" :class="$style.link"> Contact </NuxtLink>
           </nav>
@@ -41,13 +60,32 @@
         <SharedLayoutMobileMenu v-else v-model="opened">
           <template #nav>
             <NuxtLink to="/" :class="$style.link"> Home </NuxtLink>
-            <NuxtLink to="/" :class="$style.link">
-              Solutions
-              <UiFaIcon
-                :icon="['fas', 'angle-down']"
-                :class="$style.link__angle"
-              />
-            </NuxtLink>
+            <div>
+              <button
+                type="button"
+                :class="$style.link"
+                @click="openedSolutionsMobile = !openedSolutionsMobile"
+              >
+                Solutions
+                <UiFaIcon
+                  :icon="['fas', 'angle-down']"
+                  :class="$style.link__angle"
+                />
+              </button>
+
+              <UiCollapsable :opened="openedSolutionsMobile">
+                <div :class="$style.submenu">
+                  <SharedLayoutSolutionsItem
+                    v-for="item in solutions"
+                    :key="item.id"
+                    :href="item.href"
+                    :image="item.image"
+                    :title="item.title"
+                    :text="item.text"
+                  />
+                </div>
+              </UiCollapsable>
+            </div>
             <NuxtLink to="/" :class="$style.link"> Water Quiz </NuxtLink>
             <NuxtLink to="/" :class="$style.link"> Contact </NuxtLink>
           </template>
@@ -71,6 +109,39 @@ defineOptions({ name: 'TheHeader' })
 const bp = useBreakpoints()
 
 const opened = ref<boolean>(false)
+const openedSolutionsMobile = ref<boolean>(false)
+
+const { opened: openedSolutions, containerRef: solutionsRef } = useDropdown()
+
+const solutions = [
+  {
+    id: 1,
+    href: '/reverse-osmosis',
+    image: '/images/solutions-01.png',
+    title: 'Under Sink Filtration',
+    text: 'Maximum filtration for pure and clean drinking water',
+  },
+  {
+    id: 2,
+    href: '/home-filtration',
+    image: '/images/solutions-02.png',
+    title: 'Whole Home Filtration',
+    text: 'Improved water for every fixture in your house',
+  },
+]
+
+const route = useRoute()
+
+watch(
+  () => route.name,
+  (prev, next) => {
+    if (prev !== next) {
+      openedSolutions.value = false
+      openedSolutionsMobile.value = false
+      opened.value = false
+    }
+  },
+)
 </script>
 
 <style lang="scss" module>
@@ -82,6 +153,7 @@ const opened = ref<boolean>(false)
 }
 
 .container {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -107,12 +179,22 @@ const opened = ref<boolean>(false)
   display: inline-flex;
   gap: 4px;
   align-items: center;
+  color: var(--primary-color);
   font-size: 16px;
   font-family: var(--font-secondary);
   line-height: 22px;
   vertical-align: top;
+  transition: color 0.3s;
+
+  @include media($to: md) {
+    display: block;
+    width: 100%;
+    padding: 10px 32px;
+    text-align: left;
+  }
 
   @include hover {
+    color: var(--accent-color);
     text-decoration: underline;
   }
 
@@ -147,5 +229,36 @@ const opened = ref<boolean>(false)
       background: var(--accent-color);
     }
   }
+}
+
+.solutions {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 30px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 840px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 16px 48px 0 #69bbd7;
+
+  > * {
+    padding: 30px 24px;
+  }
+
+  &:before {
+    position: absolute;
+    left: 50%;
+    border: 1px solid #e5eaf4;
+    opacity: 0.8;
+    content: '';
+    inset-block: 0;
+  }
+}
+
+.submenu {
+  display: grid;
+  gap: 16px;
+  padding: 16px 16px 16px 48px;
 }
 </style>

@@ -79,10 +79,6 @@ watch(
   flex: 1 1 auto;
   flex-direction: column;
   overflow: auto;
-
-  a {
-    padding: 10px 32px;
-  }
 }
 
 .footer {

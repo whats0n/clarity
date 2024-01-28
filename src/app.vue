@@ -28,7 +28,7 @@ hook('vue:error', (e) => {
 <style lang="scss" module>
 .page {
   > *:first-child {
-    padding-top: 100px;
+    padding-top: 140px;
   }
 }
 
