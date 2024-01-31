@@ -1,0 +1,474 @@
+<template>
+  <div :class="$style.hero">
+    <div :class="['container', $style.container]">
+      <div :class="$style.header">
+        <h1 class="title-lg">Pricing with installation</h1>
+        <p :class="$style.description">
+          The price you see is the price you get. We don’t just sell water
+          filter systems, we. install them. Leave it to the pros and call us
+          today.
+        </p>
+      </div>
+
+      <div :class="$style.toggles">
+        <button
+          v-for="item in variants"
+          :key="item.id"
+          type="button"
+          :class="[
+            $style.toggle,
+            selectedVariant === item.id && $style.toggle_selected,
+          ]"
+          @click="selectedVariant = item.id"
+        >
+          <UiIcon :name="item.icon" :class="$style.toggle__icon" />
+          <span :class="$style.toggle__content">
+            <span :class="$style.toggle__title">
+              {{ item.title }}
+            </span>
+            <span :class="$style.toggle__description">
+              {{ item.description }}
+            </span>
+          </span>
+        </button>
+      </div>
+
+      <div v-if="selectedPlans.length" :class="$style.plans">
+        <div v-for="item in selectedPlans" :key="item.id" :class="$style.plan">
+          <div :class="[$style.plan__name, $style.plan__name_primary]">
+            {{ item.name }}
+          </div>
+          <div :class="$style.plan__container">
+            <div :class="$style.plan__price">
+              {{ item.price }}
+            </div>
+            <div :class="$style.plan__label">
+              {{ item.label }}
+            </div>
+            <NuxtLink
+              :to="item.button.href"
+              :class="[
+                $style.plan__button,
+                $style[`plan__button_${item.button.color}`],
+              ]"
+            >
+              {{ item.button.text }}
+            </NuxtLink>
+          </div>
+          <div :class="$style.plan__details">
+            <div :class="$style.plan__name">
+              {{ item.name }}
+            </div>
+            <ul :class="[$style.list, $style.plan__list]">
+              <li
+                v-for="listItem in item.list"
+                :key="listItem.id"
+                :class="$style.list__item"
+              >
+                <div :class="$style.list__figure">
+                  <UiFaIcon
+                    :icon="['fas', 'check']"
+                    :class="$style.list__icon"
+                  />
+                </div>
+                <div :class="$style.list__text">
+                  {{ listItem.text }}
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import type { PricingPlan, PricingVariant } from '~/types'
+
+const variants: PricingVariant[] = [
+  {
+    id: 1,
+    title: 'Reverse-Osmosis',
+    description: 'Filter out the most',
+    icon: 'pricing-ro',
+    plans: [
+      {
+        id: 1,
+        name: 'Basic RO',
+        price: '$379',
+        label: 'including installation',
+        button: {
+          href: '/',
+          text: 'Get Started Now',
+          color: 'primary',
+        },
+        list: [
+          { id: 1, text: '7 Stage Deep Filtration' },
+          { id: 2, text: '1:1 Drain Ratio' },
+          { id: 3, text: 'Drilling hole in countertop' },
+          { id: 4, text: 'Tankless Design' },
+          { id: 5, text: '400 Gallons Per Day' },
+          { id: 6, text: '1000+ contaminants filtered' },
+          { id: 7, text: 'PFA Removal' },
+          { id: 8, text: 'Improved Taste' },
+          { id: 9, text: 'Easy Filter Replacement' },
+        ],
+      },
+      {
+        id: 2,
+        name: 'Cloud RO',
+        price: '$779',
+        label: 'including installation',
+        button: {
+          href: '/',
+          text: 'Get Started Now',
+          color: 'secondary',
+        },
+        list: [
+          { id: 1, text: '7 Stage Deep Filtration' },
+          { id: 2, text: '1:1 Drain Ratio' },
+          { id: 3, text: 'Drilling hole in countertop' },
+          { id: 4, text: '2.8 Gallon Tank' },
+          { id: 5, text: 'Remineralization' },
+          { id: 6, text: '1000+ contaminants filtered' },
+          { id: 7, text: 'PFA Removal' },
+          { id: 8, text: 'Improved Taste' },
+          { id: 9, text: 'Easy Filter Replacement' },
+        ],
+      },
+      {
+        id: 3,
+        name: 'Premium RO',
+        price: '$979',
+        label: 'including installation',
+        button: {
+          href: '/',
+          text: 'Get Started Now',
+          color: 'tertiary',
+        },
+        list: [
+          { id: 1, text: '7 Stage Deep Filtration' },
+          { id: 2, text: '1:1 Drain Ratio' },
+          { id: 3, text: 'Drilling hole in countertop' },
+          { id: 4, text: 'Tankless Design' },
+          { id: 5, text: '400 Gallons Per Day' },
+          { id: 6, text: '1000+ contaminants filtered' },
+          { id: 7, text: 'PFA Removal' },
+          { id: 8, text: 'Improved Taste' },
+          { id: 9, text: 'Easy Filter Replacement' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 2,
+    title: 'Non Reverse-Osmosis',
+    description: 'Filter most contaminates',
+    icon: 'pricing-non-ro',
+    plans: [
+      {
+        id: 1,
+        name: 'Basic Non RO',
+        price: '$378',
+        label: 'including installation',
+        button: {
+          href: '/',
+          text: 'Get Started Now',
+          color: 'primary',
+        },
+        list: [
+          { id: 1, text: '7 Stage Deep Filtration' },
+          { id: 2, text: '1:1 Drain Ratio' },
+          { id: 3, text: 'Drilling hole in countertop' },
+          { id: 4, text: 'Tankless Design' },
+          { id: 5, text: '400 Gallons Per Day' },
+          { id: 6, text: '1000+ contaminants filtered' },
+          { id: 7, text: 'PFA Removal' },
+          { id: 8, text: 'Improved Taste' },
+          { id: 9, text: 'Easy Filter Replacement' },
+        ],
+      },
+      {
+        id: 2,
+        name: 'Cloud Non RO',
+        price: '$778',
+        label: 'including installation',
+        button: {
+          href: '/',
+          text: 'Get Started Now',
+          color: 'secondary',
+        },
+        list: [
+          { id: 1, text: '7 Stage Deep Filtration' },
+          { id: 2, text: '1:1 Drain Ratio' },
+          { id: 3, text: 'Drilling hole in countertop' },
+          { id: 4, text: '2.8 Gallon Tank' },
+          { id: 5, text: 'Remineralization' },
+          { id: 6, text: '1000+ contaminants filtered' },
+          { id: 7, text: 'PFA Removal' },
+          { id: 8, text: 'Improved Taste' },
+          { id: 9, text: 'Easy Filter Replacement' },
+        ],
+      },
+    ],
+  },
+]
+
+const selectedVariant = ref<string | number>(1)
+
+const selectedPlans = computed<PricingPlan[]>(
+  () =>
+    variants.find((variant) => variant.id === selectedVariant.value)?.plans ||
+    [],
+)
+</script>
+
+<style lang="scss" module>
+.hero {
+  --primary: #1d1b84;
+  --secondary: #344b80;
+}
+
+.header {
+  display: grid;
+  gap: 24px;
+  max-width: 680px;
+  margin-bottom: 45px;
+  text-align: center;
+  margin-inline: auto;
+}
+
+.description {
+  color: var(--secondary);
+  font-size: 20px;
+  font-family: var(--font-secondary);
+  line-height: calc(36 / 20);
+  text-wrap: balance;
+
+  @include media($to: sm) {
+    font-size: 16px;
+  }
+}
+
+.toggles {
+  display: grid;
+  gap: 16px;
+  max-width: 865px;
+  margin: 0 auto 50px;
+
+  @include media($from: sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.toggle {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 50px;
+  width: 100%;
+  padding: 33px 36px;
+  text-align: left;
+  background: #f6fafe;
+  border: 2px solid #e9f2fa;
+  border-radius: 10px;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s;
+
+  @include media($to: md) {
+    gap: 16px;
+    padding: 16px;
+  }
+
+  &__icon {
+    width: 48px;
+    color: #bdbec1;
+    transition: color 0.3s;
+  }
+
+  &__content {
+    display: grid;
+    color: var(--primary);
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: -0.2px;
+  }
+
+  &__title {
+    font-weight: 700;
+  }
+
+  &__description {
+    font-weight: 500;
+  }
+
+  &_selected {
+    background: none;
+    border-color: #ac57f5;
+
+    .toggle {
+      &__icon {
+        color: #8c4bff;
+      }
+    }
+  }
+}
+
+.plans {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  margin-inline: -10px;
+  justify-content: center;
+  --gap: 23px;
+  --columns: 1;
+
+  @include media($from: sm, $to: md) {
+    --columns: 2;
+  }
+
+  @include media($from: md) {
+    --columns: 3;
+  }
+}
+
+.plan {
+  width: calc((100% - var(--gap) * (var(--columns) - 1)) / var(--columns));
+  padding: 25px 10px 55px;
+  background: #f6fafe;
+  border: 1px solid #e9f2fa;
+  border-radius: 11px;
+
+  &__container {
+    margin-bottom: 32px;
+    padding: 32px 36px 52px;
+    text-align: center;
+    background: #ffffff;
+    border: 1px solid #e9f2fa;
+    border-radius: 12px;
+  }
+
+  &__name {
+    color: #635cff;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 21px;
+    letter-spacing: 0.36px;
+    text-transform: uppercase;
+
+    &_primary {
+      margin-bottom: 17px;
+      text-align: center;
+    }
+  }
+
+  &__price {
+    margin-bottom: 11px;
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 46px;
+    line-height: 60px;
+    letter-spacing: 1.02px;
+  }
+
+  &__label {
+    margin-bottom: 40px;
+    color: var(--secondary);
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: -0.37px;
+  }
+
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 300px;
+    margin-inline: auto;
+    height: 56px;
+    color: #ffffff;
+    font-size: 18px;
+    font-family: var(--font-secondary);
+    line-height: normal;
+    text-align: center;
+    background: var(--color);
+    border: 1px solid var(--color);
+    border-radius: 8px;
+    transition:
+      color 0.3s,
+      background-color 0.3s;
+    padding-inline: 24px;
+
+    @include hover {
+      color: var(--color);
+      background: #fff;
+    }
+
+    &_primary {
+      --color: #1565d8;
+    }
+
+    &_secondary {
+      --color: #40b784;
+    }
+
+    &_tertiary {
+      --color: #ac57f5;
+    }
+  }
+
+  &__details {
+    padding-inline: 15px;
+  }
+
+  &__list {
+    margin-top: 19px;
+  }
+}
+
+.list {
+  display: grid;
+  gap: 17px;
+
+  &__figure {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 23px;
+    height: 23px;
+    color: #635cff;
+    background: #ffffff;
+    border: 1px solid #eff5fc;
+    border-radius: 50%;
+  }
+
+  &__icon {
+    width: 10px;
+  }
+
+  &__text {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: calc(21 / 16);
+    letter-spacing: 0.36px;
+  }
+
+  &__item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    align-items: flex-start;
+
+    &:not(:first-child) {
+      .list__text {
+        text-decoration: underline;
+        text-decoration-color: #b6b4fe;
+        text-decoration-style: dashed;
+      }
+    }
+  }
+}
+</style>

@@ -1,6 +1,7 @@
 <template>
   <NuxtLink :to="href" :class="$style.item">
     <div :class="$style.figure">
+      <UiIcon v-if="wifi" name="wifi" :class="$style.wifi" />
       <img :src="image" alt="Illustration" :class="$style.image" />
     </div>
     <div :class="$style.content">
@@ -16,6 +17,7 @@ defineProps<{
   image: string
   title: string
   text: string
+  wifi?: boolean
 }>()
 </script>
 
@@ -37,6 +39,7 @@ defineProps<{
 }
 
 .figure {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -55,6 +58,14 @@ defineProps<{
 .image {
   max-width: 100%;
   max-height: 100%;
+}
+
+.wifi {
+  position: absolute;
+  top: 8px;
+  right: 11px;
+  width: 24px;
+  color: var(--success-color);
 }
 
 .title {

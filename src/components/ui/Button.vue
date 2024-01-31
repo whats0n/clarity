@@ -53,13 +53,14 @@ const component = computed(() => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  font-weight: bold;
   line-height: normal;
   text-align: center;
   vertical-align: top;
-  border-radius: 8px;
   transition:
     color 0.3s,
     background-color 0.3s;
+  padding-inline: 24px;
 
   &_ui-primary {
     color: #ffffff;
@@ -100,18 +101,16 @@ const component = computed(() => {
 
   &_size-lg {
     height: 54px;
-    font-weight: bold;
     font-size: 18px;
-    padding-inline: 24px;
     column-gap: 25px;
+    border-radius: 8px;
   }
 
   &_size-md {
     height: 48px;
-    font-weight: normal;
     font-size: 16px;
-    padding-inline: 28px;
     column-gap: 20px;
+    border-radius: 4px;
   }
 }
 

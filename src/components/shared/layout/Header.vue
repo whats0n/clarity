@@ -37,6 +37,7 @@
                   <SharedLayoutSolutionsItem
                     v-for="item in solutions"
                     :key="item.id"
+                    :wifi="item.wifi"
                     :href="item.href"
                     :image="item.image"
                     :title="item.title"
@@ -46,15 +47,13 @@
               </Transition>
             </div>
             <NuxtLink to="/" :class="$style.link"> Water Quiz </NuxtLink>
+            <NuxtLink :to="links.pricing" :class="$style.link">
+              Pricing
+            </NuxtLink>
             <NuxtLink to="/" :class="$style.link"> Contact </NuxtLink>
           </nav>
 
-          <UiButton
-            ui="outline"
-            size="md"
-            text="Get Started"
-            :class="$style.button"
-          />
+          <UiButton size="md" text="Get Started" :class="$style.button" />
         </div>
 
         <SharedLayoutMobileMenu v-else v-model="opened">
@@ -78,6 +77,7 @@
                   <SharedLayoutSolutionsItem
                     v-for="item in solutions"
                     :key="item.id"
+                    :wifi="item.wifi"
                     :href="item.href"
                     :image="item.image"
                     :title="item.title"
@@ -87,15 +87,13 @@
               </UiCollapsable>
             </div>
             <NuxtLink to="/" :class="$style.link"> Water Quiz </NuxtLink>
+            <NuxtLink :to="links.pricing" :class="$style.link">
+              Pricing
+            </NuxtLink>
             <NuxtLink to="/" :class="$style.link"> Contact </NuxtLink>
           </template>
           <template #footer>
-            <UiButton
-              ui="outline"
-              size="md"
-              text="Get Started"
-              :class="$style.button"
-            />
+            <UiButton size="md" text="Get Started" :class="$style.button" />
           </template>
         </SharedLayoutMobileMenu>
       </ClientOnly>
@@ -128,6 +126,21 @@ const solutions = [
     image: '/images/solutions-02.png',
     title: 'Whole Home Filtration',
     text: 'Improved water for every fixture in your house',
+  },
+  {
+    id: 3,
+    href: links.home,
+    image: '/images/solutions-03.png',
+    title: 'Structured Water',
+    text: 'Ultimate water for the forward thinkers',
+  },
+  {
+    id: 4,
+    href: links.home,
+    wifi: true,
+    image: '/images/solutions-04.png',
+    title: 'Emergency Monitoring',
+    text: 'Monitor water and automatically shutoff in emergency',
   },
 ]
 
@@ -239,21 +252,18 @@ watch(
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   width: 840px;
+  overflow: hidden;
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 16px 48px 0 #69bbd7;
 
   > * {
     padding: 30px 24px;
-  }
+    border-bottom: 1px solid #e5eaf4;
 
-  &:before {
-    position: absolute;
-    left: 50%;
-    border: 1px solid #e5eaf4;
-    opacity: 0.8;
-    content: '';
-    inset-block: 0;
+    &:nth-child(odd) {
+      border-right: 1px solid #e5eaf4;
+    }
   }
 }
 
