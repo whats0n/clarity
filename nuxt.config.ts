@@ -1,9 +1,33 @@
 import stylelintPlugin from 'vite-plugin-stylelint'
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
   srcDir: 'src',
+
+  runtimeConfig: {
+    public: {
+      strapiApiToken: '',
+      strapiApiUrl: '',
+    },
+  },
+
+  modules: ['@nuxtjs/apollo'],
+
+  apollo: {
+    autoImports: true,
+    authType: 'Bearer',
+    authHeader: 'Authorization',
+    tokenStorage: 'cookie',
+    clients: {
+      default: {
+        httpEndpoint: process.env.NUXT_PUBLIC_STRAPI_API_URL || '',
+      },
+    },
+  },
+
+  plugins: ['~/plugins/fontawesome.ts', '~/plugins/apollo.ts'],
 
   css: ['~/scss/index.scss', '@fortawesome/fontawesome-svg-core/styles.css'],
 
@@ -12,8 +36,6 @@ export default defineNuxtConfig({
   nitro: {
     compressPublicAssets: true,
   },
-
-  plugins: ['~/plugins/fontawesome.ts'],
 
   imports: {
     dirs: [

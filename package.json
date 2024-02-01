@@ -8,7 +8,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "start": "node .output/server/index.mjs"
+    "start": "node .output/server/index.mjs",
+    "gql:generate": "graphql-codegen"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
@@ -16,6 +17,11 @@
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/vue-fontawesome": "^3.0.5",
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/client-preset": "^4.1.0",
+    "@graphql-codegen/typescript": "^4.0.1",
+    "@graphql-codegen/typescript-operations": "^4.0.1",
+    "@nuxtjs/apollo": "^5.0.0-alpha.11",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@typescript-eslint/parser": "^6.19.1",
     "eslint": "^8.56.0",

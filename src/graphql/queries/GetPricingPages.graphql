@@ -1,0 +1,20 @@
+query GetPricingPages {
+  pricingPages {
+    data {
+      id
+      attributes {
+        Title
+        Description
+        pricing_variants {
+          data {
+            id
+            attributes {
+              Description
+              Title
+            }
+          }
+        }
+      }
+    }
+  }
+}
