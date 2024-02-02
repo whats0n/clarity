@@ -1,7 +1,11 @@
 <template>
   <div :class="$style.figures">
     <img
-      src="/images/inner-hero-figure.svg"
+      :src="
+        dark
+          ? '/images/inner-hero-figure-dark.svg'
+          : '/images/inner-hero-figure.svg'
+      "
       alt="Decoration figures"
       :class="$style.decoration"
     />
@@ -12,6 +16,7 @@
 
 <script lang="ts" setup>
 defineProps<{
+  dark: boolean
   primary: string
   secondary: string
 }>()

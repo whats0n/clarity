@@ -74,3 +74,10 @@ export interface FaqItem {
   title: string
   text: string
 }
+
+export interface TipsItem {
+  id: string | number
+  icon: string
+  title: string
+  text: string
+}
