@@ -1,38 +1,41 @@
 <template>
-  <div :class="$style.hero">
-    <div :class="['container', $style.container]">
-      <div :class="$style.figures">
-        <SharedInnerHeroPictures
-          :primary="primaryImage"
-          :secondary="secondaryImage"
-          :class="$style.pictures"
-        />
-      </div>
-      <div :class="$style.content">
-        <h1 :class="['title-lg', $style.title]">
-          {{ title }}
-        </h1>
-        <p v-if="description" :class="$style.description">
-          {{ description }}
-        </p>
-        <ul :class="$style.list">
-          <li v-for="item in items" :key="item.id" :class="$style.item">
-            <UiIcon :name="item.icon" :class="$style.item__icon" />
-            <div :class="$style.item__content">
-              <div :class="$style.item__title">{{ item.title }}</div>
-              <div :class="$style.item__text">{{ item.description }}</div>
-            </div>
-          </li>
-        </ul>
-        <UiButton
-          v-if="button"
-          :arrow="button.arrow"
-          :external="button.external"
-          :ui="button.ui"
-          :size="button.size"
-          :to="button.to"
-          :text="button.text"
-        />
+  <div :class="[$style.hero, ui && $style[`hero_${ui}`]]">
+    <div :class="$style.inner">
+      <div :class="['container', $style.container]">
+        <div :class="$style.figures">
+          <SharedInnerHeroPictures
+            :dark="ui === 'yellow'"
+            :primary="primaryImage"
+            :secondary="secondaryImage"
+            :class="$style.pictures"
+          />
+        </div>
+        <div :class="$style.content">
+          <h1 :class="['title-lg', $style.title]">
+            {{ title }}
+          </h1>
+          <p v-if="description" :class="$style.description">
+            {{ description }}
+          </p>
+          <ul :class="$style.list">
+            <li v-for="item in items" :key="item.id" :class="$style.item">
+              <UiIcon :name="item.icon" :class="$style.item__icon" />
+              <div :class="$style.item__content">
+                <div :class="$style.item__title">{{ item.title }}</div>
+                <div :class="$style.item__text">{{ item.description }}</div>
+              </div>
+            </li>
+          </ul>
+          <UiButton
+            v-if="button"
+            :arrow="button.arrow"
+            :external="button.external"
+            :ui="button.ui"
+            :size="button.size"
+            :to="button.to"
+            :text="button.text"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -41,15 +44,14 @@
 <script lang="ts" setup>
 import type { SharedInnerHero } from '~/types'
 
-defineProps<SharedInnerHero>()
+defineProps<
+  SharedInnerHero & {
+    ui?: 'yellow'
+  }
+>()
 </script>
 
 <style lang="scss" module>
-.hero {
-  position: relative;
-  overflow: hidden;
-}
-
 .container {
   position: relative;
   display: grid;
@@ -80,18 +82,6 @@ defineProps<SharedInnerHero>()
   }
 }
 
-.title {
-  margin-bottom: 24px;
-  text-wrap: balance;
-}
-
-.description {
-  margin-bottom: 32px;
-  font-size: 20px;
-  font-family: var(--font-secondary);
-  line-height: 36px;
-}
-
 .list {
   display: grid;
   gap: 32px 16px;
@@ -101,6 +91,28 @@ defineProps<SharedInnerHero>()
 
   @include media($from: sm) {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.description {
+  font-size: 20px;
+  font-family: var(--font-secondary);
+  line-height: 36px;
+
+  + .list {
+    margin-top: 32px;
+  }
+}
+
+.title {
+  text-wrap: balance;
+
+  + .description {
+    margin-top: 24px;
+  }
+
+  + .list {
+    margin-top: 60px;
   }
 }
 
@@ -127,6 +139,50 @@ defineProps<SharedInnerHero>()
 
   &__text {
     color: var(--primary-light-color);
+  }
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+
+  &_yellow {
+    @include media($from: md) {
+      padding-bottom: 170px;
+
+      &:before {
+        position: absolute;
+        z-index: -1;
+        background: rgb(217, 168, 0, 0.1);
+        content: '';
+        inset: 0 0 170px;
+      }
+    }
+
+    @include media($to: md) {
+      margin-bottom: 60px;
+      background: rgb(217, 168, 0, 0.1);
+
+      .inner {
+        padding-bottom: 60px;
+      }
+    }
+
+    .figures {
+      @include media($from: md) {
+        margin-bottom: -170px;
+      }
+    }
+
+    .content {
+      @include media($from: md) {
+        padding-bottom: 70px;
+      }
+    }
+
+    .item__icon {
+      color: #3f598a;
+    }
   }
 }
 </style>

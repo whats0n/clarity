@@ -178,3 +178,10 @@ export interface SharedAbout {
   title: string
   items: SharedAboutItem[]
 }
+
+export interface TipsItem {
+  id: string | number
+  icon: string
+  title: string
+  text: string
+}
