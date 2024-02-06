@@ -1,0 +1,24 @@
+#import "../ui/Icon.gql"
+#import "../ui/ListItem.gql"
+
+fragment ServicesSection on ServicesSectionEntityResponse {
+  data {
+    attributes {
+      label
+      title
+      description
+      list {
+        ...UiListItem
+      }
+      items {
+        id
+        href
+        title
+        description
+        icon {
+          ...UiIcon
+        }
+      }
+    }
+  }
+}

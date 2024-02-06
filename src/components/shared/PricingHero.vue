@@ -2,12 +2,8 @@
   <div :class="$style.hero">
     <div :class="['container', $style.container]">
       <div :class="$style.header">
-        <h1 class="title-lg">Pricing with installation</h1>
-        <p :class="$style.description">
-          The price you see is the price you get. We don’t just sell water
-          filter systems, we. install them. Leave it to the pros and call us
-          today.
-        </p>
+        <h1 class="title-lg">{{ title }}</h1>
+        <p :class="$style.description">{{ description }}</p>
       </div>
 
       <div :class="$style.toggles">
@@ -15,6 +11,7 @@
           v-for="item in variants"
           :key="item.id"
           type="button"
+          :disabled="variants.length < 2"
           :class="[
             $style.toggle,
             selectedVariant === item.id && $style.toggle_selected,
@@ -46,7 +43,10 @@
               {{ item.label }}
             </div>
             <NuxtLink
+              v-if="item.button"
               :to="item.button.href"
+              :external="item.button.external"
+              :target="item.button.external ? '_blank' : undefined"
               :class="[
                 $style.plan__button,
                 $style[`plan__button_${item.button.color}`],
@@ -86,136 +86,13 @@
 <script lang="ts" setup>
 import type { PricingPlan, PricingVariant } from '~/types'
 
-const variants: PricingVariant[] = [
-  {
-    id: 1,
-    title: 'Reverse-Osmosis',
-    description: 'Filter out the most',
-    icon: 'pricing-ro',
-    plans: [
-      {
-        id: 1,
-        name: 'Basic RO',
-        price: '$379',
-        label: 'including installation',
-        button: {
-          href: '/',
-          text: 'Get Started Now',
-          color: 'primary',
-        },
-        list: [
-          { id: 1, text: '7 Stage Deep Filtration' },
-          { id: 2, text: '1:1 Drain Ratio' },
-          { id: 3, text: 'Drilling hole in countertop' },
-          { id: 4, text: 'Tankless Design' },
-          { id: 5, text: '400 Gallons Per Day' },
-          { id: 6, text: '1000+ contaminants filtered' },
-          { id: 7, text: 'PFA Removal' },
-          { id: 8, text: 'Improved Taste' },
-          { id: 9, text: 'Easy Filter Replacement' },
-        ],
-      },
-      {
-        id: 2,
-        name: 'Cloud RO',
-        price: '$779',
-        label: 'including installation',
-        button: {
-          href: '/',
-          text: 'Get Started Now',
-          color: 'secondary',
-        },
-        list: [
-          { id: 1, text: '7 Stage Deep Filtration' },
-          { id: 2, text: '1:1 Drain Ratio' },
-          { id: 3, text: 'Drilling hole in countertop' },
-          { id: 4, text: '2.8 Gallon Tank' },
-          { id: 5, text: 'Remineralization' },
-          { id: 6, text: '1000+ contaminants filtered' },
-          { id: 7, text: 'PFA Removal' },
-          { id: 8, text: 'Improved Taste' },
-          { id: 9, text: 'Easy Filter Replacement' },
-        ],
-      },
-      {
-        id: 3,
-        name: 'Premium RO',
-        price: '$979',
-        label: 'including installation',
-        button: {
-          href: '/',
-          text: 'Get Started Now',
-          color: 'tertiary',
-        },
-        list: [
-          { id: 1, text: '7 Stage Deep Filtration' },
-          { id: 2, text: '1:1 Drain Ratio' },
-          { id: 3, text: 'Drilling hole in countertop' },
-          { id: 4, text: 'Tankless Design' },
-          { id: 5, text: '400 Gallons Per Day' },
-          { id: 6, text: '1000+ contaminants filtered' },
-          { id: 7, text: 'PFA Removal' },
-          { id: 8, text: 'Improved Taste' },
-          { id: 9, text: 'Easy Filter Replacement' },
-        ],
-      },
-    ],
-  },
-  {
-    id: 2,
-    title: 'Non Reverse-Osmosis',
-    description: 'Filter most contaminates',
-    icon: 'pricing-non-ro',
-    plans: [
-      {
-        id: 1,
-        name: 'Basic Non RO',
-        price: '$378',
-        label: 'including installation',
-        button: {
-          href: '/',
-          text: 'Get Started Now',
-          color: 'primary',
-        },
-        list: [
-          { id: 1, text: '7 Stage Deep Filtration' },
-          { id: 2, text: '1:1 Drain Ratio' },
-          { id: 3, text: 'Drilling hole in countertop' },
-          { id: 4, text: 'Tankless Design' },
-          { id: 5, text: '400 Gallons Per Day' },
-          { id: 6, text: '1000+ contaminants filtered' },
-          { id: 7, text: 'PFA Removal' },
-          { id: 8, text: 'Improved Taste' },
-          { id: 9, text: 'Easy Filter Replacement' },
-        ],
-      },
-      {
-        id: 2,
-        name: 'Cloud Non RO',
-        price: '$778',
-        label: 'including installation',
-        button: {
-          href: '/',
-          text: 'Get Started Now',
-          color: 'secondary',
-        },
-        list: [
-          { id: 1, text: '7 Stage Deep Filtration' },
-          { id: 2, text: '1:1 Drain Ratio' },
-          { id: 3, text: 'Drilling hole in countertop' },
-          { id: 4, text: '2.8 Gallon Tank' },
-          { id: 5, text: 'Remineralization' },
-          { id: 6, text: '1000+ contaminants filtered' },
-          { id: 7, text: 'PFA Removal' },
-          { id: 8, text: 'Improved Taste' },
-          { id: 9, text: 'Easy Filter Replacement' },
-        ],
-      },
-    ],
-  },
-]
+const { variants } = defineProps<{
+  title: string
+  description: string
+  variants: PricingVariant[]
+}>()
 
-const selectedVariant = ref<string | number>(1)
+const selectedVariant = ref<string | number>(variants[0].id || '')
 
 const selectedPlans = computed<PricingPlan[]>(
   () =>
@@ -252,18 +129,16 @@ const selectedPlans = computed<PricingPlan[]>(
 }
 
 .toggles {
-  display: grid;
+  display: flex;
   gap: 16px;
+  justify-content: center;
   max-width: 865px;
   margin: 0 auto 50px;
-
-  @include media($from: sm) {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 .toggle {
   display: grid;
+  flex: 0 0 auto;
   grid-template-columns: auto 1fr;
   gap: 50px;
   width: 100%;
@@ -275,6 +150,10 @@ const selectedPlans = computed<PricingPlan[]>(
   transition:
     background-color 0.3s,
     border-color 0.3s;
+
+  @include media($from: sm) {
+    width: calc(50% - 8px);
+  }
 
   @include media($to: md) {
     gap: 16px;

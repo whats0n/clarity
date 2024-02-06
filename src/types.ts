@@ -1,3 +1,5 @@
+import type { NuxtLinkProps } from '#app'
+
 export interface AboutItemButton {
   text: string
   href: string
@@ -38,20 +40,23 @@ export interface InnerHeroButton {
 
 export type PricingPlanColor = 'primary' | 'secondary' | 'tertiary'
 
+export interface PricingPlanItem {
+  id: string | number
+  text: string
+}
+
 export interface PricingPlan {
   id: string | number
   name: string
-  price: string
+  price: number
   label: string
-  button: {
+  button?: {
     href: string
     text: string
     color: PricingPlanColor
+    external: boolean
   }
-  list: {
-    id: string | number
-    text: string
-  }[]
+  list: PricingPlanItem[]
 }
 
 export interface PricingVariant {
@@ -73,4 +78,103 @@ export interface FaqItem {
   id: string | number
   title: string
   text: string
+}
+
+export interface UiListItem {
+  id: string
+  text: string
+}
+
+export interface UiButtonLink {
+  to?: NuxtLinkProps['to']
+  ui?: 'primary' | 'secondary' | 'outline'
+  size?: 'md' | 'lg'
+  arrow?: boolean
+  external?: boolean
+  text: string
+}
+
+export interface SharedHomeHero {
+  title: string
+  image: string
+  list: UiListItem[]
+  buttons: Array<UiButtonLink & { id: string }>
+}
+
+export interface SharedServicesItem {
+  id: string
+  icon: string
+  title: string
+  text: string
+  href: string
+}
+
+export interface SharedServices {
+  label: string
+  title: string
+  description: string
+  list: UiListItem[]
+  items: SharedServicesItem[]
+}
+
+export interface SharedExploreItem {
+  id: string
+  title: string
+  image: string
+}
+
+export interface SharedExplore {
+  label: string
+  title: string
+  description: string
+  items: SharedExploreItem[]
+}
+
+export interface SharedStepsItem {
+  id: string
+  image: string
+  title: string
+  text: string
+}
+
+export interface SharedSteps {
+  title: string
+  description: string
+  items: SharedStepsItem[]
+}
+
+export interface SharedInnerHeroItem {
+  id: string
+  icon: string
+  title: string
+  description: string
+}
+
+export interface SharedInnerHero {
+  primaryImage: string
+  secondaryImage: string
+  title: string
+  description?: string
+  button?: UiButtonLink
+  items: SharedInnerHeroItem[]
+}
+
+export interface SharedAboutText {
+  id: string
+  text: string
+}
+
+export interface SharedAboutItem {
+  id: string
+  title: string
+  image: string
+  text: SharedAboutText[]
+  button?: UiButtonLink
+  list?: UiListItem[]
+}
+
+export interface SharedAbout {
+  label: string
+  title: string
+  items: SharedAboutItem[]
 }

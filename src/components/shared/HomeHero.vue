@@ -5,16 +5,23 @@
       <div :class="$style.content">
         <div :class="['dots', $style.dotsBlue]" />
         <h1 :class="['title-lg', $style.title]">
-          Live in Atlanta? Fix your water
+          {{ title }}
         </h1>
         <div :class="$style.buttons">
           <div :class="['dots', $style.dotsLight]" />
-          <UiButton arrow ui="secondary" text="Undersink" />
-          <UiButton arrow ui="secondary" text="Whole Home" />
-          <UiButton arrow text="Help me decide" />
+          <UiButton
+            v-for="button in buttons"
+            :key="button.id"
+            :arrow="button.arrow"
+            :external="button.external"
+            :ui="button.ui"
+            :size="button.size"
+            :to="button.to"
+            :text="button.text"
+          />
         </div>
         <ul :class="$style.list">
-          <li v-for="item in items" :key="item.id" :class="$style.list__item">
+          <li v-for="item in list" :key="item.id" :class="$style.list__item">
             <UiFaIcon :icon="['fas', 'check']" :class="$style.list__icon" />
             {{ item.text }}
           </li>
@@ -22,23 +29,21 @@
       </div>
       <div :class="$style.figure">
         <div :class="['dots', $style.dotsWhite]" />
-        <img
-          src="/images/home-hero.png"
-          alt="Drink clear water"
-          :class="$style.image"
-        />
+        <img :src="image" alt="Drink clear water" :class="$style.image" />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-const items = [
-  { id: 1, text: 'Installation Included' },
-  { id: 2, text: 'Up-Front Pricing' },
-  { id: 3, text: 'Ongoing FIlter Replacement' },
-  { id: 4, text: 'RO & Whole Home' },
-]
+import type { UiButtonLink } from '~/types'
+
+defineProps<{
+  title: string
+  image: string
+  list: Record<'id' | 'text', string>[]
+  buttons: Array<UiButtonLink & { id: string }>
+}>()
 </script>
 
 <style lang="scss" module>
@@ -67,6 +72,7 @@ const items = [
     position: relative;
     z-index: 1;
     padding-top: 110px;
+    padding-bottom: 70px;
   }
 }
 
@@ -142,6 +148,7 @@ const items = [
 
 .figure {
   position: relative;
+  align-self: flex-end;
   height: 620px;
 
   &:before {

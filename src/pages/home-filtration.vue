@@ -116,13 +116,13 @@ const heroItems: InnerHeroItem[] = [
   },
   {
     id: 3,
-    icon: 'water-mixer',
+    icon: 'water_mixer',
     title: 'Synergy with RO',
     text: 'Prolong RO Filters',
   },
   {
     id: 4,
-    icon: 'gas-stove',
+    icon: 'gas_stove',
     title: 'Clean Cooking Water',
     text: 'We do everything',
   },

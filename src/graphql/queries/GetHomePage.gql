@@ -1,0 +1,19 @@
+#import "../fragments/sections/Services.gql"
+#import "../fragments/sections/HomeHero.gql"
+
+query GetHomePage {
+  homePage {
+    data {
+      id
+      attributes {
+        home_hero_section {
+          ...HomeHeroSection
+        }
+
+        services_section {
+          ...ServicesSection
+        }
+      }
+    }
+  }
+}

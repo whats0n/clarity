@@ -3,6 +3,7 @@
     :is="component"
     :type="component === 'button' ? type : undefined"
     :to="to"
+    :external="external"
     :class="[
       $style.button,
       $style[`button_ui-${ui}`],
@@ -31,6 +32,7 @@ const props = withDefaults(
     ui?: 'primary' | 'secondary' | 'outline'
     size?: 'md' | 'lg'
     arrow?: boolean
+    external?: boolean
     text: string
   }>(),
   {
@@ -39,7 +41,7 @@ const props = withDefaults(
     ui: 'primary',
     size: 'lg',
     arrow: false,
-    disabled: false,
+    external: false,
   },
 )
 

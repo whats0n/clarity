@@ -1,0 +1,20 @@
+#import "../ui/Button.gql"
+#import "../ui/Image.gql"
+#import "../ui/ListItem.gql"
+
+fragment HomeHeroSection on HomeHeroSectionEntityResponse {
+  data {
+    attributes {
+      title
+      buttons {
+        ...UiButton
+      }
+      image {
+        ...UiImage
+      }
+      list {
+        ...UiListItem
+      }
+    }
+  }
+}

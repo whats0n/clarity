@@ -48,7 +48,7 @@ const items: BenefitsItem[] = [
   },
   {
     id: 4,
-    icon: 'water-mixer',
+    icon: 'water_mixer',
     title: 'Improved RO System',
     text: 'A RO drinking system will function greater and last longer with less filter changes',
   },

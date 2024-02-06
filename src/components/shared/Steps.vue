@@ -3,13 +3,10 @@
     <div :class="['container', $style.container]">
       <div :class="$style.header">
         <h2 :class="['title-md', $style.title]">
-          How do I get started? Right this way
+          {{ title }}
         </h2>
         <p :class="['text', $style.description]">
-          Getting started is as easy as 1-2-3. Take the water quiz to see which
-          system meets your needs. You can than pick your package based on the
-          results and seamleslly schedule an installation date that works for
-          you.
+          {{ description }}
         </p>
       </div>
       <div :class="$style.items">
@@ -29,33 +26,11 @@
 </template>
 
 <script lang="ts" setup>
+import type { SharedSteps } from '~/types'
+
 defineOptions({ name: 'TheSteps' })
 
-const items: Array<{
-  id: number
-  image: string
-  title: string
-  text: string
-}> = [
-  {
-    id: 1,
-    image: '/images/steps/1.png',
-    title: 'Take the Water Quiz',
-    text: 'If you want to upgrade your drinking water but are happy with your shower water, the quiz will guide you to the right solution.',
-  },
-  {
-    id: 2,
-    image: '/images/steps/2.png',
-    title: 'Pick your Package',
-    text: 'We offer multiple different reverse-osmosis systems as well as whole house filtration systems to suit your requirements.',
-  },
-  {
-    id: 3,
-    image: '/images/steps/3.png',
-    title: 'Schedule Installation',
-    text: 'You can reserve a timeslot on a day that is convenient for you and your busy schedule. Our team will contact you ahead of arrival.',
-  },
-]
+defineProps<SharedSteps>()
 </script>
 
 <style lang="scss" module>

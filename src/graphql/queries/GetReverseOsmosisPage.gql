@@ -1,0 +1,7 @@
+query GetReverseOsmosisPage {
+  reverseOsmosisPage {
+    data {
+      id
+    }
+  }
+}

@@ -2,31 +2,18 @@
   <div :class="$style.services">
     <div :class="['container', $style.container]">
       <div :class="$style.header">
-        <p class="label">Our why</p>
-        <h2 class="title-md">We make healthy water simple</h2>
+        <p class="label">{{ label }}</p>
+        <h2 class="title-md">{{ title }}</h2>
         <p :class="['text', $style.description]">
-          We handle every aspect of your water needs in an all inclusive package
-          so you don’t have to worry about hiring a plumber or handyman
+          {{ description }}
         </p>
       </div>
       <ul :class="$style.list">
-        <li :class="$style.list__item">
+        <li v-for="item in list" :key="item.id" :class="$style.list__item">
           <div :class="$style.list__figure">
             <UiFaIcon :icon="['fas', 'check']" />
           </div>
-          White-glove installation included
-        </li>
-        <li :class="$style.list__item">
-          <div :class="$style.list__figure">
-            <UiFaIcon :icon="['fas', 'check']" />
-          </div>
-          Automated filter maintenance
-        </li>
-        <li :class="$style.list__item">
-          <div :class="$style.list__figure">
-            <UiFaIcon :icon="['fas', 'check']" />
-          </div>
-          Fast and reliable service
+          {{ item.text }}
         </li>
       </ul>
       <div :class="$style.items">
@@ -44,31 +31,11 @@
 </template>
 
 <script lang="ts" setup>
+import type { SharedServices } from '~/types'
+
 defineOptions({ name: 'TheServices' })
 
-const items = [
-  {
-    id: 1,
-    icon: 'dollar',
-    title: 'Transparent Pricing',
-    text: 'We show our packages on our pricing page and what you see is what you get.',
-    href: '/',
-  },
-  {
-    id: 2,
-    icon: 'clock',
-    title: 'Filtration on Autopilot',
-    text: 'Industry leading contamination removal gives you ultimate peace of mind.',
-    href: '/',
-  },
-  {
-    id: 3,
-    icon: 'home-heart',
-    title: 'Whole Home Solutions',
-    text: 'Enjoy smooth, healthy water from every tap in your house and live in confidence.',
-    href: '/',
-  },
-]
+defineProps<SharedServices>()
 </script>
 
 <style lang="scss" module>

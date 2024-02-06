@@ -1,0 +1,7 @@
+fragment UiImage on UploadFileEntityResponse {
+  data {
+    attributes {
+      url
+    }
+  }
+}

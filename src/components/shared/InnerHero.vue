@@ -12,35 +12,36 @@
         <h1 :class="['title-lg', $style.title]">
           {{ title }}
         </h1>
-        <p :class="$style.description">
-          {{ text }}
+        <p v-if="description" :class="$style.description">
+          {{ description }}
         </p>
         <ul :class="$style.list">
           <li v-for="item in items" :key="item.id" :class="$style.item">
             <UiIcon :name="item.icon" :class="$style.item__icon" />
             <div :class="$style.item__content">
               <div :class="$style.item__title">{{ item.title }}</div>
-              <div :class="$style.item__text">{{ item.text }}</div>
+              <div :class="$style.item__text">{{ item.description }}</div>
             </div>
           </li>
         </ul>
-        <UiButton :to="button.href" :text="button.text" />
+        <UiButton
+          v-if="button"
+          :arrow="button.arrow"
+          :external="button.external"
+          :ui="button.ui"
+          :size="button.size"
+          :to="button.to"
+          :text="button.text"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import type { InnerHeroButton, InnerHeroItem } from '~/types'
+import type { SharedInnerHero } from '~/types'
 
-defineProps<{
-  primaryImage: string
-  secondaryImage: string
-  title: string
-  text: string
-  items: InnerHeroItem[]
-  button: InnerHeroButton
-}>()
+defineProps<SharedInnerHero>()
 </script>
 
 <style lang="scss" module>

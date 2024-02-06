@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     public: {
       strapiApiToken: '',
       strapiApiUrl: '',
+      strapiUrl: '',
     },
   },
 
@@ -40,6 +41,7 @@ export default defineNuxtConfig({
   imports: {
     dirs: [
       'composables',
+      'composables/adapters',
       'composables/*/index.ts',
       'composables/*/types.ts',
       'services',

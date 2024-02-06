@@ -1,0 +1,4 @@
+fragment UiListItem on ComponentUiListItem {
+  id
+  text
+}

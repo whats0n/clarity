@@ -1,0 +1,9 @@
+fragment UiButton on ComponentUiButton {
+  id
+  ui
+  size
+  arrow
+  href
+  text
+  external
+}

@@ -12,155 +12,63 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
-  AboutBlocksDynamicZoneInput: { input: any; output: any; }
-  ArticleBlocksDynamicZoneInput: { input: any; output: any; }
   DateTime: { input: any; output: any; }
   JSON: { input: any; output: any; }
   Upload: { input: any; output: any; }
 };
 
-export type About = {
-  __typename?: 'About';
-  blocks?: Maybe<Array<Maybe<AboutBlocksDynamicZone>>>;
+export type BlogSection = {
+  __typename?: 'BlogSection';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
+  description: Scalars['String']['output'];
+  items: Array<Maybe<ComponentItemBlog>>;
+  label: Scalars['String']['output'];
+  title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
-export type AboutBlocksDynamicZone = ComponentSharedMedia | ComponentSharedQuote | ComponentSharedRichText | ComponentSharedSlider | Error;
 
-export type AboutEntity = {
-  __typename?: 'AboutEntity';
-  attributes?: Maybe<About>;
+export type BlogSectionItemsArgs = {
+  filters?: InputMaybe<ComponentItemBlogFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type BlogSectionEntity = {
+  __typename?: 'BlogSectionEntity';
+  attributes?: Maybe<BlogSection>;
   id?: Maybe<Scalars['ID']['output']>;
 };
 
-export type AboutEntityResponse = {
-  __typename?: 'AboutEntityResponse';
-  data?: Maybe<AboutEntity>;
+export type BlogSectionEntityResponse = {
+  __typename?: 'BlogSectionEntityResponse';
+  data?: Maybe<BlogSectionEntity>;
 };
 
-export type AboutInput = {
-  blocks?: InputMaybe<Array<Scalars['AboutBlocksDynamicZoneInput']['input']>>;
-  title?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type Article = {
-  __typename?: 'Article';
-  author?: Maybe<AuthorEntityResponse>;
-  blocks?: Maybe<Array<Maybe<ArticleBlocksDynamicZone>>>;
-  category?: Maybe<CategoryEntityResponse>;
-  cover?: Maybe<UploadFileEntityResponse>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  publishedAt?: Maybe<Scalars['DateTime']['output']>;
-  slug?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  updatedAt?: Maybe<Scalars['DateTime']['output']>;
-};
-
-export type ArticleBlocksDynamicZone = ComponentSharedMedia | ComponentSharedQuote | ComponentSharedRichText | ComponentSharedSlider | Error;
-
-export type ArticleEntity = {
-  __typename?: 'ArticleEntity';
-  attributes?: Maybe<Article>;
-  id?: Maybe<Scalars['ID']['output']>;
-};
-
-export type ArticleEntityResponse = {
-  __typename?: 'ArticleEntityResponse';
-  data?: Maybe<ArticleEntity>;
-};
-
-export type ArticleEntityResponseCollection = {
-  __typename?: 'ArticleEntityResponseCollection';
-  data: Array<ArticleEntity>;
+export type BlogSectionEntityResponseCollection = {
+  __typename?: 'BlogSectionEntityResponseCollection';
+  data: Array<BlogSectionEntity>;
   meta: ResponseCollectionMeta;
 };
 
-export type ArticleFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<ArticleFiltersInput>>>;
-  author?: InputMaybe<AuthorFiltersInput>;
-  category?: InputMaybe<CategoryFiltersInput>;
+export type BlogSectionFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<BlogSectionFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   description?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
-  not?: InputMaybe<ArticleFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<ArticleFiltersInput>>>;
-  publishedAt?: InputMaybe<DateTimeFilterInput>;
-  slug?: InputMaybe<StringFilterInput>;
+  items?: InputMaybe<ComponentItemBlogFiltersInput>;
+  label?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<BlogSectionFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<BlogSectionFiltersInput>>>;
   title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
-export type ArticleInput = {
-  author?: InputMaybe<Scalars['ID']['input']>;
-  blocks?: InputMaybe<Array<Scalars['ArticleBlocksDynamicZoneInput']['input']>>;
-  category?: InputMaybe<Scalars['ID']['input']>;
-  cover?: InputMaybe<Scalars['ID']['input']>;
+export type BlogSectionInput = {
   description?: InputMaybe<Scalars['String']['input']>;
-  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
-  slug?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<InputMaybe<ComponentItemBlogInput>>>;
+  label?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type ArticleRelationResponseCollection = {
-  __typename?: 'ArticleRelationResponseCollection';
-  data: Array<ArticleEntity>;
-};
-
-export type Author = {
-  __typename?: 'Author';
-  articles?: Maybe<ArticleRelationResponseCollection>;
-  avatar?: Maybe<UploadFileEntityResponse>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
-  email?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  updatedAt?: Maybe<Scalars['DateTime']['output']>;
-};
-
-
-export type AuthorArticlesArgs = {
-  filters?: InputMaybe<ArticleFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type AuthorEntity = {
-  __typename?: 'AuthorEntity';
-  attributes?: Maybe<Author>;
-  id?: Maybe<Scalars['ID']['output']>;
-};
-
-export type AuthorEntityResponse = {
-  __typename?: 'AuthorEntityResponse';
-  data?: Maybe<AuthorEntity>;
-};
-
-export type AuthorEntityResponseCollection = {
-  __typename?: 'AuthorEntityResponseCollection';
-  data: Array<AuthorEntity>;
-  meta: ResponseCollectionMeta;
-};
-
-export type AuthorFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<AuthorFiltersInput>>>;
-  articles?: InputMaybe<ArticleFiltersInput>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  email?: InputMaybe<StringFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
-  name?: InputMaybe<StringFilterInput>;
-  not?: InputMaybe<AuthorFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<AuthorFiltersInput>>>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-};
-
-export type AuthorInput = {
-  articles?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  avatar?: InputMaybe<Scalars['ID']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type BooleanFilterInput = {
@@ -188,111 +96,270 @@ export type BooleanFilterInput = {
   startsWith?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-export type Category = {
-  __typename?: 'Category';
-  articles?: Maybe<ArticleRelationResponseCollection>;
-  createdAt?: Maybe<Scalars['DateTime']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  slug?: Maybe<Scalars['String']['output']>;
-  updatedAt?: Maybe<Scalars['DateTime']['output']>;
-};
-
-
-export type CategoryArticlesArgs = {
-  filters?: InputMaybe<ArticleFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type CategoryEntity = {
-  __typename?: 'CategoryEntity';
-  attributes?: Maybe<Category>;
-  id?: Maybe<Scalars['ID']['output']>;
-};
-
-export type CategoryEntityResponse = {
-  __typename?: 'CategoryEntityResponse';
-  data?: Maybe<CategoryEntity>;
-};
-
-export type CategoryEntityResponseCollection = {
-  __typename?: 'CategoryEntityResponseCollection';
-  data: Array<CategoryEntity>;
-  meta: ResponseCollectionMeta;
-};
-
-export type CategoryFiltersInput = {
-  and?: InputMaybe<Array<InputMaybe<CategoryFiltersInput>>>;
-  articles?: InputMaybe<ArticleFiltersInput>;
-  createdAt?: InputMaybe<DateTimeFilterInput>;
-  description?: InputMaybe<StringFilterInput>;
-  id?: InputMaybe<IdFilterInput>;
-  name?: InputMaybe<StringFilterInput>;
-  not?: InputMaybe<CategoryFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<CategoryFiltersInput>>>;
-  slug?: InputMaybe<StringFilterInput>;
-  updatedAt?: InputMaybe<DateTimeFilterInput>;
-};
-
-export type CategoryInput = {
-  articles?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  slug?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type ComponentPricingPlan = {
-  __typename?: 'ComponentPricingPlan';
-  Features: Array<Maybe<ComponentPricingPlanFeatures>>;
-  Name: Scalars['String']['output'];
-  Price?: Maybe<Scalars['Float']['output']>;
+export type ComponentItemBlog = {
+  __typename?: 'ComponentItemBlog';
   id: Scalars['ID']['output'];
-  installation?: Maybe<Scalars['Boolean']['output']>;
+  image: UploadFileEntityResponse;
+  title: Scalars['String']['output'];
 };
 
-
-export type ComponentPricingPlanFeaturesArgs = {
-  filters?: InputMaybe<ComponentPricingPlanFeaturesFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+export type ComponentItemBlogFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentItemBlogFiltersInput>>>;
+  not?: InputMaybe<ComponentItemBlogFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentItemBlogFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
 };
 
-export type ComponentPricingPlanFeatures = {
-  __typename?: 'ComponentPricingPlanFeatures';
-  Title: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-};
-
-export type ComponentPricingPlanFeaturesFiltersInput = {
-  Title?: InputMaybe<StringFilterInput>;
-  and?: InputMaybe<Array<InputMaybe<ComponentPricingPlanFeaturesFiltersInput>>>;
-  not?: InputMaybe<ComponentPricingPlanFeaturesFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<ComponentPricingPlanFeaturesFiltersInput>>>;
-};
-
-export type ComponentPricingPlanFeaturesInput = {
-  Title?: InputMaybe<Scalars['String']['input']>;
+export type ComponentItemBlogInput = {
   id?: InputMaybe<Scalars['ID']['input']>;
+  image?: InputMaybe<Scalars['ID']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type ComponentPricingPlanFiltersInput = {
-  Features?: InputMaybe<ComponentPricingPlanFeaturesFiltersInput>;
-  Name?: InputMaybe<StringFilterInput>;
-  Price?: InputMaybe<FloatFilterInput>;
-  and?: InputMaybe<Array<InputMaybe<ComponentPricingPlanFiltersInput>>>;
+export type ComponentItemContent = {
+  __typename?: 'ComponentItemContent';
+  button?: Maybe<ComponentUiButton>;
+  id: Scalars['ID']['output'];
+  image?: Maybe<UploadFileEntityResponse>;
+  list?: Maybe<Array<Maybe<ComponentUiListItem>>>;
+  text?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
+};
+
+
+export type ComponentItemContentListArgs = {
+  filters?: InputMaybe<ComponentUiListItemFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type ComponentItemContentFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentItemContentFiltersInput>>>;
+  button?: InputMaybe<ComponentUiButtonFiltersInput>;
+  list?: InputMaybe<ComponentUiListItemFiltersInput>;
+  not?: InputMaybe<ComponentItemContentFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentItemContentFiltersInput>>>;
+  text?: InputMaybe<StringFilterInput>;
+  title?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentItemContentInput = {
+  button?: InputMaybe<ComponentUiButtonInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  image?: InputMaybe<Scalars['ID']['input']>;
+  list?: InputMaybe<Array<InputMaybe<ComponentUiListItemInput>>>;
+  text?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ComponentItemFaq = {
+  __typename?: 'ComponentItemFaq';
+  description: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  title: Scalars['String']['output'];
+};
+
+export type ComponentItemFaqFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentItemFaqFiltersInput>>>;
+  description?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentItemFaqFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentItemFaqFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentItemFaqInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ComponentItemInnerFeatures = {
+  __typename?: 'ComponentItemInnerFeatures';
+  description: Scalars['String']['output'];
+  icon: ComponentUiIcon;
+  id: Scalars['ID']['output'];
+  title: Scalars['String']['output'];
+};
+
+export type ComponentItemInnerFeaturesFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentItemInnerFeaturesFiltersInput>>>;
+  description?: InputMaybe<StringFilterInput>;
+  icon?: InputMaybe<ComponentUiIconFiltersInput>;
+  not?: InputMaybe<ComponentItemInnerFeaturesFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentItemInnerFeaturesFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentItemInnerFeaturesInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<ComponentUiIconInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ComponentItemInnerHero = {
+  __typename?: 'ComponentItemInnerHero';
+  description: Scalars['String']['output'];
+  icon: ComponentUiIcon;
+  id: Scalars['ID']['output'];
+  title: Scalars['String']['output'];
+};
+
+export type ComponentItemInnerHeroFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentItemInnerHeroFiltersInput>>>;
+  description?: InputMaybe<StringFilterInput>;
+  icon?: InputMaybe<ComponentUiIconFiltersInput>;
+  not?: InputMaybe<ComponentItemInnerHeroFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentItemInnerHeroFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentItemInnerHeroInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<ComponentUiIconInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ComponentItemPricingFeatures = {
+  __typename?: 'ComponentItemPricingFeatures';
+  description: Scalars['String']['output'];
+  icon: ComponentUiIcon;
+  id: Scalars['ID']['output'];
+  title: Scalars['String']['output'];
+};
+
+export type ComponentItemPricingFeaturesFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentItemPricingFeaturesFiltersInput>>>;
+  description?: InputMaybe<StringFilterInput>;
+  icon?: InputMaybe<ComponentUiIconFiltersInput>;
+  not?: InputMaybe<ComponentItemPricingFeaturesFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentItemPricingFeaturesFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentItemPricingFeaturesInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<ComponentUiIconInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ComponentItemPricingPlan = {
+  __typename?: 'ComponentItemPricingPlan';
+  get_started_color: Enum_Componentitempricingplan_Get_Started_Color;
+  get_started_external: Scalars['Boolean']['output'];
+  get_started_href?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  installation: Scalars['Boolean']['output'];
+  list: Array<Maybe<ComponentUiListItem>>;
+  name: Scalars['String']['output'];
+  price: Scalars['Float']['output'];
+};
+
+
+export type ComponentItemPricingPlanListArgs = {
+  filters?: InputMaybe<ComponentUiListItemFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type ComponentItemPricingPlanFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentItemPricingPlanFiltersInput>>>;
+  get_started_color?: InputMaybe<StringFilterInput>;
+  get_started_external?: InputMaybe<BooleanFilterInput>;
+  get_started_href?: InputMaybe<StringFilterInput>;
   installation?: InputMaybe<BooleanFilterInput>;
-  not?: InputMaybe<ComponentPricingPlanFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<ComponentPricingPlanFiltersInput>>>;
+  list?: InputMaybe<ComponentUiListItemFiltersInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentItemPricingPlanFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentItemPricingPlanFiltersInput>>>;
+  price?: InputMaybe<FloatFilterInput>;
 };
 
-export type ComponentPricingPlanInput = {
-  Features?: InputMaybe<Array<InputMaybe<ComponentPricingPlanFeaturesInput>>>;
-  Name?: InputMaybe<Scalars['String']['input']>;
-  Price?: InputMaybe<Scalars['Float']['input']>;
+export type ComponentItemPricingPlanInput = {
+  get_started_color?: InputMaybe<Enum_Componentitempricingplan_Get_Started_Color>;
+  get_started_external?: InputMaybe<Scalars['Boolean']['input']>;
+  get_started_href?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['ID']['input']>;
   installation?: InputMaybe<Scalars['Boolean']['input']>;
+  list?: InputMaybe<Array<InputMaybe<ComponentUiListItemInput>>>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  price?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type ComponentItemServices = {
+  __typename?: 'ComponentItemServices';
+  description: Scalars['String']['output'];
+  href: Scalars['String']['output'];
+  icon: ComponentUiIcon;
+  id: Scalars['ID']['output'];
+  title: Scalars['String']['output'];
+};
+
+export type ComponentItemServicesFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentItemServicesFiltersInput>>>;
+  description?: InputMaybe<StringFilterInput>;
+  href?: InputMaybe<StringFilterInput>;
+  icon?: InputMaybe<ComponentUiIconFiltersInput>;
+  not?: InputMaybe<ComponentItemServicesFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentItemServicesFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentItemServicesInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  href?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<ComponentUiIconInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ComponentItemSteps = {
+  __typename?: 'ComponentItemSteps';
+  description: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  image: UploadFileEntityResponse;
+  title: Scalars['String']['output'];
+};
+
+export type ComponentItemStepsFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentItemStepsFiltersInput>>>;
+  description?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentItemStepsFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentItemStepsFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentItemStepsInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  image?: InputMaybe<Scalars['ID']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ComponentItemTips = {
+  __typename?: 'ComponentItemTips';
+  description: Scalars['String']['output'];
+  icon: ComponentUiTipsIcon;
+  id: Scalars['ID']['output'];
+  title: Scalars['String']['output'];
+};
+
+export type ComponentItemTipsFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentItemTipsFiltersInput>>>;
+  description?: InputMaybe<StringFilterInput>;
+  icon?: InputMaybe<ComponentUiTipsIconFiltersInput>;
+  not?: InputMaybe<ComponentItemTipsFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentItemTipsFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentItemTipsInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<ComponentUiTipsIconInput>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ComponentSharedMedia = {
@@ -329,17 +396,123 @@ export type ComponentSharedSeoInput = {
   shareImage?: InputMaybe<Scalars['ID']['input']>;
 };
 
-export type ComponentSharedSlider = {
-  __typename?: 'ComponentSharedSlider';
-  files?: Maybe<UploadFileRelationResponseCollection>;
+export type ComponentUiButton = {
+  __typename?: 'ComponentUiButton';
+  arrow: Scalars['Boolean']['output'];
+  external: Scalars['Boolean']['output'];
+  href: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  size: Enum_Componentuibutton_Size;
+  text: Scalars['String']['output'];
+  ui: Enum_Componentuibutton_Ui;
 };
 
+export type ComponentUiButtonFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentUiButtonFiltersInput>>>;
+  arrow?: InputMaybe<BooleanFilterInput>;
+  external?: InputMaybe<BooleanFilterInput>;
+  href?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentUiButtonFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentUiButtonFiltersInput>>>;
+  size?: InputMaybe<StringFilterInput>;
+  text?: InputMaybe<StringFilterInput>;
+  ui?: InputMaybe<StringFilterInput>;
+};
 
-export type ComponentSharedSliderFilesArgs = {
-  filters?: InputMaybe<UploadFileFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+export type ComponentUiButtonInput = {
+  arrow?: InputMaybe<Scalars['Boolean']['input']>;
+  external?: InputMaybe<Scalars['Boolean']['input']>;
+  href?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  size?: InputMaybe<Enum_Componentuibutton_Size>;
+  text?: InputMaybe<Scalars['String']['input']>;
+  ui?: InputMaybe<Enum_Componentuibutton_Ui>;
+};
+
+export type ComponentUiIcon = {
+  __typename?: 'ComponentUiIcon';
+  id: Scalars['ID']['output'];
+  name: Enum_Componentuiicon_Name;
+};
+
+export type ComponentUiIconFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentUiIconFiltersInput>>>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentUiIconFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentUiIconFiltersInput>>>;
+};
+
+export type ComponentUiIconInput = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  name?: InputMaybe<Enum_Componentuiicon_Name>;
+};
+
+export type ComponentUiListItem = {
+  __typename?: 'ComponentUiListItem';
+  id: Scalars['ID']['output'];
+  text: Scalars['String']['output'];
+};
+
+export type ComponentUiListItemFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentUiListItemFiltersInput>>>;
+  not?: InputMaybe<ComponentUiListItemFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentUiListItemFiltersInput>>>;
+  text?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentUiListItemInput = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ComponentUiTipsIcon = {
+  __typename?: 'ComponentUiTipsIcon';
+  id: Scalars['ID']['output'];
+  name: Enum_Componentuitipsicon_Name;
+};
+
+export type ComponentUiTipsIconFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentUiTipsIconFiltersInput>>>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ComponentUiTipsIconFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentUiTipsIconFiltersInput>>>;
+};
+
+export type ComponentUiTipsIconInput = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  name?: InputMaybe<Enum_Componentuitipsicon_Name>;
+};
+
+export type ContactsSection = {
+  __typename?: 'ContactsSection';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  description: Scalars['String']['output'];
+  email: Scalars['String']['output'];
+  email_label: Scalars['String']['output'];
+  phone: Scalars['String']['output'];
+  phone_label: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type ContactsSectionEntity = {
+  __typename?: 'ContactsSectionEntity';
+  attributes?: Maybe<ContactsSection>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type ContactsSectionEntityResponse = {
+  __typename?: 'ContactsSectionEntityResponse';
+  data?: Maybe<ContactsSectionEntity>;
+};
+
+export type ContactsSectionInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  email_label?: InputMaybe<Scalars['String']['input']>;
+  phone?: InputMaybe<Scalars['String']['input']>;
+  phone_label?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ContentReleasesRelease = {
@@ -446,6 +619,57 @@ export type ContentReleasesReleaseInput = {
   releasedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
+export type ContentSection = {
+  __typename?: 'ContentSection';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  items: Array<Maybe<ComponentItemContent>>;
+  label: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type ContentSectionItemsArgs = {
+  filters?: InputMaybe<ComponentItemContentFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type ContentSectionEntity = {
+  __typename?: 'ContentSectionEntity';
+  attributes?: Maybe<ContentSection>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type ContentSectionEntityResponse = {
+  __typename?: 'ContentSectionEntityResponse';
+  data?: Maybe<ContentSectionEntity>;
+};
+
+export type ContentSectionEntityResponseCollection = {
+  __typename?: 'ContentSectionEntityResponseCollection';
+  data: Array<ContentSectionEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type ContentSectionFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ContentSectionFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  items?: InputMaybe<ComponentItemContentFiltersInput>;
+  label?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ContentSectionFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ContentSectionFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type ContentSectionInput = {
+  items?: InputMaybe<Array<InputMaybe<ComponentItemContentInput>>>;
+  label?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type DateTimeFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
@@ -471,15 +695,113 @@ export type DateTimeFilterInput = {
   startsWith?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
+export enum Enum_Componentitempricingplan_Get_Started_Color {
+  Primary = 'primary',
+  Secondary = 'secondary',
+  Tertiary = 'tertiary'
+}
+
+export enum Enum_Componentuibutton_Size {
+  Lg = 'lg',
+  Md = 'md'
+}
+
+export enum Enum_Componentuibutton_Ui {
+  Outline = 'outline',
+  Primary = 'primary',
+  Secondary = 'secondary'
+}
+
+export enum Enum_Componentuiicon_Name {
+  Bath = 'bath',
+  Chat = 'chat',
+  Clock = 'clock',
+  Dollar = 'dollar',
+  Donation = 'donation',
+  Drop = 'drop',
+  GasStove = 'gas_stove',
+  Heart = 'heart',
+  HomeHeart = 'home_heart',
+  Key = 'key',
+  Mail = 'mail',
+  Marker = 'marker',
+  Protection = 'protection',
+  Rain = 'rain',
+  Toilet = 'toilet',
+  Washer = 'washer',
+  WaterMixer = 'water_mixer',
+  Wifi = 'wifi',
+  Wine = 'wine'
+}
+
+export enum Enum_Componentuitipsicon_Name {
+  TipsAlerts = 'tips_alerts',
+  TipsControls = 'tips_controls',
+  TipsDetects = 'tips_detects',
+  TipsSmart = 'tips_smart'
+}
+
 export enum Enum_Contentreleasesreleaseaction_Type {
   Publish = 'publish',
   Unpublish = 'unpublish'
 }
 
-export type Error = {
-  __typename?: 'Error';
-  code: Scalars['String']['output'];
-  message?: Maybe<Scalars['String']['output']>;
+export type FaqSection = {
+  __typename?: 'FaqSection';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  items: Array<Maybe<ComponentItemFaq>>;
+  pricing_page_templates?: Maybe<PricingPageTemplateRelationResponseCollection>;
+  title: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type FaqSectionItemsArgs = {
+  filters?: InputMaybe<ComponentItemFaqFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type FaqSectionPricing_Page_TemplatesArgs = {
+  filters?: InputMaybe<PricingPageTemplateFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type FaqSectionEntity = {
+  __typename?: 'FaqSectionEntity';
+  attributes?: Maybe<FaqSection>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type FaqSectionEntityResponse = {
+  __typename?: 'FaqSectionEntityResponse';
+  data?: Maybe<FaqSectionEntity>;
+};
+
+export type FaqSectionEntityResponseCollection = {
+  __typename?: 'FaqSectionEntityResponseCollection';
+  data: Array<FaqSectionEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type FaqSectionFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<FaqSectionFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  items?: InputMaybe<ComponentItemFaqFiltersInput>;
+  not?: InputMaybe<FaqSectionFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<FaqSectionFiltersInput>>>;
+  pricing_page_templates?: InputMaybe<PricingPageTemplateFiltersInput>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type FaqSectionInput = {
+  items?: InputMaybe<Array<InputMaybe<ComponentItemFaqInput>>>;
+  pricing_page_templates?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type FileInfoInput = {
@@ -513,7 +835,7 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']['input']>;
 };
 
-export type GenericMorph = About | Article | Author | Category | ComponentPricingPlan | ComponentPricingPlanFeatures | ComponentSharedMedia | ComponentSharedQuote | ComponentSharedRichText | ComponentSharedSeo | ComponentSharedSlider | ContentReleasesRelease | ContentReleasesReleaseAction | Global | I18NLocale | PricingPage | PricingVariant | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser;
+export type GenericMorph = BlogSection | ComponentItemBlog | ComponentItemContent | ComponentItemFaq | ComponentItemInnerFeatures | ComponentItemInnerHero | ComponentItemPricingFeatures | ComponentItemPricingPlan | ComponentItemServices | ComponentItemSteps | ComponentItemTips | ComponentSharedMedia | ComponentSharedQuote | ComponentSharedRichText | ComponentSharedSeo | ComponentUiButton | ComponentUiIcon | ComponentUiListItem | ComponentUiTipsIcon | ContactsSection | ContentReleasesRelease | ContentReleasesReleaseAction | ContentSection | FaqSection | Global | HomeHeroSection | HomePage | I18NLocale | InnerFeaturesSection | InnerHeroSection | LeakDetection | PricingFeaturesSection | PricingHeroSection | PricingPageTemplate | PricingVariantSection | ReverseOsmosis | ReverseOsmosisPrice | ServicesSection | StepsSection | TipsSection | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | WhFiltration | WhFiltrationPrice;
 
 export type Global = {
   __typename?: 'Global';
@@ -541,6 +863,94 @@ export type GlobalInput = {
   favicon?: InputMaybe<Scalars['ID']['input']>;
   siteDescription?: InputMaybe<Scalars['String']['input']>;
   siteName?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomeHeroSection = {
+  __typename?: 'HomeHeroSection';
+  buttons: Array<Maybe<ComponentUiButton>>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  image: UploadFileEntityResponse;
+  list: Array<Maybe<ComponentUiListItem>>;
+  title: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type HomeHeroSectionButtonsArgs = {
+  filters?: InputMaybe<ComponentUiButtonFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type HomeHeroSectionListArgs = {
+  filters?: InputMaybe<ComponentUiListItemFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type HomeHeroSectionEntity = {
+  __typename?: 'HomeHeroSectionEntity';
+  attributes?: Maybe<HomeHeroSection>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type HomeHeroSectionEntityResponse = {
+  __typename?: 'HomeHeroSectionEntityResponse';
+  data?: Maybe<HomeHeroSectionEntity>;
+};
+
+export type HomeHeroSectionEntityResponseCollection = {
+  __typename?: 'HomeHeroSectionEntityResponseCollection';
+  data: Array<HomeHeroSectionEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type HomeHeroSectionFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<HomeHeroSectionFiltersInput>>>;
+  buttons?: InputMaybe<ComponentUiButtonFiltersInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  list?: InputMaybe<ComponentUiListItemFiltersInput>;
+  not?: InputMaybe<HomeHeroSectionFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<HomeHeroSectionFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type HomeHeroSectionInput = {
+  buttons?: InputMaybe<Array<InputMaybe<ComponentUiButtonInput>>>;
+  image?: InputMaybe<Scalars['ID']['input']>;
+  list?: InputMaybe<Array<InputMaybe<ComponentUiListItemInput>>>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomePage = {
+  __typename?: 'HomePage';
+  blog_section?: Maybe<BlogSectionEntityResponse>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  home_hero_section?: Maybe<HomeHeroSectionEntityResponse>;
+  services_section?: Maybe<ServicesSectionEntityResponse>;
+  steps_section?: Maybe<StepsSectionEntityResponse>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type HomePageEntity = {
+  __typename?: 'HomePageEntity';
+  attributes?: Maybe<HomePage>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type HomePageEntityResponse = {
+  __typename?: 'HomePageEntityResponse';
+  data?: Maybe<HomePageEntity>;
+};
+
+export type HomePageInput = {
+  blog_section?: InputMaybe<Scalars['ID']['input']>;
+  home_hero_section?: InputMaybe<Scalars['ID']['input']>;
+  services_section?: InputMaybe<Scalars['ID']['input']>;
+  steps_section?: InputMaybe<Scalars['ID']['input']>;
 };
 
 export type I18NLocale = {
@@ -604,6 +1014,115 @@ export type IdFilterInput = {
   startsWith?: InputMaybe<Scalars['ID']['input']>;
 };
 
+export type InnerFeaturesSection = {
+  __typename?: 'InnerFeaturesSection';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  items: Array<Maybe<ComponentItemInnerFeatures>>;
+  label: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type InnerFeaturesSectionItemsArgs = {
+  filters?: InputMaybe<ComponentItemInnerFeaturesFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type InnerFeaturesSectionEntity = {
+  __typename?: 'InnerFeaturesSectionEntity';
+  attributes?: Maybe<InnerFeaturesSection>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type InnerFeaturesSectionEntityResponse = {
+  __typename?: 'InnerFeaturesSectionEntityResponse';
+  data?: Maybe<InnerFeaturesSectionEntity>;
+};
+
+export type InnerFeaturesSectionEntityResponseCollection = {
+  __typename?: 'InnerFeaturesSectionEntityResponseCollection';
+  data: Array<InnerFeaturesSectionEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type InnerFeaturesSectionFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<InnerFeaturesSectionFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  items?: InputMaybe<ComponentItemInnerFeaturesFiltersInput>;
+  label?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<InnerFeaturesSectionFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<InnerFeaturesSectionFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type InnerFeaturesSectionInput = {
+  items?: InputMaybe<Array<InputMaybe<ComponentItemInnerFeaturesInput>>>;
+  label?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type InnerHeroSection = {
+  __typename?: 'InnerHeroSection';
+  button: ComponentUiButton;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  items?: Maybe<Array<Maybe<ComponentItemInnerHero>>>;
+  primary_image: UploadFileEntityResponse;
+  secondary_image: UploadFileEntityResponse;
+  title: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type InnerHeroSectionItemsArgs = {
+  filters?: InputMaybe<ComponentItemInnerHeroFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type InnerHeroSectionEntity = {
+  __typename?: 'InnerHeroSectionEntity';
+  attributes?: Maybe<InnerHeroSection>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type InnerHeroSectionEntityResponse = {
+  __typename?: 'InnerHeroSectionEntityResponse';
+  data?: Maybe<InnerHeroSectionEntity>;
+};
+
+export type InnerHeroSectionEntityResponseCollection = {
+  __typename?: 'InnerHeroSectionEntityResponseCollection';
+  data: Array<InnerHeroSectionEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type InnerHeroSectionFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<InnerHeroSectionFiltersInput>>>;
+  button?: InputMaybe<ComponentUiButtonFiltersInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  description?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  items?: InputMaybe<ComponentItemInnerHeroFiltersInput>;
+  not?: InputMaybe<InnerHeroSectionFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<InnerHeroSectionFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type InnerHeroSectionInput = {
+  button?: InputMaybe<ComponentUiButtonInput>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<InputMaybe<ComponentItemInnerHeroInput>>>;
+  primary_image?: InputMaybe<Scalars['ID']['input']>;
+  secondary_image?: InputMaybe<Scalars['ID']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type IntFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
@@ -654,38 +1173,88 @@ export type JsonFilterInput = {
   startsWith?: InputMaybe<Scalars['JSON']['input']>;
 };
 
+export type LeakDetection = {
+  __typename?: 'LeakDetection';
+  blog_section?: Maybe<BlogSectionEntityResponse>;
+  content_section?: Maybe<ContentSectionEntityResponse>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  inner_hero_section?: Maybe<InnerHeroSectionEntityResponse>;
+  tips_section?: Maybe<TipsSectionEntityResponse>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type LeakDetectionEntity = {
+  __typename?: 'LeakDetectionEntity';
+  attributes?: Maybe<LeakDetection>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type LeakDetectionEntityResponse = {
+  __typename?: 'LeakDetectionEntityResponse';
+  data?: Maybe<LeakDetectionEntity>;
+};
+
+export type LeakDetectionInput = {
+  blog_section?: InputMaybe<Scalars['ID']['input']>;
+  content_section?: InputMaybe<Scalars['ID']['input']>;
+  inner_hero_section?: InputMaybe<Scalars['ID']['input']>;
+  tips_section?: InputMaybe<Scalars['ID']['input']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   /** Change user password. Confirm with the current password. */
   changePassword?: Maybe<UsersPermissionsLoginPayload>;
-  createArticle?: Maybe<ArticleEntityResponse>;
-  createAuthor?: Maybe<AuthorEntityResponse>;
-  createCategory?: Maybe<CategoryEntityResponse>;
+  createBlogSection?: Maybe<BlogSectionEntityResponse>;
   createContentReleasesRelease?: Maybe<ContentReleasesReleaseEntityResponse>;
   createContentReleasesReleaseAction?: Maybe<ContentReleasesReleaseActionEntityResponse>;
-  createPricingPage?: Maybe<PricingPageEntityResponse>;
-  createPricingVariant?: Maybe<PricingVariantEntityResponse>;
+  createContentSection?: Maybe<ContentSectionEntityResponse>;
+  createFaqSection?: Maybe<FaqSectionEntityResponse>;
+  createHomeHeroSection?: Maybe<HomeHeroSectionEntityResponse>;
+  createInnerFeaturesSection?: Maybe<InnerFeaturesSectionEntityResponse>;
+  createInnerHeroSection?: Maybe<InnerHeroSectionEntityResponse>;
+  createPricingFeaturesSection?: Maybe<PricingFeaturesSectionEntityResponse>;
+  createPricingHeroSection?: Maybe<PricingHeroSectionEntityResponse>;
+  createPricingPageTemplate?: Maybe<PricingPageTemplateEntityResponse>;
+  createPricingVariantSection?: Maybe<PricingVariantSectionEntityResponse>;
+  createServicesSection?: Maybe<ServicesSectionEntityResponse>;
+  createStepsSection?: Maybe<StepsSectionEntityResponse>;
+  createTipsSection?: Maybe<TipsSectionEntityResponse>;
   createUploadFile?: Maybe<UploadFileEntityResponse>;
   createUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Create a new role */
   createUsersPermissionsRole?: Maybe<UsersPermissionsCreateRolePayload>;
   /** Create a new user */
   createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
-  deleteAbout?: Maybe<AboutEntityResponse>;
-  deleteArticle?: Maybe<ArticleEntityResponse>;
-  deleteAuthor?: Maybe<AuthorEntityResponse>;
-  deleteCategory?: Maybe<CategoryEntityResponse>;
+  deleteBlogSection?: Maybe<BlogSectionEntityResponse>;
+  deleteContactsSection?: Maybe<ContactsSectionEntityResponse>;
   deleteContentReleasesRelease?: Maybe<ContentReleasesReleaseEntityResponse>;
   deleteContentReleasesReleaseAction?: Maybe<ContentReleasesReleaseActionEntityResponse>;
+  deleteContentSection?: Maybe<ContentSectionEntityResponse>;
+  deleteFaqSection?: Maybe<FaqSectionEntityResponse>;
   deleteGlobal?: Maybe<GlobalEntityResponse>;
-  deletePricingPage?: Maybe<PricingPageEntityResponse>;
-  deletePricingVariant?: Maybe<PricingVariantEntityResponse>;
+  deleteHomeHeroSection?: Maybe<HomeHeroSectionEntityResponse>;
+  deleteHomePage?: Maybe<HomePageEntityResponse>;
+  deleteInnerFeaturesSection?: Maybe<InnerFeaturesSectionEntityResponse>;
+  deleteInnerHeroSection?: Maybe<InnerHeroSectionEntityResponse>;
+  deleteLeakDetection?: Maybe<LeakDetectionEntityResponse>;
+  deletePricingFeaturesSection?: Maybe<PricingFeaturesSectionEntityResponse>;
+  deletePricingHeroSection?: Maybe<PricingHeroSectionEntityResponse>;
+  deletePricingPageTemplate?: Maybe<PricingPageTemplateEntityResponse>;
+  deletePricingVariantSection?: Maybe<PricingVariantSectionEntityResponse>;
+  deleteReverseOsmosis?: Maybe<ReverseOsmosisEntityResponse>;
+  deleteReverseOsmosisPrice?: Maybe<ReverseOsmosisPriceEntityResponse>;
+  deleteServicesSection?: Maybe<ServicesSectionEntityResponse>;
+  deleteStepsSection?: Maybe<StepsSectionEntityResponse>;
+  deleteTipsSection?: Maybe<TipsSectionEntityResponse>;
   deleteUploadFile?: Maybe<UploadFileEntityResponse>;
   deleteUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Delete an existing role */
   deleteUsersPermissionsRole?: Maybe<UsersPermissionsDeleteRolePayload>;
   /** Delete an existing user */
   deleteUsersPermissionsUser: UsersPermissionsUserEntityResponse;
+  deleteWhFiltration?: Maybe<WhFiltrationEntityResponse>;
+  deleteWhFiltrationPrice?: Maybe<WhFiltrationPriceEntityResponse>;
   /** Confirm an email users email address */
   emailConfirmation?: Maybe<UsersPermissionsLoginPayload>;
   /** Request a reset password token */
@@ -697,22 +1266,36 @@ export type Mutation = {
   removeFile?: Maybe<UploadFileEntityResponse>;
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
-  updateAbout?: Maybe<AboutEntityResponse>;
-  updateArticle?: Maybe<ArticleEntityResponse>;
-  updateAuthor?: Maybe<AuthorEntityResponse>;
-  updateCategory?: Maybe<CategoryEntityResponse>;
+  updateBlogSection?: Maybe<BlogSectionEntityResponse>;
+  updateContactsSection?: Maybe<ContactsSectionEntityResponse>;
   updateContentReleasesRelease?: Maybe<ContentReleasesReleaseEntityResponse>;
   updateContentReleasesReleaseAction?: Maybe<ContentReleasesReleaseActionEntityResponse>;
+  updateContentSection?: Maybe<ContentSectionEntityResponse>;
+  updateFaqSection?: Maybe<FaqSectionEntityResponse>;
   updateFileInfo: UploadFileEntityResponse;
   updateGlobal?: Maybe<GlobalEntityResponse>;
-  updatePricingPage?: Maybe<PricingPageEntityResponse>;
-  updatePricingVariant?: Maybe<PricingVariantEntityResponse>;
+  updateHomeHeroSection?: Maybe<HomeHeroSectionEntityResponse>;
+  updateHomePage?: Maybe<HomePageEntityResponse>;
+  updateInnerFeaturesSection?: Maybe<InnerFeaturesSectionEntityResponse>;
+  updateInnerHeroSection?: Maybe<InnerHeroSectionEntityResponse>;
+  updateLeakDetection?: Maybe<LeakDetectionEntityResponse>;
+  updatePricingFeaturesSection?: Maybe<PricingFeaturesSectionEntityResponse>;
+  updatePricingHeroSection?: Maybe<PricingHeroSectionEntityResponse>;
+  updatePricingPageTemplate?: Maybe<PricingPageTemplateEntityResponse>;
+  updatePricingVariantSection?: Maybe<PricingVariantSectionEntityResponse>;
+  updateReverseOsmosis?: Maybe<ReverseOsmosisEntityResponse>;
+  updateReverseOsmosisPrice?: Maybe<ReverseOsmosisPriceEntityResponse>;
+  updateServicesSection?: Maybe<ServicesSectionEntityResponse>;
+  updateStepsSection?: Maybe<StepsSectionEntityResponse>;
+  updateTipsSection?: Maybe<TipsSectionEntityResponse>;
   updateUploadFile?: Maybe<UploadFileEntityResponse>;
   updateUploadFolder?: Maybe<UploadFolderEntityResponse>;
   /** Update an existing role */
   updateUsersPermissionsRole?: Maybe<UsersPermissionsUpdateRolePayload>;
   /** Update an existing user */
   updateUsersPermissionsUser: UsersPermissionsUserEntityResponse;
+  updateWhFiltration?: Maybe<WhFiltrationEntityResponse>;
+  updateWhFiltrationPrice?: Maybe<WhFiltrationPriceEntityResponse>;
   upload: UploadFileEntityResponse;
 };
 
@@ -724,18 +1307,8 @@ export type MutationChangePasswordArgs = {
 };
 
 
-export type MutationCreateArticleArgs = {
-  data: ArticleInput;
-};
-
-
-export type MutationCreateAuthorArgs = {
-  data: AuthorInput;
-};
-
-
-export type MutationCreateCategoryArgs = {
-  data: CategoryInput;
+export type MutationCreateBlogSectionArgs = {
+  data: BlogSectionInput;
 };
 
 
@@ -749,13 +1322,63 @@ export type MutationCreateContentReleasesReleaseActionArgs = {
 };
 
 
-export type MutationCreatePricingPageArgs = {
-  data: PricingPageInput;
+export type MutationCreateContentSectionArgs = {
+  data: ContentSectionInput;
 };
 
 
-export type MutationCreatePricingVariantArgs = {
-  data: PricingVariantInput;
+export type MutationCreateFaqSectionArgs = {
+  data: FaqSectionInput;
+};
+
+
+export type MutationCreateHomeHeroSectionArgs = {
+  data: HomeHeroSectionInput;
+};
+
+
+export type MutationCreateInnerFeaturesSectionArgs = {
+  data: InnerFeaturesSectionInput;
+};
+
+
+export type MutationCreateInnerHeroSectionArgs = {
+  data: InnerHeroSectionInput;
+};
+
+
+export type MutationCreatePricingFeaturesSectionArgs = {
+  data: PricingFeaturesSectionInput;
+};
+
+
+export type MutationCreatePricingHeroSectionArgs = {
+  data: PricingHeroSectionInput;
+};
+
+
+export type MutationCreatePricingPageTemplateArgs = {
+  data: PricingPageTemplateInput;
+};
+
+
+export type MutationCreatePricingVariantSectionArgs = {
+  data: PricingVariantSectionInput;
+};
+
+
+export type MutationCreateServicesSectionArgs = {
+  data: ServicesSectionInput;
+};
+
+
+export type MutationCreateStepsSectionArgs = {
+  data: StepsSectionInput;
+};
+
+
+export type MutationCreateTipsSectionArgs = {
+  data: TipsSectionInput;
 };
 
 
@@ -779,17 +1402,7 @@ export type MutationCreateUsersPermissionsUserArgs = {
 };
 
 
-export type MutationDeleteArticleArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationDeleteAuthorArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationDeleteCategoryArgs = {
+export type MutationDeleteBlogSectionArgs = {
   id: Scalars['ID']['input'];
 };
 
@@ -804,12 +1417,62 @@ export type MutationDeleteContentReleasesReleaseActionArgs = {
 };
 
 
-export type MutationDeletePricingPageArgs = {
+export type MutationDeleteContentSectionArgs = {
   id: Scalars['ID']['input'];
 };
 
 
-export type MutationDeletePricingVariantArgs = {
+export type MutationDeleteFaqSectionArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteHomeHeroSectionArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteInnerFeaturesSectionArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteInnerHeroSectionArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeletePricingFeaturesSectionArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeletePricingHeroSectionArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeletePricingPageTemplateArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeletePricingVariantSectionArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteServicesSectionArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteStepsSectionArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteTipsSectionArgs = {
   id: Scalars['ID']['input'];
 };
 
@@ -874,26 +1537,14 @@ export type MutationResetPasswordArgs = {
 };
 
 
-export type MutationUpdateAboutArgs = {
-  data: AboutInput;
-};
-
-
-export type MutationUpdateArticleArgs = {
-  data: ArticleInput;
+export type MutationUpdateBlogSectionArgs = {
+  data: BlogSectionInput;
   id: Scalars['ID']['input'];
 };
 
 
-export type MutationUpdateAuthorArgs = {
-  data: AuthorInput;
-  id: Scalars['ID']['input'];
-};
-
-
-export type MutationUpdateCategoryArgs = {
-  data: CategoryInput;
-  id: Scalars['ID']['input'];
+export type MutationUpdateContactsSectionArgs = {
+  data: ContactsSectionInput;
 };
 
 
@@ -909,6 +1560,18 @@ export type MutationUpdateContentReleasesReleaseActionArgs = {
 };
 
 
+export type MutationUpdateContentSectionArgs = {
+  data: ContentSectionInput;
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdateFaqSectionArgs = {
+  data: FaqSectionInput;
+  id: Scalars['ID']['input'];
+};
+
+
 export type MutationUpdateFileInfoArgs = {
   id: Scalars['ID']['input'];
   info?: InputMaybe<FileInfoInput>;
@@ -920,14 +1583,82 @@ export type MutationUpdateGlobalArgs = {
 };
 
 
-export type MutationUpdatePricingPageArgs = {
-  data: PricingPageInput;
+export type MutationUpdateHomeHeroSectionArgs = {
+  data: HomeHeroSectionInput;
   id: Scalars['ID']['input'];
 };
 
 
-export type MutationUpdatePricingVariantArgs = {
-  data: PricingVariantInput;
+export type MutationUpdateHomePageArgs = {
+  data: HomePageInput;
+};
+
+
+export type MutationUpdateInnerFeaturesSectionArgs = {
+  data: InnerFeaturesSectionInput;
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdateInnerHeroSectionArgs = {
+  data: InnerHeroSectionInput;
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdateLeakDetectionArgs = {
+  data: LeakDetectionInput;
+};
+
+
+export type MutationUpdatePricingFeaturesSectionArgs = {
+  data: PricingFeaturesSectionInput;
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdatePricingHeroSectionArgs = {
+  data: PricingHeroSectionInput;
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdatePricingPageTemplateArgs = {
+  data: PricingPageTemplateInput;
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdatePricingVariantSectionArgs = {
+  data: PricingVariantSectionInput;
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdateReverseOsmosisArgs = {
+  data: ReverseOsmosisInput;
+};
+
+
+export type MutationUpdateReverseOsmosisPriceArgs = {
+  data: ReverseOsmosisPriceInput;
+};
+
+
+export type MutationUpdateServicesSectionArgs = {
+  data: ServicesSectionInput;
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdateStepsSectionArgs = {
+  data: StepsSectionInput;
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdateTipsSectionArgs = {
+  data: TipsSectionInput;
   id: Scalars['ID']['input'];
 };
 
@@ -956,6 +1687,16 @@ export type MutationUpdateUsersPermissionsUserArgs = {
 };
 
 
+export type MutationUpdateWhFiltrationArgs = {
+  data: WhFiltrationInput;
+};
+
+
+export type MutationUpdateWhFiltrationPriceArgs = {
+  data: WhFiltrationPriceInput;
+};
+
+
 export type MutationUploadArgs = {
   field?: InputMaybe<Scalars['String']['input']>;
   file: Scalars['Upload']['input'];
@@ -979,148 +1720,292 @@ export type PaginationArg = {
   start?: InputMaybe<Scalars['Int']['input']>;
 };
 
-export type PricingPage = {
-  __typename?: 'PricingPage';
-  Description: Scalars['String']['output'];
-  Slug: Scalars['String']['output'];
-  Title: Scalars['String']['output'];
+export type PricingFeaturesSection = {
+  __typename?: 'PricingFeaturesSection';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
-  pricing_variants?: Maybe<PricingVariantRelationResponseCollection>;
-  publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  items: Array<Maybe<ComponentItemPricingFeatures>>;
+  label: Scalars['String']['output'];
+  pricing_page_templates?: Maybe<PricingPageTemplateRelationResponseCollection>;
+  title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
 
-export type PricingPagePricing_VariantsArgs = {
-  filters?: InputMaybe<PricingVariantFiltersInput>;
+export type PricingFeaturesSectionItemsArgs = {
+  filters?: InputMaybe<ComponentItemPricingFeaturesFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type PricingPageEntity = {
-  __typename?: 'PricingPageEntity';
-  attributes?: Maybe<PricingPage>;
+
+export type PricingFeaturesSectionPricing_Page_TemplatesArgs = {
+  filters?: InputMaybe<PricingPageTemplateFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type PricingFeaturesSectionEntity = {
+  __typename?: 'PricingFeaturesSectionEntity';
+  attributes?: Maybe<PricingFeaturesSection>;
   id?: Maybe<Scalars['ID']['output']>;
 };
 
-export type PricingPageEntityResponse = {
-  __typename?: 'PricingPageEntityResponse';
-  data?: Maybe<PricingPageEntity>;
+export type PricingFeaturesSectionEntityResponse = {
+  __typename?: 'PricingFeaturesSectionEntityResponse';
+  data?: Maybe<PricingFeaturesSectionEntity>;
 };
 
-export type PricingPageEntityResponseCollection = {
-  __typename?: 'PricingPageEntityResponseCollection';
-  data: Array<PricingPageEntity>;
+export type PricingFeaturesSectionEntityResponseCollection = {
+  __typename?: 'PricingFeaturesSectionEntityResponseCollection';
+  data: Array<PricingFeaturesSectionEntity>;
   meta: ResponseCollectionMeta;
 };
 
-export type PricingPageFiltersInput = {
-  Description?: InputMaybe<StringFilterInput>;
-  Slug?: InputMaybe<StringFilterInput>;
-  Title?: InputMaybe<StringFilterInput>;
-  and?: InputMaybe<Array<InputMaybe<PricingPageFiltersInput>>>;
+export type PricingFeaturesSectionFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<PricingFeaturesSectionFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   id?: InputMaybe<IdFilterInput>;
-  not?: InputMaybe<PricingPageFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<PricingPageFiltersInput>>>;
-  pricing_variants?: InputMaybe<PricingVariantFiltersInput>;
-  publishedAt?: InputMaybe<DateTimeFilterInput>;
+  items?: InputMaybe<ComponentItemPricingFeaturesFiltersInput>;
+  label?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<PricingFeaturesSectionFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<PricingFeaturesSectionFiltersInput>>>;
+  pricing_page_templates?: InputMaybe<PricingPageTemplateFiltersInput>;
+  title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
-export type PricingPageInput = {
-  Description?: InputMaybe<Scalars['String']['input']>;
-  Slug?: InputMaybe<Scalars['String']['input']>;
-  Title?: InputMaybe<Scalars['String']['input']>;
-  pricing_variants?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
-  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+export type PricingFeaturesSectionInput = {
+  items?: InputMaybe<Array<InputMaybe<ComponentItemPricingFeaturesInput>>>;
+  label?: InputMaybe<Scalars['String']['input']>;
+  pricing_page_templates?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type PricingVariant = {
-  __typename?: 'PricingVariant';
-  Description: Scalars['String']['output'];
-  Plan: Array<Maybe<ComponentPricingPlan>>;
-  Title: Scalars['String']['output'];
+export type PricingHeroSection = {
+  __typename?: 'PricingHeroSection';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
-  pricing_page?: Maybe<PricingPageEntityResponse>;
+  description: Scalars['String']['output'];
+  pricing_page_templates?: Maybe<PricingPageTemplateRelationResponseCollection>;
+  pricing_variant_sections?: Maybe<PricingVariantSectionRelationResponseCollection>;
+  title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
 
-export type PricingVariantPlanArgs = {
-  filters?: InputMaybe<ComponentPricingPlanFiltersInput>;
+export type PricingHeroSectionPricing_Page_TemplatesArgs = {
+  filters?: InputMaybe<PricingPageTemplateFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type PricingVariantEntity = {
-  __typename?: 'PricingVariantEntity';
-  attributes?: Maybe<PricingVariant>;
+
+export type PricingHeroSectionPricing_Variant_SectionsArgs = {
+  filters?: InputMaybe<PricingVariantSectionFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type PricingHeroSectionEntity = {
+  __typename?: 'PricingHeroSectionEntity';
+  attributes?: Maybe<PricingHeroSection>;
   id?: Maybe<Scalars['ID']['output']>;
 };
 
-export type PricingVariantEntityResponse = {
-  __typename?: 'PricingVariantEntityResponse';
-  data?: Maybe<PricingVariantEntity>;
+export type PricingHeroSectionEntityResponse = {
+  __typename?: 'PricingHeroSectionEntityResponse';
+  data?: Maybe<PricingHeroSectionEntity>;
 };
 
-export type PricingVariantEntityResponseCollection = {
-  __typename?: 'PricingVariantEntityResponseCollection';
-  data: Array<PricingVariantEntity>;
+export type PricingHeroSectionEntityResponseCollection = {
+  __typename?: 'PricingHeroSectionEntityResponseCollection';
+  data: Array<PricingHeroSectionEntity>;
   meta: ResponseCollectionMeta;
 };
 
-export type PricingVariantFiltersInput = {
-  Description?: InputMaybe<StringFilterInput>;
-  Plan?: InputMaybe<ComponentPricingPlanFiltersInput>;
-  Title?: InputMaybe<StringFilterInput>;
-  and?: InputMaybe<Array<InputMaybe<PricingVariantFiltersInput>>>;
+export type PricingHeroSectionFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<PricingHeroSectionFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
+  description?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
-  not?: InputMaybe<PricingVariantFiltersInput>;
-  or?: InputMaybe<Array<InputMaybe<PricingVariantFiltersInput>>>;
-  pricing_page?: InputMaybe<PricingPageFiltersInput>;
+  not?: InputMaybe<PricingHeroSectionFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<PricingHeroSectionFiltersInput>>>;
+  pricing_page_templates?: InputMaybe<PricingPageTemplateFiltersInput>;
+  pricing_variant_sections?: InputMaybe<PricingVariantSectionFiltersInput>;
+  title?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
-export type PricingVariantInput = {
-  Description?: InputMaybe<Scalars['String']['input']>;
-  Plan?: InputMaybe<Array<InputMaybe<ComponentPricingPlanInput>>>;
-  Title?: InputMaybe<Scalars['String']['input']>;
-  pricing_page?: InputMaybe<Scalars['ID']['input']>;
+export type PricingHeroSectionInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  pricing_page_templates?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  pricing_variant_sections?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type PricingVariantRelationResponseCollection = {
-  __typename?: 'PricingVariantRelationResponseCollection';
-  data: Array<PricingVariantEntity>;
+export type PricingHeroSectionRelationResponseCollection = {
+  __typename?: 'PricingHeroSectionRelationResponseCollection';
+  data: Array<PricingHeroSectionEntity>;
 };
 
-export enum PublicationState {
-  Live = 'LIVE',
-  Preview = 'PREVIEW'
-}
+export type PricingPageTemplate = {
+  __typename?: 'PricingPageTemplate';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  faq_section?: Maybe<FaqSectionEntityResponse>;
+  pricing_features_section?: Maybe<PricingFeaturesSectionEntityResponse>;
+  pricing_hero_section?: Maybe<PricingHeroSectionEntityResponse>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type PricingPageTemplateEntity = {
+  __typename?: 'PricingPageTemplateEntity';
+  attributes?: Maybe<PricingPageTemplate>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type PricingPageTemplateEntityResponse = {
+  __typename?: 'PricingPageTemplateEntityResponse';
+  data?: Maybe<PricingPageTemplateEntity>;
+};
+
+export type PricingPageTemplateEntityResponseCollection = {
+  __typename?: 'PricingPageTemplateEntityResponseCollection';
+  data: Array<PricingPageTemplateEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type PricingPageTemplateFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<PricingPageTemplateFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  faq_section?: InputMaybe<FaqSectionFiltersInput>;
+  id?: InputMaybe<IdFilterInput>;
+  not?: InputMaybe<PricingPageTemplateFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<PricingPageTemplateFiltersInput>>>;
+  pricing_features_section?: InputMaybe<PricingFeaturesSectionFiltersInput>;
+  pricing_hero_section?: InputMaybe<PricingHeroSectionFiltersInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type PricingPageTemplateInput = {
+  faq_section?: InputMaybe<Scalars['ID']['input']>;
+  pricing_features_section?: InputMaybe<Scalars['ID']['input']>;
+  pricing_hero_section?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type PricingPageTemplateRelationResponseCollection = {
+  __typename?: 'PricingPageTemplateRelationResponseCollection';
+  data: Array<PricingPageTemplateEntity>;
+};
+
+export type PricingVariantSection = {
+  __typename?: 'PricingVariantSection';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  description: Scalars['String']['output'];
+  icon: ComponentUiIcon;
+  items: Array<Maybe<ComponentItemPricingPlan>>;
+  pricing_hero_sections?: Maybe<PricingHeroSectionRelationResponseCollection>;
+  title: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type PricingVariantSectionItemsArgs = {
+  filters?: InputMaybe<ComponentItemPricingPlanFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type PricingVariantSectionPricing_Hero_SectionsArgs = {
+  filters?: InputMaybe<PricingHeroSectionFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type PricingVariantSectionEntity = {
+  __typename?: 'PricingVariantSectionEntity';
+  attributes?: Maybe<PricingVariantSection>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type PricingVariantSectionEntityResponse = {
+  __typename?: 'PricingVariantSectionEntityResponse';
+  data?: Maybe<PricingVariantSectionEntity>;
+};
+
+export type PricingVariantSectionEntityResponseCollection = {
+  __typename?: 'PricingVariantSectionEntityResponseCollection';
+  data: Array<PricingVariantSectionEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type PricingVariantSectionFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<PricingVariantSectionFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  description?: InputMaybe<StringFilterInput>;
+  icon?: InputMaybe<ComponentUiIconFiltersInput>;
+  id?: InputMaybe<IdFilterInput>;
+  items?: InputMaybe<ComponentItemPricingPlanFiltersInput>;
+  not?: InputMaybe<PricingVariantSectionFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<PricingVariantSectionFiltersInput>>>;
+  pricing_hero_sections?: InputMaybe<PricingHeroSectionFiltersInput>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type PricingVariantSectionInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<ComponentUiIconInput>;
+  items?: InputMaybe<Array<InputMaybe<ComponentItemPricingPlanInput>>>;
+  pricing_hero_sections?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type PricingVariantSectionRelationResponseCollection = {
+  __typename?: 'PricingVariantSectionRelationResponseCollection';
+  data: Array<PricingVariantSectionEntity>;
+};
 
 export type Query = {
   __typename?: 'Query';
-  about?: Maybe<AboutEntityResponse>;
-  article?: Maybe<ArticleEntityResponse>;
-  articles?: Maybe<ArticleEntityResponseCollection>;
-  author?: Maybe<AuthorEntityResponse>;
-  authors?: Maybe<AuthorEntityResponseCollection>;
-  categories?: Maybe<CategoryEntityResponseCollection>;
-  category?: Maybe<CategoryEntityResponse>;
+  blogSection?: Maybe<BlogSectionEntityResponse>;
+  blogSections?: Maybe<BlogSectionEntityResponseCollection>;
+  contactsSection?: Maybe<ContactsSectionEntityResponse>;
   contentReleasesRelease?: Maybe<ContentReleasesReleaseEntityResponse>;
   contentReleasesReleaseAction?: Maybe<ContentReleasesReleaseActionEntityResponse>;
   contentReleasesReleaseActions?: Maybe<ContentReleasesReleaseActionEntityResponseCollection>;
   contentReleasesReleases?: Maybe<ContentReleasesReleaseEntityResponseCollection>;
+  contentSection?: Maybe<ContentSectionEntityResponse>;
+  contentSections?: Maybe<ContentSectionEntityResponseCollection>;
+  faqSection?: Maybe<FaqSectionEntityResponse>;
+  faqSections?: Maybe<FaqSectionEntityResponseCollection>;
   global?: Maybe<GlobalEntityResponse>;
+  homeHeroSection?: Maybe<HomeHeroSectionEntityResponse>;
+  homeHeroSections?: Maybe<HomeHeroSectionEntityResponseCollection>;
+  homePage?: Maybe<HomePageEntityResponse>;
   i18NLocale?: Maybe<I18NLocaleEntityResponse>;
   i18NLocales?: Maybe<I18NLocaleEntityResponseCollection>;
+  innerFeaturesSection?: Maybe<InnerFeaturesSectionEntityResponse>;
+  innerFeaturesSections?: Maybe<InnerFeaturesSectionEntityResponseCollection>;
+  innerHeroSection?: Maybe<InnerHeroSectionEntityResponse>;
+  innerHeroSections?: Maybe<InnerHeroSectionEntityResponseCollection>;
+  leakDetection?: Maybe<LeakDetectionEntityResponse>;
   me?: Maybe<UsersPermissionsMe>;
-  pricingPage?: Maybe<PricingPageEntityResponse>;
-  pricingPages?: Maybe<PricingPageEntityResponseCollection>;
-  pricingVariant?: Maybe<PricingVariantEntityResponse>;
-  pricingVariants?: Maybe<PricingVariantEntityResponseCollection>;
+  pricingFeaturesSection?: Maybe<PricingFeaturesSectionEntityResponse>;
+  pricingFeaturesSections?: Maybe<PricingFeaturesSectionEntityResponseCollection>;
+  pricingHeroSection?: Maybe<PricingHeroSectionEntityResponse>;
+  pricingHeroSections?: Maybe<PricingHeroSectionEntityResponseCollection>;
+  pricingPageTemplate?: Maybe<PricingPageTemplateEntityResponse>;
+  pricingPageTemplates?: Maybe<PricingPageTemplateEntityResponseCollection>;
+  pricingVariantSection?: Maybe<PricingVariantSectionEntityResponse>;
+  pricingVariantSections?: Maybe<PricingVariantSectionEntityResponseCollection>;
+  reverseOsmosis?: Maybe<ReverseOsmosisEntityResponse>;
+  reverseOsmosisPrice?: Maybe<ReverseOsmosisPriceEntityResponse>;
+  servicesSection?: Maybe<ServicesSectionEntityResponse>;
+  servicesSections?: Maybe<ServicesSectionEntityResponseCollection>;
+  stepsSection?: Maybe<StepsSectionEntityResponse>;
+  stepsSections?: Maybe<StepsSectionEntityResponseCollection>;
+  tipsSection?: Maybe<TipsSectionEntityResponse>;
+  tipsSections?: Maybe<TipsSectionEntityResponseCollection>;
   uploadFile?: Maybe<UploadFileEntityResponse>;
   uploadFiles?: Maybe<UploadFileEntityResponseCollection>;
   uploadFolder?: Maybe<UploadFolderEntityResponse>;
@@ -1129,43 +2014,20 @@ export type Query = {
   usersPermissionsRoles?: Maybe<UsersPermissionsRoleEntityResponseCollection>;
   usersPermissionsUser?: Maybe<UsersPermissionsUserEntityResponse>;
   usersPermissionsUsers?: Maybe<UsersPermissionsUserEntityResponseCollection>;
+  whFiltration?: Maybe<WhFiltrationEntityResponse>;
+  whFiltrationPrice?: Maybe<WhFiltrationPriceEntityResponse>;
 };
 
 
-export type QueryArticleArgs = {
+export type QueryBlogSectionArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
 };
 
 
-export type QueryArticlesArgs = {
-  filters?: InputMaybe<ArticleFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type QueryAuthorArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
-};
-
-
-export type QueryAuthorsArgs = {
-  filters?: InputMaybe<AuthorFiltersInput>;
+export type QueryBlogSectionsArgs = {
+  filters?: InputMaybe<BlogSectionFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type QueryCategoriesArgs = {
-  filters?: InputMaybe<CategoryFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-export type QueryCategoryArgs = {
-  id?: InputMaybe<Scalars['ID']['input']>;
 };
 
 
@@ -1193,6 +2055,42 @@ export type QueryContentReleasesReleasesArgs = {
 };
 
 
+export type QueryContentSectionArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryContentSectionsArgs = {
+  filters?: InputMaybe<ContentSectionFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryFaqSectionArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryFaqSectionsArgs = {
+  filters?: InputMaybe<FaqSectionFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryHomeHeroSectionArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryHomeHeroSectionsArgs = {
+  filters?: InputMaybe<HomeHeroSectionFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
 export type QueryI18NLocaleArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
 };
@@ -1205,26 +2103,109 @@ export type QueryI18NLocalesArgs = {
 };
 
 
-export type QueryPricingPageArgs = {
+export type QueryInnerFeaturesSectionArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
 };
 
 
-export type QueryPricingPagesArgs = {
-  filters?: InputMaybe<PricingPageFiltersInput>;
+export type QueryInnerFeaturesSectionsArgs = {
+  filters?: InputMaybe<InnerFeaturesSectionFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
-  publicationState?: InputMaybe<PublicationState>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
-export type QueryPricingVariantArgs = {
+export type QueryInnerHeroSectionArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
 };
 
 
-export type QueryPricingVariantsArgs = {
-  filters?: InputMaybe<PricingVariantFiltersInput>;
+export type QueryInnerHeroSectionsArgs = {
+  filters?: InputMaybe<InnerHeroSectionFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryPricingFeaturesSectionArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryPricingFeaturesSectionsArgs = {
+  filters?: InputMaybe<PricingFeaturesSectionFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryPricingHeroSectionArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryPricingHeroSectionsArgs = {
+  filters?: InputMaybe<PricingHeroSectionFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryPricingPageTemplateArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryPricingPageTemplatesArgs = {
+  filters?: InputMaybe<PricingPageTemplateFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryPricingVariantSectionArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryPricingVariantSectionsArgs = {
+  filters?: InputMaybe<PricingVariantSectionFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryServicesSectionArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryServicesSectionsArgs = {
+  filters?: InputMaybe<ServicesSectionFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryStepsSectionArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryStepsSectionsArgs = {
+  filters?: InputMaybe<StepsSectionFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryTipsSectionArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryTipsSectionsArgs = {
+  filters?: InputMaybe<TipsSectionFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
@@ -1282,6 +2263,171 @@ export type ResponseCollectionMeta = {
   pagination: Pagination;
 };
 
+export type ReverseOsmosis = {
+  __typename?: 'ReverseOsmosis';
+  blog_section?: Maybe<BlogSectionEntityResponse>;
+  content_section?: Maybe<ContentSectionEntityResponse>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  inner_features_section?: Maybe<InnerFeaturesSectionEntityResponse>;
+  inner_hero_section?: Maybe<InnerHeroSectionEntityResponse>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type ReverseOsmosisEntity = {
+  __typename?: 'ReverseOsmosisEntity';
+  attributes?: Maybe<ReverseOsmosis>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type ReverseOsmosisEntityResponse = {
+  __typename?: 'ReverseOsmosisEntityResponse';
+  data?: Maybe<ReverseOsmosisEntity>;
+};
+
+export type ReverseOsmosisInput = {
+  blog_section?: InputMaybe<Scalars['ID']['input']>;
+  content_section?: InputMaybe<Scalars['ID']['input']>;
+  inner_features_section?: InputMaybe<Scalars['ID']['input']>;
+  inner_hero_section?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type ReverseOsmosisPrice = {
+  __typename?: 'ReverseOsmosisPrice';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  pricing_page_template?: Maybe<PricingPageTemplateEntityResponse>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type ReverseOsmosisPriceEntity = {
+  __typename?: 'ReverseOsmosisPriceEntity';
+  attributes?: Maybe<ReverseOsmosisPrice>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type ReverseOsmosisPriceEntityResponse = {
+  __typename?: 'ReverseOsmosisPriceEntityResponse';
+  data?: Maybe<ReverseOsmosisPriceEntity>;
+};
+
+export type ReverseOsmosisPriceInput = {
+  pricing_page_template?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type ServicesSection = {
+  __typename?: 'ServicesSection';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  description: Scalars['String']['output'];
+  items: Array<Maybe<ComponentItemServices>>;
+  label: Scalars['String']['output'];
+  list: Array<Maybe<ComponentUiListItem>>;
+  title: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type ServicesSectionItemsArgs = {
+  filters?: InputMaybe<ComponentItemServicesFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type ServicesSectionListArgs = {
+  filters?: InputMaybe<ComponentUiListItemFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type ServicesSectionEntity = {
+  __typename?: 'ServicesSectionEntity';
+  attributes?: Maybe<ServicesSection>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type ServicesSectionEntityResponse = {
+  __typename?: 'ServicesSectionEntityResponse';
+  data?: Maybe<ServicesSectionEntity>;
+};
+
+export type ServicesSectionEntityResponseCollection = {
+  __typename?: 'ServicesSectionEntityResponseCollection';
+  data: Array<ServicesSectionEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type ServicesSectionFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ServicesSectionFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  description?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  items?: InputMaybe<ComponentItemServicesFiltersInput>;
+  label?: InputMaybe<StringFilterInput>;
+  list?: InputMaybe<ComponentUiListItemFiltersInput>;
+  not?: InputMaybe<ServicesSectionFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ServicesSectionFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type ServicesSectionInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<InputMaybe<ComponentItemServicesInput>>>;
+  label?: InputMaybe<Scalars['String']['input']>;
+  list?: InputMaybe<Array<InputMaybe<ComponentUiListItemInput>>>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type StepsSection = {
+  __typename?: 'StepsSection';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  description: Scalars['String']['output'];
+  items?: Maybe<Array<Maybe<ComponentItemSteps>>>;
+  title: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type StepsSectionItemsArgs = {
+  filters?: InputMaybe<ComponentItemStepsFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type StepsSectionEntity = {
+  __typename?: 'StepsSectionEntity';
+  attributes?: Maybe<StepsSection>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type StepsSectionEntityResponse = {
+  __typename?: 'StepsSectionEntityResponse';
+  data?: Maybe<StepsSectionEntity>;
+};
+
+export type StepsSectionEntityResponseCollection = {
+  __typename?: 'StepsSectionEntityResponseCollection';
+  data: Array<StepsSectionEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type StepsSectionFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<StepsSectionFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  description?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  items?: InputMaybe<ComponentItemStepsFiltersInput>;
+  not?: InputMaybe<StepsSectionFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<StepsSectionFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type StepsSectionInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<InputMaybe<ComponentItemStepsInput>>>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type StringFilterInput = {
   and?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   between?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -1305,6 +2451,57 @@ export type StringFilterInput = {
   null?: InputMaybe<Scalars['Boolean']['input']>;
   or?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   startsWith?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type TipsSection = {
+  __typename?: 'TipsSection';
+  button?: Maybe<ComponentUiButton>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  items: Array<Maybe<ComponentItemTips>>;
+  title: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type TipsSectionItemsArgs = {
+  filters?: InputMaybe<ComponentItemTipsFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type TipsSectionEntity = {
+  __typename?: 'TipsSectionEntity';
+  attributes?: Maybe<TipsSection>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type TipsSectionEntityResponse = {
+  __typename?: 'TipsSectionEntityResponse';
+  data?: Maybe<TipsSectionEntity>;
+};
+
+export type TipsSectionEntityResponseCollection = {
+  __typename?: 'TipsSectionEntityResponseCollection';
+  data: Array<TipsSectionEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type TipsSectionFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<TipsSectionFiltersInput>>>;
+  button?: InputMaybe<ComponentUiButtonFiltersInput>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  items?: InputMaybe<ComponentItemTipsFiltersInput>;
+  not?: InputMaybe<TipsSectionFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<TipsSectionFiltersInput>>>;
+  title?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type TipsSectionInput = {
+  button?: InputMaybe<ComponentUiButtonInput>;
+  items?: InputMaybe<Array<InputMaybe<ComponentItemTipsInput>>>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UploadFile = {
@@ -1678,4 +2875,54 @@ export type UsersPermissionsUserInput = {
 export type UsersPermissionsUserRelationResponseCollection = {
   __typename?: 'UsersPermissionsUserRelationResponseCollection';
   data: Array<UsersPermissionsUserEntity>;
+};
+
+export type WhFiltration = {
+  __typename?: 'WhFiltration';
+  blog_section?: Maybe<BlogSectionEntityResponse>;
+  content_section?: Maybe<ContentSectionEntityResponse>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  inner_features_section?: Maybe<InnerFeaturesSectionEntityResponse>;
+  inner_hero_section?: Maybe<InnerHeroSectionEntityResponse>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type WhFiltrationEntity = {
+  __typename?: 'WhFiltrationEntity';
+  attributes?: Maybe<WhFiltration>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type WhFiltrationEntityResponse = {
+  __typename?: 'WhFiltrationEntityResponse';
+  data?: Maybe<WhFiltrationEntity>;
+};
+
+export type WhFiltrationInput = {
+  blog_section?: InputMaybe<Scalars['ID']['input']>;
+  content_section?: InputMaybe<Scalars['ID']['input']>;
+  inner_features_section?: InputMaybe<Scalars['ID']['input']>;
+  inner_hero_section?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type WhFiltrationPrice = {
+  __typename?: 'WhFiltrationPrice';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  pricing_page_template?: Maybe<PricingPageTemplateEntityResponse>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type WhFiltrationPriceEntity = {
+  __typename?: 'WhFiltrationPriceEntity';
+  attributes?: Maybe<WhFiltrationPrice>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type WhFiltrationPriceEntityResponse = {
+  __typename?: 'WhFiltrationPriceEntityResponse';
+  data?: Maybe<WhFiltrationPriceEntity>;
+};
+
+export type WhFiltrationPriceInput = {
+  pricing_page_template?: InputMaybe<Scalars['ID']['input']>;
 };

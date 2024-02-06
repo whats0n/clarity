@@ -1,0 +1,14 @@
+query GetContactsSection {
+  contactsSection {
+    data {
+      attributes {
+        title
+        description
+        phone
+        phone_label
+        email
+        email_label
+      }
+    }
+  }
+}

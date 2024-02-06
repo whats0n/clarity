@@ -2,35 +2,22 @@
   <div :class="$style.explore">
     <div class="container">
       <div :class="$style.header">
-        <p class="label">Explore</p>
-        <h2 class="title-md">Quench your thirst, drink with confidence</h2>
+        <p class="label">{{ label }}</p>
+        <h2 class="title-md">{{ title }}</h2>
         <p :class="['text', $style.description]">
-          We share common trends, strategies ideas, opinions, short & long
-          stories from the team behind company.
+          {{ description }}
         </p>
       </div>
       <div :class="$style.items">
-        <div :class="$style.item">
+        <div v-for="(item, index) in items" :key="item.id" :class="$style.item">
           <img
-            src="/images/explore-01.png"
+            :src="item.image"
             alt="Illustration"
-            style="object-position: 83% top"
+            :style="{ objectPosition: index % 2 ? '0% top' : '83% top' }"
           />
           <div :class="$style.item__content">
             <h2 :class="['title-md', $style.item__title]">
-              Want to see what is in your water?
-            </h2>
-          </div>
-        </div>
-        <div :class="$style.item">
-          <img
-            src="/images/explore-02.png"
-            alt="Illustration"
-            style="object-position: 0% top"
-          />
-          <div :class="$style.item__content">
-            <h2 :class="['title-md', $style.item__title]">
-              Want to take the water quiz to find the right product?
+              {{ item.title }}
             </h2>
           </div>
         </div>
@@ -40,7 +27,11 @@
 </template>
 
 <script lang="ts" setup>
+import type { SharedExplore } from '~/types'
+
 defineOptions({ name: 'TheExplore' })
+
+defineProps<SharedExplore>()
 </script>
 
 <style lang="scss" module>

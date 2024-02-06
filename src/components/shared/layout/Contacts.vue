@@ -1,27 +1,26 @@
 <template>
-  <div :class="$style.contacts">
+  <div v-if="source" :class="$style.contacts">
     <div class="container">
       <div :class="$style.header">
-        <h2 class="title-md">Still have a questions?</h2>
+        <h2 class="title-md">{{ source.title }}</h2>
         <p :class="['text', $style.description]">
-          If you cannot find answer to your question in our FAQ, you can always
-          contact us. We wil answer to you shortly!
+          {{ source.description }}
         </p>
       </div>
       <div :class="$style.row">
         <div :class="$style.item">
           <UiIcon name="chat" :class="$style.item__icon" />
-          <a href="tel:+16467865060" :class="$style.item__value">
-            +1 (646) 786-5060
+          <a :href="phoneLink" :class="$style.item__value">
+            {{ source.phone }}
           </a>
-          <div :class="$style.item__label">Text or call us</div>
+          <div :class="$style.item__label">{{ source.phone_label }}</div>
         </div>
         <div :class="$style.item">
           <UiIcon name="mail" :class="$style.item__icon" />
-          <a href="mailto:help@clairtywater.com" :class="$style.item__value">
-            help@clairtywater.com
+          <a :href="emailLink" :class="$style.item__value">
+            {{ source.email }}
           </a>
-          <div :class="$style.item__label">Email works too!</div>
+          <div :class="$style.item__label">{{ source.email_label }}</div>
         </div>
       </div>
     </div>
@@ -29,7 +28,30 @@
 </template>
 
 <script lang="ts" setup>
+import GET_CONTACTS_SECTION from '~/graphql/queries/GetContactsSection.gql'
+import type {
+  ContactsSection,
+  ContactsSectionEntityResponse,
+  Maybe,
+} from '~/graphql/types'
+
 defineOptions({ name: 'TheContacts' })
+
+const { data } = await useAsyncQuery<{
+  contactsSection: ContactsSectionEntityResponse
+}>(GET_CONTACTS_SECTION)
+
+const source = computed<Maybe<ContactsSection> | undefined>(
+  () => data.value?.contactsSection?.data?.attributes,
+)
+
+const phoneLink = computed<string>(() =>
+  source.value?.phone_raw ? `tel:${source.value?.phone_raw}` : '',
+)
+
+const emailLink = computed<string>(() =>
+  source.value?.email ? `mailto:${source.value?.email}` : '',
+)
 </script>
 
 <style lang="scss" module>

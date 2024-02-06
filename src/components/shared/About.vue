@@ -15,8 +15,8 @@
               {{ item.title }}
             </h3>
             <div v-if="item.text" :class="$style.description">
-              <p v-for="(node, i) in item.text" :key="i" class="text">
-                {{ node }}
+              <p v-for="node in item.text" :key="node.text" class="text">
+                {{ node.text }}
               </p>
             </div>
             <ul v-if="item.list?.length" :class="$style.list">
@@ -31,7 +31,11 @@
             </ul>
             <UiButton
               v-if="item.button"
-              :to="item.button.href"
+              :arrow="item.button.arrow"
+              :external="item.button.external"
+              :ui="item.button.ui"
+              :size="item.button.size"
+              :to="item.button.to"
               :text="item.button.text"
               :class="$style.button"
             />
@@ -43,15 +47,11 @@
 </template>
 
 <script lang="ts" setup>
-import type { AboutItem } from '~/types'
+import type { SharedAbout } from '~/types'
 
 defineOptions({ name: 'TheAbout' })
 
-defineProps<{
-  label: string
-  title: string
-  items: AboutItem[]
-}>()
+defineProps<SharedAbout>()
 </script>
 
 <style lang="scss" module>
