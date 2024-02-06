@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.about">
+  <div :class="$style.content">
     <div :class="['container', $style.container]">
       <div :class="$style.header">
         <p class="label">{{ label }}</p>
@@ -47,13 +47,13 @@
 <script lang="ts" setup>
 import type { SharedContent } from '~/types'
 
-defineOptions({ name: 'TheAbout' })
+defineOptions({ name: 'TheContent' })
 
 defineProps<SharedContent>()
 </script>
 
 <style lang="scss" module>
-.about {
+.content {
   position: relative;
   padding-bottom: 62px;
 }
@@ -93,6 +93,7 @@ defineProps<SharedContent>()
 
 .description {
   color: var(--primary-light-color);
+  white-space: pre-wrap;
 
   > p:not(:last-child) {
     margin-bottom: 32px;

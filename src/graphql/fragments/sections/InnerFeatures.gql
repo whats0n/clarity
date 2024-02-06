@@ -1,0 +1,18 @@
+#import "../ui/Icon.gql"
+
+fragment InnerFeatures on InnerFeaturesSectionEntityResponse {
+  data {
+    attributes {
+      label
+      title
+      items {
+        id
+        title
+        description
+        icon {
+          ...UiIcon
+        }
+      }
+    }
+  }
+}

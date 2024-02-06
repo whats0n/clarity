@@ -43,15 +43,15 @@ import type {
   SharedContent,
   SharedInnerFeatures,
 } from '~/types'
-import GET_REVERSE_OSMOSIS_PAGE from '~/graphql/queries/GetReverseOsmosisPage.gql'
+import GET_HOME_FILTRATION_PAGE from '~/graphql/queries/GetHomeFiltrationPage.gql'
 import type { Query } from '~/graphql/types'
 
 definePageMeta({
   title: 'Reverse-Osmosis',
 })
 
-const { data, error } = await useAsyncQuery<Pick<Query, 'reverseOsmosis'>>(
-  GET_REVERSE_OSMOSIS_PAGE,
+const { data, error } = await useAsyncQuery<Pick<Query, 'whFiltration'>>(
+  GET_HOME_FILTRATION_PAGE,
 )
 
 if (!data.value || error.value) showError({ statusCode: 404 })
@@ -59,7 +59,7 @@ if (!data.value || error.value) showError({ statusCode: 404 })
 const heroAdapter = useInnerHeroAdapter()
 const hero = computed<SharedInnerHero | null>(() => {
   return heroAdapter(
-    data.value?.reverseOsmosis?.data?.attributes?.inner_hero_section?.data
+    data.value?.whFiltration?.data?.attributes?.inner_hero_section?.data
       ?.attributes,
   )
 })
@@ -67,7 +67,7 @@ const hero = computed<SharedInnerHero | null>(() => {
 const contentAdapter = useContentAdapter()
 const content = computed<SharedContent>(() => {
   return contentAdapter(
-    data.value?.reverseOsmosis?.data?.attributes?.content_section?.data
+    data.value?.whFiltration?.data?.attributes?.content_section?.data
       ?.attributes,
   )
 })
@@ -75,14 +75,14 @@ const content = computed<SharedContent>(() => {
 const blogAdapter = useBlogAdapter()
 const blog = computed<SharedBlog | null>(() => {
   return blogAdapter(
-    data.value.reverseOsmosis?.data?.attributes?.blog_section?.data?.attributes,
+    data.value.whFiltration?.data?.attributes?.blog_section?.data?.attributes,
   )
 })
 
 const innerFeaturesAdapter = useInnerFeaturesAdapter()
 const innerFeatures = computed<SharedInnerFeatures | null>(() => {
   return innerFeaturesAdapter(
-    data.value.reverseOsmosis?.data?.attributes?.inner_features_section?.data
+    data.value.whFiltration?.data?.attributes?.inner_features_section?.data
       ?.attributes,
   )
 })

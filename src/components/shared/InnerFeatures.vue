@@ -12,7 +12,7 @@
             <UiIcon :name="item.icon" :class="$style.icon" />
           </div>
           <h4 :class="$style.subtitle">{{ item.title }}</h4>
-          <p :class="['text', $style.description]">{{ item.text }}</p>
+          <p :class="['text', $style.description]">{{ item.description }}</p>
         </div>
       </div>
     </div>
@@ -20,15 +20,11 @@
 </template>
 
 <script lang="ts" setup>
-import type { FeaturesItem } from '~/types'
+import type { SharedInnerFeatures } from '~/types'
 
 defineOptions({ name: 'TheFeatures' })
 
-defineProps<{
-  label: string
-  title: string
-  items: FeaturesItem[]
-}>()
+defineProps<SharedInnerFeatures>()
 </script>
 
 <style lang="scss" module>

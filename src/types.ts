@@ -180,3 +180,16 @@ export interface TipsItem {
   title: string
   text: string
 }
+
+export interface SharedInnerFeaturesItem {
+  id: string
+  title: string
+  description: string
+  icon: string
+}
+
+export interface SharedInnerFeatures {
+  label: string
+  title: string
+  items: SharedInnerFeaturesItem[]
+}

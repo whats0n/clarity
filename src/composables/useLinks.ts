@@ -3,6 +3,6 @@ export const useLinks = () => {
     home: '/',
     reverseOsmosis: '/reverse-osmosis',
     homeFiltration: '/home-filtration',
-    pricing: '/reverse-osmosis/pricing',
+    pricing: '/reverse-osmosis/price',
   }
 }

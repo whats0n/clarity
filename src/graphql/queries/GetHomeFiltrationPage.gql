@@ -3,8 +3,8 @@
 #import "../fragments/sections/Blog.gql"
 #import "../fragments/sections/InnerFeatures.gql"
 
-query GetReverseOsmosisPage {
-  reverseOsmosis {
+query GetHomeFiltration {
+  whFiltration {
     data {
       attributes {
         inner_hero_section {
