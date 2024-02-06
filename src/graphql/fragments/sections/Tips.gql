@@ -1,16 +1,18 @@
-#import "../ui/Icon.gql"
+#import "../ui/Button.gql"
 
-fragment InnerFeaturesSection on InnerFeaturesSectionEntityResponse {
+fragment TipsSection on TipsSectionEntityResponse {
   data {
     attributes {
-      label
       title
+      button {
+        ...UiButton
+      }
       items {
         id
         title
         description
         icon {
-          ...UiIcon
+          name
         }
       }
     }

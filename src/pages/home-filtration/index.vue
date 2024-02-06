@@ -65,7 +65,7 @@ const hero = computed<SharedInnerHero | null>(() => {
 })
 
 const contentAdapter = useContentAdapter()
-const content = computed<SharedContent>(() => {
+const content = computed<SharedContent | null>(() => {
   return contentAdapter(
     data.value?.whFiltration?.data?.attributes?.content_section?.data
       ?.attributes,

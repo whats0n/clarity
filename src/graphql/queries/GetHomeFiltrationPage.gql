@@ -3,7 +3,7 @@
 #import "../fragments/sections/Blog.gql"
 #import "../fragments/sections/InnerFeatures.gql"
 
-query GetHomeFiltration {
+query GetHomeFiltrationPage {
   whFiltration {
     data {
       attributes {
@@ -20,7 +20,7 @@ query GetHomeFiltration {
         }
 
         inner_features_section {
-          ...InnerFeatures
+          ...InnerFeaturesSection
         }
       }
     }

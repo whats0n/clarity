@@ -193,3 +193,16 @@ export interface SharedInnerFeatures {
   title: string
   items: SharedInnerFeaturesItem[]
 }
+
+export interface SharedTipsItem {
+  id: string
+  icon: string
+  title: string
+  description: string
+}
+
+export interface SharedTips {
+  title: string
+  button?: UiButtonLink
+  items: SharedTipsItem[]
+}

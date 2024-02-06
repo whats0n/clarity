@@ -1,10 +1,10 @@
 #import "../fragments/sections/InnerHero.gql"
 #import "../fragments/sections/Content.gql"
 #import "../fragments/sections/Blog.gql"
-#import "../fragments/sections/InnerFeatures.gql"
+#import "../fragments/sections/Tips.gql"
 
-query GetReverseOsmosisPage {
-  reverseOsmosis {
+query GetLeakDetectionPage {
+  leakDetection {
     data {
       attributes {
         inner_hero_section {
@@ -19,8 +19,8 @@ query GetReverseOsmosisPage {
           ...BlogSection
         }
 
-        inner_features_section {
-          ...InnerFeaturesSection
+        tips_section {
+          ...TipsSection
         }
       }
     }

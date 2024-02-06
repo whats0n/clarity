@@ -9,34 +9,35 @@
               <UiIcon :name="item.icon" :class="$style.icon" />
             </div>
             <div :class="$style.subtitle">{{ item.title }}</div>
-            <p :class="$style.description">{{ item.text }}</p>
+            <p :class="$style.description">{{ item.description }}</p>
           </div>
         </div>
       </div>
+    </div>
+    <div v-if="button" :class="$style.button">
+      <UiButton
+        :arrow="button.arrow"
+        :external="button.external"
+        :ui="button.ui"
+        :size="button.size"
+        :to="button.to"
+        :text="button.text"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import type { TipsItem } from '~/types'
+import type { SharedTips } from '~/types'
 
 defineOptions({ name: 'TheTips' })
 
-defineProps<{
-  title: string
-  items: TipsItem[]
-}>()
+defineProps<SharedTips>()
 </script>
 
 <style lang="scss" module>
-.tips {
-  position: relative;
-  padding-bottom: 80px;
-  border-bottom: 1px solid #e3e7ed;
-}
-
 .inner {
-  padding-top: 100px;
+  padding-block: 100px 80px;
   border-top: 1px solid #e3e7ed;
 }
 
@@ -85,5 +86,11 @@ defineProps<{
   @include media($from: sm) {
     max-width: 346px;
   }
+}
+
+.button {
+  padding: 58px 0;
+  text-align: center;
+  border-top: 1px solid #e3e7ed;
 }
 </style>
