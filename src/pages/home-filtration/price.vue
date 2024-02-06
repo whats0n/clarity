@@ -1,90 +1,72 @@
 <template>
   <div :class="$style.page">
-    <!--<SharedPricingHero
-      :title="computedData.title"
-      :description="computedData.description"
-      :variants="computedData.pricingVariants"
+    <SharedPricingHero
+      v-if="hero"
+      :title="hero.title"
+      :description="hero.description"
+      :variants="hero.variants"
       :class="$style.hero"
-    />-->
-    <SharedBenefits :class="$style.benefits" />
-    <SharedFaq :class="$style.faq" />
+    />
+    <SharedPricingFeatures
+      v-if="pricingFeatures"
+      :label="pricingFeatures.label"
+      :title="pricingFeatures.title"
+      :items="pricingFeatures.items"
+      :class="$style.benefits"
+    />
+    <SharedFaq
+      v-if="faq"
+      :title="faq.title"
+      :items="faq.items"
+      :class="$style.faq"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
-// import type {
-//   ComponentPricingPlan,
-//   ComponentPricingPlanFeatures,
-//   ReverseOsmosisEntityResponse,
-// } from '~/graphql/types'
-// import type { PricingPlan, PricingPlanItem, PricingVariant } from '~/types'
-
-// const { data } = await useAsyncQuery<{
-//   reverseOsmosis: ReverseOsmosisEntityResponse
-// }>(GET_REVERSE_OSMOSIS)
-
-// if (!data.value) showError({ statusCode: 404 })
-
-// const computedData = computed<{
-//   title: string
-//   description: string
-//   pricingVariants: PricingVariant[]
-// }>(() => {
-//   const source =
-//     data.value.reverseOsmosis.data?.attributes?.pricing_page?.data?.attributes
-
-//   return {
-//     title: source?.Title || '',
-//     description: source?.Description || '',
-//     pricingVariants: (source?.pricing_variants?.data || []).map<PricingVariant>(
-//       (variant) => {
-//         return {
-//           id: variant.id || '',
-//           title: variant.attributes?.Title || '',
-//           description: variant.attributes?.Description || '',
-//           icon: (variant.attributes?.icon || '').replace('_', '-'),
-//           plans: (variant.attributes?.Plan || [])
-//             .filter<ComponentPricingPlan>(
-//               (plan): plan is ComponentPricingPlan => !!plan,
-//             )
-//             .map<PricingPlan>((plan) => {
-//               return {
-//                 id: plan.id,
-//                 name: plan.Name || '',
-//                 price: plan.Price || 0,
-//                 label: plan.installation
-//                   ? 'including installation'
-//                   : 'without installation',
-//                 button: plan.button
-//                   ? {
-//                       href: plan.button.href,
-//                       text: plan.button.text,
-//                       color: plan.button.color,
-//                       external: plan.button.external,
-//                     }
-//                   : undefined,
-//                 list: (plan?.Features || [])
-//                   .filter<ComponentPricingPlanFeatures>(
-//                     (feature): feature is ComponentPricingPlanFeatures =>
-//                       !!feature,
-//                   )
-//                   .map<PricingPlanItem>((feature) => {
-//                     return {
-//                       id: feature?.id || '',
-//                       text: feature?.Title || '',
-//                     }
-//                   }),
-//               }
-//             }),
-//         }
-//       },
-//     ),
-//   }
-// })
+import GET_HOME_FILTRATION_PRICE_PAGE from '~/graphql/queries/GetHomeFiltrationPricePage.gql'
+import type { Query } from '~/graphql/types'
+import type {
+  SharedFaq,
+  SharedPricingFeatures,
+  SharedPricingHero,
+} from '~/types'
 
 definePageMeta({
-  title: 'Pricing',
+  title: 'Whole Home Filtration Price',
 })
+
+const { data, error } = await useAsyncQuery<Pick<Query, 'whFiltrationPrice'>>(
+  GET_HOME_FILTRATION_PRICE_PAGE,
+)
+
+console.log(data.value, error.value)
+
+if (!data.value || error.value) showError({ statusCode: 404 })
+
+const heroAdapter = usePricingHeroAdapter()
+const hero = computed<SharedPricingHero | null>(() =>
+  heroAdapter(
+    data.value.whFiltrationPrice?.data?.attributes?.pricing_page_template?.data
+      ?.attributes?.pricing_hero_section?.data?.attributes,
+  ),
+)
+
+const pricingFeaturesAdapter = usePricingFeaturesAdapter()
+const pricingFeatures = computed<SharedPricingFeatures | null>(() =>
+  pricingFeaturesAdapter(
+    data.value.whFiltrationPrice?.data?.attributes?.pricing_page_template?.data
+      ?.attributes?.pricing_features_section?.data?.attributes,
+  ),
+)
+
+const faqAdapter = useFaqAdapter()
+const faq = computed<SharedFaq | null>(() =>
+  faqAdapter(
+    data.value.whFiltrationPrice?.data?.attributes?.pricing_page_template?.data
+      ?.attributes?.faq_section?.data?.attributes,
+  ),
+)
 </script>
 
 <style lang="scss" module>

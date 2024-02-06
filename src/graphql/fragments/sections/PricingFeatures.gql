@@ -1,0 +1,17 @@
+#import "../ui/Icon.gql"
+
+fragment PricingFeaturesSection on PricingFeaturesSectionEntityResponse {
+  data {
+    attributes {
+      label
+      title
+      items {
+        title
+        description
+        icon {
+          ...UiIcon
+        }
+      }
+    }
+  }
+}

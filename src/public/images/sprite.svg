@@ -101,7 +101,7 @@
       </g>
     </symbol>
 
-    <symbol id="pricing-ro" viewBox="0 0 48 48">
+    <symbol id="pricing_ro" viewBox="0 0 48 48">
       <g fill-rule="evenodd">
         <rect stroke="currentColor" fill="currentColor" x="5.5" y="13.2219608" width="38" height="7.31595779" rx="1.2"></rect>
         <rect fill="#FFFFFF" stroke="currentColor" opacity="0.3" stroke-width="3" x="10.7325581" y="6.5" width="27.8372093" height="4.42496231" rx="2.21248116"></rect>
@@ -114,7 +114,7 @@
       </g>
     </symbol>
 
-    <symbol id="pricing-non-ro" viewBox="0 0 48 48">
+    <symbol id="pricing_non_ro" viewBox="0 0 48 48">
       <g fill-rule="evenodd">
         <rect fill="currentColor" x="4" y="9" width="39" height="8.31595779" rx="1.2"></rect>
         <path fill="currentColor" opacity="0.3" d="M8.24707031,17.7675463 L21.2470703,17.7675463 L19.8350956,19.7595245 L19.8350956,38.0780392 C19.8350956,38.7407809 19.2978373,39.2780392 18.6350956,39.2780392 L10.7186342,39.2780392 C10.0558925,39.2780392 9.51863416,38.7407809 9.51863416,38.0780392 L9.51863416,19.7595245 L9.51863416,19.7595245 L8.24707031,17.7675463 Z"></path>

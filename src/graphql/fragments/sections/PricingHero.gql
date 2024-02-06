@@ -1,0 +1,35 @@
+#import "../ui/Icon.gql"
+#import "../ui/ListItem.gql"
+
+fragment PricingHeroSection on PricingHeroSectionEntityResponse {
+  data {
+    attributes {
+      title
+      description
+      pricing_variant_sections {
+        data {
+          id
+          attributes {
+            title
+            description
+            icon {
+              ...UiIcon
+            }
+            items {
+              id
+              name
+              price
+              installation
+              list {
+                ...UiListItem
+              }
+              get_started_color
+              get_started_external
+              get_started_href
+            }
+          }
+        }
+      }
+    }
+  }
+}

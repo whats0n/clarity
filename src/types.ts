@@ -38,35 +38,6 @@ export interface InnerHeroButton {
   href: string
 }
 
-export type PricingPlanColor = 'primary' | 'secondary' | 'tertiary'
-
-export interface PricingPlanItem {
-  id: string | number
-  text: string
-}
-
-export interface PricingPlan {
-  id: string | number
-  name: string
-  price: number
-  label: string
-  button?: {
-    href: string
-    text: string
-    color: PricingPlanColor
-    external: boolean
-  }
-  list: PricingPlanItem[]
-}
-
-export interface PricingVariant {
-  id: string | number
-  title: string
-  description: string
-  icon: string
-  plans: PricingPlan[]
-}
-
 export interface BenefitsItem {
   id: string | number
   icon: string
@@ -205,4 +176,57 @@ export interface SharedTips {
   title: string
   button?: UiButtonLink
   items: SharedTipsItem[]
+}
+
+export interface SharedFaqItem {
+  id: string
+  title: string
+  description: string
+}
+
+export interface SharedFaq {
+  title: string
+  items: SharedFaqItem[]
+}
+
+export interface SharedPricingFeaturesItem {
+  id: string
+  icon: string
+  title: string
+  description: string
+}
+
+export interface SharedPricingFeatures {
+  label: string
+  title: string
+  items: SharedPricingFeaturesItem[]
+}
+
+export type SharedPricingPlanColor = 'primary' | 'secondary' | 'tertiary'
+
+export interface SharedPricingPlan {
+  id: string
+  name: string
+  price: number
+  installation: boolean
+  button?: {
+    href: string
+    color: SharedPricingPlanColor
+    external: boolean
+  }
+  list: UiListItem[]
+}
+
+export interface SharedPricingVariant {
+  id: string
+  title: string
+  description: string
+  icon: string
+  plans: SharedPricingPlan[]
+}
+
+export interface SharedPricingHero {
+  title: string
+  description: string
+  variants: SharedPricingVariant[]
 }

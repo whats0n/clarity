@@ -1,0 +1,21 @@
+#import "../sections/Faq.gql"
+#import "../sections/PricingFeatures.gql"
+#import "../sections/PricingHero.gql"
+
+fragment PricingPageTemplate on PricingPageTemplateEntityResponse {
+  data {
+    attributes {
+      pricing_hero_section {
+        ...PricingHeroSection
+      }
+
+      pricing_features_section {
+        ...PricingFeaturesSection
+      }
+
+      faq_section {
+        ...FaqSection
+      }
+    }
+  }
+}

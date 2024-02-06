@@ -40,7 +40,11 @@
               {{ item.price }}
             </div>
             <div :class="$style.plan__label">
-              {{ item.label }}
+              {{
+                item.installation
+                  ? 'including installation'
+                  : 'not including installation'
+              }}
             </div>
             <NuxtLink
               v-if="item.button"
@@ -52,7 +56,7 @@
                 $style[`plan__button_${item.button.color}`],
               ]"
             >
-              {{ item.button.text }}
+              Get Started Now
             </NuxtLink>
           </div>
           <div :class="$style.plan__details">
@@ -84,17 +88,13 @@
 </template>
 
 <script lang="ts" setup>
-import type { PricingPlan, PricingVariant } from '~/types'
+import type { SharedPricingHero, SharedPricingPlan } from '~/types'
 
-const { variants } = defineProps<{
-  title: string
-  description: string
-  variants: PricingVariant[]
-}>()
+const { variants } = defineProps<SharedPricingHero>()
 
-const selectedVariant = ref<string | number>(variants[0].id || '')
+const selectedVariant = ref<string | number>(variants[0]?.id || '')
 
-const selectedPlans = computed<PricingPlan[]>(
+const selectedPlans = computed<SharedPricingPlan[]>(
   () =>
     variants.find((variant) => variant.id === selectedVariant.value)?.plans ||
     [],

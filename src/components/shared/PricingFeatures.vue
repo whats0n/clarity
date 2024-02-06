@@ -2,9 +2,9 @@
   <div :class="$style.benefits">
     <div :class="['container', $style.container]">
       <div :class="$style.header">
-        <div class="badge badge_success-light">Whole Home Benefits</div>
+        <div class="badge badge_success-light">{{ label }}</div>
         <h2 class="title-md">
-          See what else happens when you filter your homes water
+          {{ title }}
         </h2>
       </div>
       <div :class="$style.items">
@@ -14,7 +14,7 @@
           </div>
           <div :class="$style.content">
             <h3 :class="$style.subtitle">{{ item.title }}</h3>
-            <p :class="['text', $style.text]">{{ item.text }}</p>
+            <p :class="['text', $style.text]">{{ item.description }}</p>
           </div>
         </div>
       </div>
@@ -23,36 +23,11 @@
 </template>
 
 <script lang="ts" setup>
-import type { BenefitsItem } from '~/types'
+import type { SharedPricingFeatures } from '~/types'
 
 defineOptions({ name: 'TheBenefits' })
 
-const items: BenefitsItem[] = [
-  {
-    id: 1,
-    icon: 'washer',
-    title: 'Prolong Appliance Life',
-    text: 'This product also protects your water-related appliances and improves lifespan',
-  },
-  {
-    id: 2,
-    icon: 'toilet',
-    title: 'Plumbing Health',
-    text: 'Say goodbye to corroded and blocked pipes caused by contaminated water',
-  },
-  {
-    id: 3,
-    icon: 'bath',
-    title: 'Enhanced Showers & Bath',
-    text: 'Enjoy improved showers & Baths with smooth, cleaner water at all locations',
-  },
-  {
-    id: 4,
-    icon: 'water_mixer',
-    title: 'Improved RO System',
-    text: 'A RO drinking system will function greater and last longer with less filter changes',
-  },
-]
+defineProps<SharedPricingFeatures>()
 </script>
 
 <style lang="scss" module>

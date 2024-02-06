@@ -1,0 +1,12 @@
+fragment FaqSection on FaqSectionEntityResponse {
+  data {
+    attributes {
+      title
+      items {
+        id
+        title
+        description
+      }
+    }
+  }
+}

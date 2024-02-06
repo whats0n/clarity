@@ -1,0 +1,13 @@
+#import "../fragments/templates/PricingPage.gql"
+
+query GetReverseOsmosisPricePage {
+  reverseOsmosisPrice {
+    data {
+      attributes {
+        pricing_page_template {
+          ...PricingPageTemplate
+        }
+      }
+    }
+  }
+}
