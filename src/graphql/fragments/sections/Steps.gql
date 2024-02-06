@@ -1,0 +1,18 @@
+#import "../ui/Image.gql"
+
+fragment StepsSection on StepsSectionEntityResponse {
+  data {
+    attributes {
+      title
+      description
+      items {
+        id
+        title
+        description
+        image {
+          ...UiImage
+        }
+      }
+    }
+  }
+}

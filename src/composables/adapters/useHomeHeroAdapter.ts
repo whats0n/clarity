@@ -1,4 +1,4 @@
-import type { ComponentUiButton, HomeHeroSection, Maybe } from '~/graphql/types'
+import type { HomeHeroSection, Maybe } from '~/graphql/types'
 import type { SharedHomeHero } from '~/types'
 
 export const useHomeHeroAdapter = () => {
@@ -6,17 +6,22 @@ export const useHomeHeroAdapter = () => {
   const buttonAdapter = useButtonAdapter()
   const listAdapter = useListAdapter()
 
-  return (source?: Maybe<HomeHeroSection>): SharedHomeHero => {
-    return {
-      title: source?.title || '',
-      image: imageSrc(source?.image),
-      list: listAdapter(source?.list),
-      buttons: (source?.buttons || [])
-        .filter((button): button is ComponentUiButton => !!button)
-        .map((button) => ({
-          id: button.id,
-          ...buttonAdapter(button),
-        })),
-    }
+  return (source?: Maybe<HomeHeroSection>): SharedHomeHero | null => {
+    return source
+      ? {
+          title: source.title || '',
+          image: imageSrc(source.image),
+          list: listAdapter(source.list),
+          buttons: (source.buttons || []).reduce<SharedHomeHero['buttons']>(
+            (result, button) => {
+              if (button)
+                result.push({ id: button.id, ...buttonAdapter(button) })
+
+              return result
+            },
+            [],
+          ),
+        }
+      : null
   }
 }

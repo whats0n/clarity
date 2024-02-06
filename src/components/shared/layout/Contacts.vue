@@ -46,7 +46,9 @@ const source = computed<Maybe<ContactsSection> | undefined>(
 )
 
 const phoneLink = computed<string>(() =>
-  source.value?.phone_raw ? `tel:${source.value?.phone_raw}` : '',
+  source.value?.phone
+    ? `tel:${source.value.phone.replace(/(?<!^)\+|[^\d+]+/g, '')}`
+    : '',
 )
 
 const emailLink = computed<string>(() =>

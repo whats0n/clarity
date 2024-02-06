@@ -10,7 +10,7 @@
         :button="hero.button"
         :class="$style.hero"
       />
-      <SharedAbout
+      <SharedContent
         :label="about.label"
         :title="about.title"
         :items="about.items"
@@ -22,7 +22,7 @@
       :items="featuresItems"
       :class="$style.features"
     />
-    <SharedExplore
+    <SharedBlog
       :label="explore.label"
       :title="explore.title"
       :description="explore.description"
@@ -36,8 +36,8 @@
 import type {
   SharedInnerHero,
   FeaturesItem,
-  SharedExplore,
-  SharedAbout,
+  SharedBlog,
+  SharedContent,
 } from '~/types'
 import GET_REVERSE_OSMOSIS_PAGE from '~/graphql/queries/getReverseOsmosisPage.gql'
 import type { ReverseOsmosisPageEntityResponse } from '~/graphql/types'
@@ -61,15 +61,15 @@ const hero = computed<SharedInnerHero>(() => {
 })
 
 const aboutAdapter = useAboutAdapter()
-const about = computed<SharedAbout>(() => {
+const about = computed<SharedContent>(() => {
   return aboutAdapter(
     data.value?.reverseOsmosisPage?.data?.attributes?.inner_page?.data
       ?.attributes?.content_section?.data?.attributes,
   )
 })
 
-const exploreAdapter = useExploreAdapter()
-const explore = computed<SharedExplore>(() => {
+const exploreAdapter = useBlogAdapter()
+const explore = computed<SharedBlog>(() => {
   return exploreAdapter(
     data.value.reverseOsmosisPage.data?.attributes?.explore_section?.data
       ?.attributes,

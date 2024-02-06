@@ -14,10 +14,8 @@
             <h3 :class="['title-sm', $style.subtitle]">
               {{ item.title }}
             </h3>
-            <div v-if="item.text" :class="$style.description">
-              <p v-for="node in item.text" :key="node.text" class="text">
-                {{ node.text }}
-              </p>
+            <div v-if="item.text" :class="['text', $style.description]">
+              {{ item.text }}
             </div>
             <ul v-if="item.list?.length" :class="$style.list">
               <li
@@ -47,11 +45,11 @@
 </template>
 
 <script lang="ts" setup>
-import type { SharedAbout } from '~/types'
+import type { SharedContent } from '~/types'
 
 defineOptions({ name: 'TheAbout' })
 
-defineProps<SharedAbout>()
+defineProps<SharedContent>()
 </script>
 
 <style lang="scss" module>

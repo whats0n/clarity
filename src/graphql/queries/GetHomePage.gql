@@ -1,5 +1,7 @@
 #import "../fragments/sections/Services.gql"
 #import "../fragments/sections/HomeHero.gql"
+#import "../fragments/sections/Blog.gql"
+#import "../fragments/sections/Steps.gql"
 
 query GetHomePage {
   homePage {
@@ -12,6 +14,14 @@ query GetHomePage {
 
         services_section {
           ...ServicesSection
+        }
+
+        blog_section {
+          ...BlogSection
+        }
+
+        steps_section {
+          ...StepsSection
         }
       }
     }

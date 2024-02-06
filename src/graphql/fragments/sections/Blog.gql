@@ -1,0 +1,18 @@
+#import "../ui/Image.gql"
+
+fragment BlogSection on BlogSectionEntityResponse {
+  data {
+    attributes {
+      label
+      title
+      description
+      items {
+        id
+        title
+        image {
+          ...UiImage
+        }
+      }
+    }
+  }
+}

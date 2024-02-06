@@ -117,17 +117,17 @@ export interface SharedServices {
   items: SharedServicesItem[]
 }
 
-export interface SharedExploreItem {
+export interface SharedBlogItem {
   id: string
   title: string
   image: string
 }
 
-export interface SharedExplore {
+export interface SharedBlog {
   label: string
   title: string
   description: string
-  items: SharedExploreItem[]
+  items: SharedBlogItem[]
 }
 
 export interface SharedStepsItem {
@@ -159,24 +159,19 @@ export interface SharedInnerHero {
   items: SharedInnerHeroItem[]
 }
 
-export interface SharedAboutText {
-  id: string
-  text: string
-}
-
-export interface SharedAboutItem {
+export interface SharedContentItem {
   id: string
   title: string
   image: string
-  text: SharedAboutText[]
+  text: string
   button?: UiButtonLink
   list?: UiListItem[]
 }
 
-export interface SharedAbout {
+export interface SharedContent {
   label: string
   title: string
-  items: SharedAboutItem[]
+  items: SharedContentItem[]
 }
 
 export interface TipsItem {

@@ -13,7 +13,7 @@
         }"
         :class="$style.hero"
       />
-      <SharedAbout
+      <SharedContent
         label="About whole home filtration"
         title="Why should I filter my homes water?"
         :items="aboutItems"
@@ -25,7 +25,7 @@
       :items="featuresItems"
       :class="$style.features"
     />
-    <SharedExplore :class="$style.explore" />
+    <SharedBlog :class="$style.explore" />
   </div>
 </template>
 

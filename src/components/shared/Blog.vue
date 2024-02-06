@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.explore">
+  <div :class="$style.blog">
     <div class="container">
       <div :class="$style.header">
         <p class="label">{{ label }}</p>
@@ -27,15 +27,15 @@
 </template>
 
 <script lang="ts" setup>
-import type { SharedExplore } from '~/types'
+import type { SharedBlog } from '~/types'
 
-defineOptions({ name: 'TheExplore' })
+defineOptions({ name: 'TheBlog' })
 
-defineProps<SharedExplore>()
+defineProps<SharedBlog>()
 </script>
 
 <style lang="scss" module>
-.explore {
+.blog {
   position: relative;
 }
 

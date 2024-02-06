@@ -1,6 +1,7 @@
 <template>
   <div :class="$style.page">
     <SharedHomeHero
+      v-if="hero"
       :image="hero.image"
       :title="hero.title"
       :list="hero.list"
@@ -8,6 +9,7 @@
       :class="$style.hero"
     />
     <SharedServices
+      v-if="services"
       :label="services.label"
       :title="services.title"
       :description="services.description"
@@ -15,20 +17,21 @@
       :items="services.items"
       :class="$style.services"
     />
-    <!--<SharedExplore
-      :label="explore.label"
-      :title="explore.title"
-      :description="explore.description"
-      :items="explore.items"
-      :class="$style.explore"
+    <SharedBlog
+      v-if="blog"
+      :label="blog.label"
+      :title="blog.title"
+      :description="blog.description"
+      :items="blog.items"
+      :class="$style.blog"
     />
-    <div :class="$style.steps">
+    <div v-if="steps" :class="$style.steps">
       <SharedSteps
         :title="steps.title"
         :description="steps.description"
         :items="steps.items"
       />
-    </div>-->
+    </div>
   </div>
 </template>
 
@@ -36,10 +39,10 @@
 import GET_HOME_PAGE from '~/graphql/queries/GetHomePage.gql'
 import type { Query } from '~/graphql/types'
 import type {
-  // SharedExplore,
+  SharedBlog,
   SharedHomeHero,
   SharedServices,
-  // SharedSteps,
+  SharedSteps,
 } from '~/types'
 
 definePageMeta({
@@ -54,32 +57,32 @@ console.log(data.value)
 if (!data.value || error.value) showError({ statusCode: 404 })
 
 const homeHeroAdapter = useHomeHeroAdapter()
-const hero = computed<SharedHomeHero>(() => {
+const hero = computed<SharedHomeHero | null>(() => {
   return homeHeroAdapter(
     data.value.homePage?.data?.attributes?.home_hero_section?.data?.attributes,
   )
 })
 
 const servicesAdapter = useServicesAdapter()
-const services = computed<SharedServices>(() => {
+const services = computed<SharedServices | null>(() => {
   return servicesAdapter(
     data.value.homePage?.data?.attributes?.services_section?.data?.attributes,
   )
 })
 
-// const exploreAdapter = useExploreAdapter()
-// const explore = computed<SharedExplore>(() => {
-//   return exploreAdapter(
-//     data.value.homePage.data?.attributes?.explore_section?.data?.attributes,
-//   )
-// })
+const blogAdapter = useBlogAdapter()
+const blog = computed<SharedBlog | null>(() => {
+  return blogAdapter(
+    data.value.homePage?.data?.attributes?.blog_section?.data?.attributes,
+  )
+})
 
-// const stepsAdapter = useStepsAdapter()
-// const steps = computed<SharedSteps>(() => {
-//   return stepsAdapter(
-//     data.value.homePage.data?.attributes?.steps_section?.data?.attributes,
-//   )
-// })
+const stepsAdapter = useStepsAdapter()
+const steps = computed<SharedSteps | null>(() => {
+  return stepsAdapter(
+    data.value.homePage?.data?.attributes?.steps_section?.data?.attributes,
+  )
+})
 </script>
 
 <style lang="scss" module>
@@ -91,7 +94,7 @@ const services = computed<SharedServices>(() => {
   margin-bottom: 144px;
 }
 
-.explore {
+.blog {
   margin-bottom: 55px;
 }
 

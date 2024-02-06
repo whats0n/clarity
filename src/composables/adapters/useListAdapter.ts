@@ -1,8 +1,8 @@
-import type { ComponentSharedListItem, Maybe } from '~/graphql/types'
+import type { ComponentUiListItem, Maybe } from '~/graphql/types'
 import type { UiListItem } from '~/types'
 
 export const useListAdapter = () => {
-  return (list?: Maybe<Maybe<ComponentSharedListItem>[]>): UiListItem[] =>
+  return (list?: Maybe<Maybe<ComponentUiListItem>[]>): UiListItem[] =>
     (list || []).filter(
       (item): item is UiListItem =>
         typeof item === 'object' &&

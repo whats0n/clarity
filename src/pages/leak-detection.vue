@@ -12,7 +12,7 @@
       }"
       :class="$style.hero"
     />
-    <SharedAbout
+    <SharedContent
       label="ABOUT LD"
       title="What is Leak Detection?"
       :items="aboutItems"
@@ -22,7 +22,7 @@
     <div :class="$style.button">
       <UiButton to="/" text="Protect my home" />
     </div>
-    <SharedExplore :class="$style.explore" />
+    <SharedBlog :class="$style.explore" />
   </div>
 </template>
 

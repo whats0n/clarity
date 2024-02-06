@@ -1,21 +1,21 @@
-import type { Maybe, StepsSection } from '~/graphql/types'
-import type { SharedSteps, SharedStepsItem } from '~/types'
+import type { BlogSection, Maybe } from '~/graphql/types'
+import type { SharedBlog, SharedBlogItem } from '~/types'
 
-export const useStepsAdapter = () => {
+export const useBlogAdapter = () => {
   const imageSrc = useImageSrc()
 
-  return (source?: Maybe<StepsSection>): SharedSteps | null =>
-    source
+  return (source?: Maybe<BlogSection>): SharedBlog | null => {
+    return source
       ? {
+          label: source.label || '',
           title: source.title || '',
           description: source.description || '',
-          items: (source.items || []).reduce<SharedStepsItem[]>(
+          items: (source.items || []).reduce<SharedBlogItem[]>(
             (result, item) => {
               if (item)
                 result.push({
                   id: item.id,
                   title: item.title,
-                  text: item.description,
                   image: imageSrc(item.image),
                 })
 
@@ -25,4 +25,5 @@ export const useStepsAdapter = () => {
           ),
         }
       : null
+  }
 }
