@@ -40,8 +40,6 @@ const { data, error } = await useAsyncQuery<Pick<Query, 'reverseOsmosisPrice'>>(
   GET_REVERSE_OSMOSIS_PRICE_PAGE,
 )
 
-console.log(data.value, error.value)
-
 if (!data.value || error.value) showError({ statusCode: 404 })
 
 const heroAdapter = usePricingHeroAdapter()

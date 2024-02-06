@@ -52,8 +52,6 @@ definePageMeta({
 const { data, error } =
   await useAsyncQuery<Pick<Query, 'homePage'>>(GET_HOME_PAGE)
 
-console.log(data.value)
-
 if (!data.value || error.value) showError({ statusCode: 404 })
 
 const homeHeroAdapter = useHomeHeroAdapter()
