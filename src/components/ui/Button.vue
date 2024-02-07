@@ -23,7 +23,7 @@
 import type { NuxtLinkProps } from 'nuxt/app'
 import type { ButtonHTMLAttributes } from 'vue'
 
-defineOptions({ name: 'BaseButton' })
+defineOptions({ name: 'UiButton' })
 
 const props = withDefaults(
   defineProps<{

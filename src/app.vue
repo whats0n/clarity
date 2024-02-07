@@ -2,7 +2,10 @@
   <div>
     <SharedLayoutHeader />
     <NuxtPage :class="$style.page" />
-    <SharedLayoutContacts :class="$style.contacts" />
+    <SharedLayoutContacts
+      v-if="!$route.meta.disableContacts"
+      :class="$style.contacts"
+    />
     <SharedLayoutFooter />
   </div>
 </template>
