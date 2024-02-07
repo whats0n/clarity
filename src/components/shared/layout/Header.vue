@@ -19,12 +19,8 @@
         <div v-if="!bp.md" :class="$style.menu">
           <nav :class="$style.nav">
             <NuxtLink :to="links.home" :class="$style.link"> Home </NuxtLink>
-            <div ref="solutionsRef">
-              <button
-                type="button"
-                :class="$style.link"
-                @click="openedSolutions = !openedSolutions"
-              >
+            <div :class="$style.solutionsWrap">
+              <button type="button" :class="$style.link">
                 Solutions
                 <UiFaIcon
                   :icon="['fas', 'angle-down']"
@@ -32,8 +28,8 @@
                 />
               </button>
 
-              <Transition name="fade">
-                <div v-if="openedSolutions" :class="$style.solutions">
+              <div :class="$style.solutions">
+                <div :class="$style.solutions__inner">
                   <SharedLayoutSolutionsItem
                     v-for="item in solutions"
                     :key="item.id"
@@ -42,9 +38,10 @@
                     :image="item.image"
                     :title="item.title"
                     :text="item.text"
+                    :soon="item.soon"
                   />
                 </div>
-              </Transition>
+              </div>
             </div>
             <NuxtLink to="/" :class="$style.link"> Water Quiz </NuxtLink>
             <NuxtLink :to="links.pricing" :class="$style.link">
@@ -82,6 +79,7 @@
                     :image="item.image"
                     :title="item.title"
                     :text="item.text"
+                    :soon="item.soon"
                   />
                 </div>
               </UiCollapsable>
@@ -110,8 +108,6 @@ const links = useLinks()
 const opened = ref<boolean>(false)
 const openedSolutionsMobile = ref<boolean>(false)
 
-const { opened: openedSolutions, containerRef: solutionsRef } = useDropdown()
-
 const solutions = [
   {
     id: 1,
@@ -133,6 +129,7 @@ const solutions = [
     image: '/images/solutions-03.png',
     title: 'Structured Water',
     text: 'Ultimate water for the forward thinkers',
+    soon: true,
   },
   {
     id: 4,
@@ -150,7 +147,6 @@ watch(
   () => route.name,
   (prev, next) => {
     if (prev !== next) {
-      openedSolutions.value = false
       openedSolutionsMobile.value = false
       opened.value = false
     }
@@ -245,24 +241,42 @@ watch(
   }
 }
 
+.solutionsWrap {
+  @include hover {
+    .solutions {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
 .solutions {
   position: absolute;
-  top: calc(100% + 10px);
+  top: calc(100% - 14px);
   right: 30px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
   width: 840px;
-  overflow: hidden;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 16px 48px 0 #69bbd7;
+  padding-top: 30px;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity 0.3s,
+    visibility 0.3s;
 
-  > * {
-    padding: 30px 24px;
-    border-bottom: 1px solid #e5eaf4;
+  &__inner {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    overflow: hidden;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 16px 48px 0 #69bbd7;
 
-    &:nth-child(odd) {
-      border-right: 1px solid #e5eaf4;
+    > * {
+      padding: 36px;
+      border-bottom: 1px solid #e5eaf4;
+
+      &:nth-child(odd) {
+        border-right: 1px solid #e5eaf4;
+      }
     }
   }
 }

@@ -14,7 +14,7 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ['@nuxtjs/apollo'],
+  modules: ['@nuxtjs/apollo', '@vueuse/nuxt'],
 
   apollo: {
     autoImports: true,

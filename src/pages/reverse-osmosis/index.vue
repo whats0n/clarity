@@ -1,16 +1,16 @@
 <template>
   <div :class="$style.page">
+    <SharedInnerHero
+      v-if="hero"
+      :title="hero.title"
+      :description="hero.description"
+      :primary-image="hero.primaryImage"
+      :secondary-image="hero.secondaryImage"
+      :items="hero.items"
+      :button="hero.button"
+      :class="$style.hero"
+    />
     <div :class="$style.light">
-      <SharedInnerHero
-        v-if="hero"
-        :title="hero.title"
-        :description="hero.description"
-        :primary-image="hero.primaryImage"
-        :secondary-image="hero.secondaryImage"
-        :items="hero.items"
-        :button="hero.button"
-        :class="$style.hero"
-      />
       <SharedContent
         v-if="content"
         :label="content.label"
@@ -91,6 +91,11 @@ const innerFeatures = computed<SharedInnerFeatures | null>(() => {
 <style lang="scss" module>
 .light {
   background: #fff;
+
+  @include media($from: md) {
+    margin-top: -170px;
+    padding-top: 170px;
+  }
 }
 
 .hero {

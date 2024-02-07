@@ -74,6 +74,7 @@ defineProps<
 .content {
   @include media($from: md) {
     padding-top: 43px;
+    padding-bottom: 70px;
     padding-left: calc(95 / 650 * 100%);
   }
 
@@ -142,43 +143,39 @@ defineProps<
   }
 }
 
+.figures {
+  @include media($from: md) {
+    margin-bottom: -170px;
+  }
+}
+
 .hero {
   position: relative;
   overflow: hidden;
+  --background-color: rgb(0 184 217 / 0.1);
+
+  @include media($from: md) {
+    padding-bottom: 170px;
+  }
+
+  @include media($to: md) {
+    margin-bottom: 60px;
+    padding-bottom: 60px;
+  }
+
+  &:before {
+    position: absolute;
+    background: var(--background-color);
+    content: '';
+    inset: 0;
+
+    @include media($from: md) {
+      bottom: 170px;
+    }
+  }
 
   &_yellow {
-    @include media($from: md) {
-      padding-bottom: 170px;
-
-      &:before {
-        position: absolute;
-        z-index: -1;
-        background: rgb(217, 168, 0, 0.1);
-        content: '';
-        inset: 0 0 170px;
-      }
-    }
-
-    @include media($to: md) {
-      margin-bottom: 60px;
-      background: rgb(217, 168, 0, 0.1);
-
-      .inner {
-        padding-bottom: 60px;
-      }
-    }
-
-    .figures {
-      @include media($from: md) {
-        margin-bottom: -170px;
-      }
-    }
-
-    .content {
-      @include media($from: md) {
-        padding-bottom: 70px;
-      }
-    }
+    --background-color: rgb(217, 168, 0, 0.1);
 
     .item__icon {
       color: #3f598a;
