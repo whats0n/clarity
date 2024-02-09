@@ -6,7 +6,6 @@
 query GetHomePage {
   homePage {
     data {
-      id
       attributes {
         home_hero_section {
           ...HomeHeroSection

@@ -1,12 +1,9 @@
 <template>
   <div>
-    <SharedLayoutHeader />
-    <NuxtPage :class="$style.page" />
-    <SharedLayoutContacts
-      v-if="!$route.meta.disableContacts"
-      :class="$style.contacts"
-    />
-    <SharedLayoutFooter />
+    <NuxtLayout>
+      <NuxtPage :class="$style.page" />
+    </NuxtLayout>
+    <SharedLayoutToast />
   </div>
 </template>
 
@@ -33,9 +30,5 @@ hook('vue:error', (e) => {
   > *:first-child {
     padding-top: 140px;
   }
-}
-
-.contacts {
-  margin-bottom: -55px;
 }
 </style>

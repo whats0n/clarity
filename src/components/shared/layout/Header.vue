@@ -43,14 +43,24 @@
                 </div>
               </div>
             </div>
-            <NuxtLink to="/" :class="$style.link"> Water Quiz </NuxtLink>
-            <NuxtLink :to="links.pricing" :class="$style.link">
+            <NuxtLink :to="links.quiz" :class="$style.link">
+              Water Quiz
+            </NuxtLink>
+            <NuxtLink :to="links.reverseOsmosisPrice" :class="$style.link">
               Pricing
             </NuxtLink>
-            <NuxtLink to="/" :class="$style.link"> Contact </NuxtLink>
+            <NuxtLink :to="links.contacts" :class="$style.link">
+              Contact
+            </NuxtLink>
           </nav>
 
-          <UiButton size="md" text="Get Started" :class="$style.button" />
+          <UiButton
+            external
+            size="md"
+            text="Get Started"
+            :to="links.quiz"
+            :class="$style.button"
+          />
         </div>
 
         <SharedLayoutMobileMenu v-else v-model="opened">
@@ -85,13 +95,21 @@
               </UiCollapsable>
             </div>
             <NuxtLink to="/" :class="$style.link"> Water Quiz </NuxtLink>
-            <NuxtLink :to="links.pricing" :class="$style.link">
+            <NuxtLink :to="links.reverseOsmosisPrice" :class="$style.link">
               Pricing
             </NuxtLink>
-            <NuxtLink to="/" :class="$style.link"> Contact </NuxtLink>
+            <NuxtLink :to="links.contacts" :class="$style.link">
+              Contact
+            </NuxtLink>
           </template>
           <template #footer>
-            <UiButton size="md" text="Get Started" :class="$style.button" />
+            <UiButton
+              external
+              size="md"
+              text="Get Started"
+              :to="links.quiz"
+              :class="$style.button"
+            />
           </template>
         </SharedLayoutMobileMenu>
       </ClientOnly>
@@ -125,7 +143,7 @@ const solutions = [
   },
   {
     id: 3,
-    href: links.home,
+    href: '#',
     image: '/images/solutions-03.png',
     title: 'Structured Water',
     text: 'Ultimate water for the forward thinkers',
@@ -133,7 +151,7 @@ const solutions = [
   },
   {
     id: 4,
-    href: links.home,
+    href: links.leakDetection,
     wifi: true,
     image: '/images/solutions-04.png',
     title: 'Emergency Monitoring',

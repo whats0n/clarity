@@ -14,7 +14,16 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ['@nuxtjs/apollo', '@vueuse/nuxt'],
+  modules: [
+    '@nuxtjs/apollo',
+    '@vueuse/nuxt',
+    [
+      '@vee-validate/nuxt',
+      {
+        autoImports: true,
+      },
+    ],
+  ],
 
   apollo: {
     autoImports: true,

@@ -1,11 +1,16 @@
 <template>
-  <textarea v-model="value" :class="$style.textarea" />
+  <textarea
+    v-model="value"
+    :class="[$style.textarea, invalid && $style.textarea_invalid]"
+  />
 </template>
 
 <script lang="ts" setup>
 defineOptions({ name: 'UiTextarea' })
 
 const value = defineModel<string>()
+
+defineProps<{ invalid?: boolean }>()
 </script>
 
 <style lang="scss" module>
@@ -38,6 +43,10 @@ const value = defineModel<string>()
 
   @include hover {
     outline-color: var(--accent-color);
+  }
+
+  &_invalid {
+    border-color: var(--danger-color);
   }
 }
 </style>

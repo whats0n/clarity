@@ -98,6 +98,7 @@ export type BooleanFilterInput = {
 
 export type ComponentItemBlog = {
   __typename?: 'ComponentItemBlog';
+  href: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   image: UploadFileEntityResponse;
   title: Scalars['String']['output'];
@@ -105,15 +106,35 @@ export type ComponentItemBlog = {
 
 export type ComponentItemBlogFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ComponentItemBlogFiltersInput>>>;
+  href?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<ComponentItemBlogFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ComponentItemBlogFiltersInput>>>;
   title?: InputMaybe<StringFilterInput>;
 };
 
 export type ComponentItemBlogInput = {
+  href?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['ID']['input']>;
   image?: InputMaybe<Scalars['ID']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ComponentItemContactsInterest = {
+  __typename?: 'ComponentItemContactsInterest';
+  id: Scalars['ID']['output'];
+  text: Scalars['String']['output'];
+};
+
+export type ComponentItemContactsInterestFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ComponentItemContactsInterestFiltersInput>>>;
+  not?: InputMaybe<ComponentItemContactsInterestFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ComponentItemContactsInterestFiltersInput>>>;
+  text?: InputMaybe<StringFilterInput>;
+};
+
+export type ComponentItemContactsInterestInput = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ComponentItemContent = {
@@ -483,6 +504,92 @@ export type ComponentUiTipsIconInput = {
   name?: InputMaybe<Enum_Componentuitipsicon_Name>;
 };
 
+export type Contact = {
+  __typename?: 'Contact';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  email: Scalars['String']['output'];
+  interest?: Maybe<Scalars['String']['output']>;
+  message: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  phone?: Maybe<Scalars['String']['output']>;
+  status: Enum_Contact_Status;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type ContactEntity = {
+  __typename?: 'ContactEntity';
+  attributes?: Maybe<Contact>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type ContactEntityResponse = {
+  __typename?: 'ContactEntityResponse';
+  data?: Maybe<ContactEntity>;
+};
+
+export type ContactEntityResponseCollection = {
+  __typename?: 'ContactEntityResponseCollection';
+  data: Array<ContactEntity>;
+  meta: ResponseCollectionMeta;
+};
+
+export type ContactFiltersInput = {
+  and?: InputMaybe<Array<InputMaybe<ContactFiltersInput>>>;
+  createdAt?: InputMaybe<DateTimeFilterInput>;
+  email?: InputMaybe<StringFilterInput>;
+  id?: InputMaybe<IdFilterInput>;
+  interest?: InputMaybe<StringFilterInput>;
+  message?: InputMaybe<StringFilterInput>;
+  name?: InputMaybe<StringFilterInput>;
+  not?: InputMaybe<ContactFiltersInput>;
+  or?: InputMaybe<Array<InputMaybe<ContactFiltersInput>>>;
+  phone?: InputMaybe<StringFilterInput>;
+  status?: InputMaybe<StringFilterInput>;
+  updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type ContactInput = {
+  email?: InputMaybe<Scalars['String']['input']>;
+  interest?: InputMaybe<Scalars['String']['input']>;
+  message?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  phone?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<Enum_Contact_Status>;
+};
+
+export type ContactsPage = {
+  __typename?: 'ContactsPage';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  footnote?: Maybe<Scalars['String']['output']>;
+  interest: Array<Maybe<ComponentItemContactsInterest>>;
+  title: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type ContactsPageInterestArgs = {
+  filters?: InputMaybe<ComponentItemContactsInterestFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type ContactsPageEntity = {
+  __typename?: 'ContactsPageEntity';
+  attributes?: Maybe<ContactsPage>;
+  id?: Maybe<Scalars['ID']['output']>;
+};
+
+export type ContactsPageEntityResponse = {
+  __typename?: 'ContactsPageEntityResponse';
+  data?: Maybe<ContactsPageEntity>;
+};
+
+export type ContactsPageInput = {
+  footnote?: InputMaybe<Scalars['String']['input']>;
+  interest?: InputMaybe<Array<InputMaybe<ComponentItemContactsInterestInput>>>;
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type ContactsSection = {
   __typename?: 'ContactsSection';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
@@ -727,13 +834,11 @@ export enum Enum_Componentuiicon_Name {
   Key = 'key',
   Mail = 'mail',
   Marker = 'marker',
+  PricingNonRo = 'pricing_non_ro',
+  PricingRo = 'pricing_ro',
   Protection = 'protection',
   Rain = 'rain',
   ShieldProtected = 'shield_protected',
-  TipsAlerts = 'tips_alerts',
-  TipsControls = 'tips_controls',
-  TipsDetects = 'tips_detects',
-  TipsSmart = 'tips_smart',
   Toilet = 'toilet',
   Washer = 'washer',
   WaterMixer = 'water_mixer',
@@ -746,6 +851,11 @@ export enum Enum_Componentuitipsicon_Name {
   TipsControls = 'tips_controls',
   TipsDetects = 'tips_detects',
   TipsSmart = 'tips_smart'
+}
+
+export enum Enum_Contact_Status {
+  Completed = 'completed',
+  New = 'new'
 }
 
 export enum Enum_Contentreleasesreleaseaction_Type {
@@ -842,7 +952,7 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']['input']>;
 };
 
-export type GenericMorph = BlogSection | ComponentItemBlog | ComponentItemContent | ComponentItemFaq | ComponentItemInnerFeatures | ComponentItemInnerHero | ComponentItemPricingFeatures | ComponentItemPricingPlan | ComponentItemServices | ComponentItemSteps | ComponentItemTips | ComponentSharedMedia | ComponentSharedQuote | ComponentSharedRichText | ComponentSharedSeo | ComponentUiButton | ComponentUiIcon | ComponentUiListItem | ComponentUiTipsIcon | ContactsSection | ContentReleasesRelease | ContentReleasesReleaseAction | ContentSection | FaqSection | Global | HomeHeroSection | HomePage | I18NLocale | InnerFeaturesSection | InnerHeroSection | LeakDetection | PricingFeaturesSection | PricingHeroSection | PricingPageTemplate | PricingVariantSection | ReverseOsmosis | ReverseOsmosisPrice | ServicesSection | StepsSection | TipsSection | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | WhFiltration | WhFiltrationPrice;
+export type GenericMorph = BlogSection | ComponentItemBlog | ComponentItemContactsInterest | ComponentItemContent | ComponentItemFaq | ComponentItemInnerFeatures | ComponentItemInnerHero | ComponentItemPricingFeatures | ComponentItemPricingPlan | ComponentItemServices | ComponentItemSteps | ComponentItemTips | ComponentSharedMedia | ComponentSharedQuote | ComponentSharedRichText | ComponentSharedSeo | ComponentUiButton | ComponentUiIcon | ComponentUiListItem | ComponentUiTipsIcon | Contact | ContactsPage | ContactsSection | ContentReleasesRelease | ContentReleasesReleaseAction | ContentSection | FaqSection | Global | HomeHeroSection | HomePage | I18NLocale | InnerFeaturesSection | InnerHeroSection | LeakDetection | PricingFeaturesSection | PricingHeroSection | PricingPageTemplate | PricingVariantSection | ReverseOsmosis | ReverseOsmosisPrice | ServicesSection | StepsSection | TipsSection | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | WhFiltration | WhFiltrationPrice;
 
 export type Global = {
   __typename?: 'Global';
@@ -1213,6 +1323,7 @@ export type Mutation = {
   /** Change user password. Confirm with the current password. */
   changePassword?: Maybe<UsersPermissionsLoginPayload>;
   createBlogSection?: Maybe<BlogSectionEntityResponse>;
+  createContact?: Maybe<ContactEntityResponse>;
   createContentReleasesRelease?: Maybe<ContentReleasesReleaseEntityResponse>;
   createContentReleasesReleaseAction?: Maybe<ContentReleasesReleaseActionEntityResponse>;
   createContentSection?: Maybe<ContentSectionEntityResponse>;
@@ -1234,6 +1345,8 @@ export type Mutation = {
   /** Create a new user */
   createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
   deleteBlogSection?: Maybe<BlogSectionEntityResponse>;
+  deleteContact?: Maybe<ContactEntityResponse>;
+  deleteContactsPage?: Maybe<ContactsPageEntityResponse>;
   deleteContactsSection?: Maybe<ContactsSectionEntityResponse>;
   deleteContentReleasesRelease?: Maybe<ContentReleasesReleaseEntityResponse>;
   deleteContentReleasesReleaseAction?: Maybe<ContentReleasesReleaseActionEntityResponse>;
@@ -1274,6 +1387,8 @@ export type Mutation = {
   /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
   resetPassword?: Maybe<UsersPermissionsLoginPayload>;
   updateBlogSection?: Maybe<BlogSectionEntityResponse>;
+  updateContact?: Maybe<ContactEntityResponse>;
+  updateContactsPage?: Maybe<ContactsPageEntityResponse>;
   updateContactsSection?: Maybe<ContactsSectionEntityResponse>;
   updateContentReleasesRelease?: Maybe<ContentReleasesReleaseEntityResponse>;
   updateContentReleasesReleaseAction?: Maybe<ContentReleasesReleaseActionEntityResponse>;
@@ -1316,6 +1431,11 @@ export type MutationChangePasswordArgs = {
 
 export type MutationCreateBlogSectionArgs = {
   data: BlogSectionInput;
+};
+
+
+export type MutationCreateContactArgs = {
+  data: ContactInput;
 };
 
 
@@ -1410,6 +1530,11 @@ export type MutationCreateUsersPermissionsUserArgs = {
 
 
 export type MutationDeleteBlogSectionArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationDeleteContactArgs = {
   id: Scalars['ID']['input'];
 };
 
@@ -1547,6 +1672,17 @@ export type MutationResetPasswordArgs = {
 export type MutationUpdateBlogSectionArgs = {
   data: BlogSectionInput;
   id: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdateContactArgs = {
+  data: ContactInput;
+  id: Scalars['ID']['input'];
+};
+
+
+export type MutationUpdateContactsPageArgs = {
+  data: ContactsPageInput;
 };
 
 
@@ -1976,6 +2112,9 @@ export type Query = {
   __typename?: 'Query';
   blogSection?: Maybe<BlogSectionEntityResponse>;
   blogSections?: Maybe<BlogSectionEntityResponseCollection>;
+  contact?: Maybe<ContactEntityResponse>;
+  contacts?: Maybe<ContactEntityResponseCollection>;
+  contactsPage?: Maybe<ContactsPageEntityResponse>;
   contactsSection?: Maybe<ContactsSectionEntityResponse>;
   contentReleasesRelease?: Maybe<ContentReleasesReleaseEntityResponse>;
   contentReleasesReleaseAction?: Maybe<ContentReleasesReleaseActionEntityResponse>;
@@ -2033,6 +2172,18 @@ export type QueryBlogSectionArgs = {
 
 export type QueryBlogSectionsArgs = {
   filters?: InputMaybe<BlogSectionFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryContactArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+};
+
+
+export type QueryContactsArgs = {
+  filters?: InputMaybe<ContactFiltersInput>;
   pagination?: InputMaybe<PaginationArg>;
   sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };

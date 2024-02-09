@@ -16,6 +16,7 @@ export const useBlogAdapter = () => {
                 result.push({
                   id: item.id,
                   title: item.title,
+                  href: item.href,
                   image: imageSrc(item.image),
                 })
 

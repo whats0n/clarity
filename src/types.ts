@@ -92,6 +92,7 @@ export interface SharedBlogItem {
   id: string
   title: string
   image: string
+  href: string
 }
 
 export interface SharedBlog {

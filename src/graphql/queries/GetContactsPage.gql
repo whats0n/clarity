@@ -1,0 +1,14 @@
+query GetContactsPage {
+  contactsPage {
+    data {
+      attributes {
+        title
+        footnote
+        interest {
+          id
+          text
+        }
+      }
+    }
+  }
+}

@@ -10,12 +10,15 @@
       $style[`button_size-${size}`],
     ]"
   >
-    {{ text }}
-    <UiFaIcon
-      v-if="arrow"
-      :icon="['fas', 'arrow-right']"
-      :class="$style.icon"
-    />
+    <span v-if="processing" :class="$style.loader" />
+    <span :class="[$style.content, processing && $style.content_invisible]">
+      {{ text }}
+      <UiFaIcon
+        v-if="arrow"
+        :icon="['fas', 'arrow-right']"
+        :class="$style.icon"
+      />
+    </span>
   </component>
 </template>
 
@@ -33,6 +36,7 @@ const props = withDefaults(
     size?: 'md' | 'lg'
     arrow?: boolean
     external?: boolean
+    processing?: boolean
     text: string
   }>(),
   {
@@ -42,6 +46,7 @@ const props = withDefaults(
     size: 'lg',
     arrow: false,
     external: false,
+    processing: false,
   },
 )
 
@@ -52,6 +57,7 @@ const component = computed(() => {
 
 <style lang="scss" module>
 .button {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -119,5 +125,27 @@ const component = computed(() => {
 .icon {
   font-weight: normal;
   font-size: calc(14 / 18 * 1em);
+}
+
+.content_invisible {
+  visibility: hidden;
+}
+
+.loader {
+  position: absolute;
+  top: calc(50% - 8px);
+  left: calc(50% - 8px);
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-left-color: transparent;
+  border-radius: 50%;
+  animation: rotate 0.5s linear infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(1turn);
+  }
 }
 </style>

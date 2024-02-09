@@ -9,6 +9,7 @@ fragment BlogSection on BlogSectionEntityResponse {
       items {
         id
         title
+        href
         image {
           ...UiImage
         }

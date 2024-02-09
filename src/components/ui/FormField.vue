@@ -4,7 +4,10 @@
       {{ label }}
     </div>
     <div :class="$style.control">
-      <slot />
+      <slot :invalid="!!error?.length" />
+    </div>
+    <div v-if="error?.length" :class="$style.error">
+      {{ error }}
     </div>
   </div>
 </template>
@@ -12,6 +15,7 @@
 <script lang="ts" setup>
 defineProps<{
   label: string
+  error?: string
 }>()
 </script>
 
@@ -23,5 +27,13 @@ defineProps<{
   font-size: 16px;
   font-family: var(--font-secondary);
   line-height: 22px;
+}
+
+.error {
+  margin-top: 4px;
+  color: var(--danger-color);
+  font-size: 14px;
+  font-family: var(--font-secondary);
+  line-height: 16px;
 }
 </style>

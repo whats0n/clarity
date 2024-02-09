@@ -2,7 +2,9 @@
   <div :class="$style.page">
     <div :class="$style.main">
       <div :class="['container', $style.container]">
-        <h1 :class="['title-lg', $style.title]">Contact our our team</h1>
+        <h1 :class="['title-lg', $style.title]">
+          {{ contacts.contactsPage?.data?.attributes?.title }}
+        </h1>
         <SharedLayoutContactsDetails
           v-if="source"
           :phone="source.phone"
@@ -20,13 +22,33 @@
       </svg>
     </div>
     <div :class="$style.content">
-      <form :class="$style.form">
+      <form :class="$style.form" @submit.prevent="submit">
         <div :class="$style.form__grid">
-          <UiFormField label="Your name*" :class="$style.form__field">
-            <UiInput v-model="name" placeholder="Type your name" />
+          <UiFormField
+            v-slot="{ invalid }"
+            label="Your name*"
+            :error="errors.name"
+            :class="$style.form__field"
+          >
+            <UiInput
+              v-model="name"
+              v-bind="nameAttributes"
+              :invalid="invalid"
+              placeholder="Type your name"
+            />
           </UiFormField>
-          <UiFormField label="Contact email *" :class="$style.form__field">
-            <UiInput v-model="email" placeholder="you@example.com" />
+          <UiFormField
+            v-slot="{ invalid }"
+            label="Contact email *"
+            :error="errors.email"
+            :class="$style.form__field"
+          >
+            <UiInput
+              v-model="email"
+              v-bind="emailAttributes"
+              :invalid="invalid"
+              placeholder="you@example.com"
+            />
           </UiFormField>
           <UiFormField label="Phone" :class="$style.form__field">
             <UiInput v-model="phone" placeholder="123-456-7890" />
@@ -41,19 +63,24 @@
             />
           </UiFormField>
           <UiFormField
+            v-slot="{ invalid }"
             label="Your message*"
+            :error="errors.message"
             :class="[$style.form__field, $style.form__field_wide]"
           >
-            <UiTextarea v-model="message" placeholder="Type your message…" />
+            <UiTextarea
+              v-model="message"
+              v-bind="messageAttributes"
+              :invalid="invalid"
+              placeholder="Type your message…"
+            />
           </UiFormField>
         </div>
         <div :class="$style.form__meta">
-          By submitting this form you agree to our terms and conditions and our
-          Privacy Policy which explains how we may collect, use and disclose
-          your personal information including to third parties.
+          {{ contacts.contactsPage?.data?.attributes?.footnote }}
         </div>
         <div :class="$style.form__footer">
-          <UiButton type="submit" text="Submit" />
+          <UiButton type="submit" text="Submit" :processing="loading" />
         </div>
       </form>
     </div>
@@ -61,44 +88,106 @@
 </template>
 
 <script lang="ts" setup>
+import * as yup from 'yup'
 import GET_CONTACTS_SECTION from '~/graphql/queries/GetContactsSection.gql'
-import type {
-  ContactsSection,
-  ContactsSectionEntityResponse,
-  Maybe,
+import GET_CONTACTS_PAGE from '~/graphql/queries/GetContactsPage.gql'
+import CREATE_CONTACT from '~/graphql/mutations/CreateContact.gql'
+import {
+  Enum_Contact_Status as EnumContactStatus,
+  type ContactsSection,
+  type Maybe,
+  type Mutation,
+  type Query,
 } from '~/graphql/types'
 
 definePageMeta({
   title: 'Contacts',
-  disableContacts: true,
+  layout: 'contacts',
 })
 
-const { data } = await useAsyncQuery<{
-  contactsSection: ContactsSectionEntityResponse
-}>(GET_CONTACTS_SECTION)
+const [{ data }, { data: contacts }] = await Promise.all([
+  useAsyncQuery<Pick<Query, 'contactsSection'>>(GET_CONTACTS_SECTION),
+  useAsyncQuery<Pick<Query, 'contactsPage'>>(GET_CONTACTS_PAGE),
+])
 
 const source = computed<Maybe<ContactsSection> | undefined>(
   () => data.value?.contactsSection?.data?.attributes,
 )
 
-const name = ref<string>('')
-const email = ref<string>('')
+const { errors, defineField, handleSubmit } = useForm({
+  validationSchema: yup.object({
+    name: yup
+      .string()
+      .trim('Please enter your name')
+      .required('Please enter your name'),
+    message: yup
+      .string()
+      .trim('Please enter a message')
+      .required('Please enter a message'),
+    email: yup
+      .string()
+      .email('Please enter a valid email address')
+      .trim('Please enter your email address')
+      .required('Please enter your email address'),
+  }),
+})
+
+const [name, nameAttributes] = defineField('name', {
+  validateOnModelUpdate: false,
+})
+const [email, emailAttributes] = defineField('email', {
+  validateOnModelUpdate: false,
+})
+const [message, messageAttributes] = defineField('message', {
+  validateOnModelUpdate: false,
+})
+
 const phone = ref<string>('')
-const message = ref<string>('')
 
 type Option = {
-  id: number
+  id: string
   text: string
 }
 
 const interest = ref<Option | null>(null)
 
-const interestOptions = computed<Option[]>(() => [
-  { id: 1, text: 'Sales' },
-  { id: 2, text: 'Interest 1' },
-  { id: 3, text: 'Interest 2' },
-  { id: 4, text: 'Interest 3' },
-])
+const interestOptions = computed<Option[]>(() =>
+  (contacts.value.contactsPage?.data?.attributes?.interest || []).reduce<
+    Option[]
+  >((result, item) => {
+    if (item)
+      result.push({
+        id: item.id,
+        text: item.text,
+      })
+
+    return result
+  }, []),
+)
+
+const { mutate: createContact, loading } =
+  useMutation<Pick<Mutation, 'createContact'>>(CREATE_CONTACT)
+
+const toast = useToast()
+
+const submit = handleSubmit(async () => {
+  if (loading.value) return
+
+  try {
+    await createContact({
+      name: name.value.trim(),
+      email: email.value.trim(),
+      message: message.value.trim(),
+      phone: phone.value.trim(),
+      interest: interest.value?.text.trim() || '',
+      status: EnumContactStatus.New,
+    })
+
+    toast.success('Your message has been sent!')
+  } catch (e) {
+    toast.danger(e instanceof Error ? e.message : 'Something went wrong!')
+  }
+})
 </script>
 
 <style lang="scss" module>
@@ -108,11 +197,16 @@ const interestOptions = computed<Option[]>(() => [
 
 .container {
   padding-block: 60px 36px;
+
+  @include media($to: sm) {
+    padding-top: 0;
+  }
 }
 
 .title {
   margin-bottom: 60px;
   text-align: center;
+  text-wrap: balance;
 }
 
 .wave {
@@ -129,6 +223,10 @@ const interestOptions = computed<Option[]>(() => [
   border-radius: 8px;
   box-shadow: 0 10px 35px 0 rgba(0, 0, 0, 0.03);
   margin-inline: auto;
+
+  @include media($to: xs) {
+    padding: 48px 24px;
+  }
 
   &__grid {
     display: grid;
@@ -159,6 +257,17 @@ const interestOptions = computed<Option[]>(() => [
 
   &__footer {
     padding: 32px 27px 0;
+
+    @include media($to: xs) {
+      text-align: center;
+    }
+
+    > * {
+      @include media($to: xs) {
+        width: 100%;
+        max-width: 260px;
+      }
+    }
   }
 }
 </style>

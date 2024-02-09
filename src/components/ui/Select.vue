@@ -7,6 +7,7 @@
       type="button"
       :class="[
         $style.select__button,
+        invalid && $style.select__button_invalid,
         !value && $style.select__button_placeholder,
       ]"
       @click="opened = !opened"
@@ -47,6 +48,7 @@ defineProps<{
   keyField: string
   textField: string
   placeholder?: string
+  invalid?: boolean
 }>()
 
 const { opened, containerRef } = useDropdown()
@@ -92,6 +94,10 @@ const select = (option: T): void => {
 
     &_placeholder {
       color: #959ead;
+    }
+
+    &_invalid {
+      border-color: var(--danger-color);
     }
   }
 

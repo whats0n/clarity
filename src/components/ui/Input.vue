@@ -1,11 +1,16 @@
 <template>
-  <input v-model="value" :class="$style.input" />
+  <input
+    v-model="value"
+    :class="[$style.input, invalid && $style.input_invalid]"
+  />
 </template>
 
 <script lang="ts" setup>
 defineOptions({ name: 'UiInput' })
 
 const value = defineModel<string>()
+
+defineProps<{ invalid?: boolean }>()
 </script>
 
 <style lang="scss" module>
@@ -36,6 +41,10 @@ const value = defineModel<string>()
 
   @include hover {
     outline-color: var(--accent-color);
+  }
+
+  &_invalid {
+    border-color: var(--danger-color);
   }
 }
 </style>

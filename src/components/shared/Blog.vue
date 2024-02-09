@@ -9,7 +9,14 @@
         </p>
       </div>
       <div :class="$style.items">
-        <div v-for="(item, index) in items" :key="item.id" :class="$style.item">
+        <NuxtLink
+          v-for="(item, index) in items"
+          :key="item.id"
+          external
+          :to="item.href"
+          :class="$style.item"
+          target="_blank"
+        >
           <img
             :src="item.image"
             alt="Illustration"
@@ -20,7 +27,7 @@
               {{ item.title }}
             </h2>
           </div>
-        </div>
+        </NuxtLink>
       </div>
     </div>
   </div>

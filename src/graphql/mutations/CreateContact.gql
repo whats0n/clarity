@@ -1,0 +1,23 @@
+mutation CreateContact(
+  $name: String!
+  $email: String!
+  $message: String!
+  $phone: String
+  $interest: String
+  $status: ENUM_CONTACT_STATUS!
+) {
+  createContact(
+    data: {
+      name: $name
+      email: $email
+      phone: $phone
+      interest: $interest
+      status: $status
+      message: $message
+    }
+  ) {
+    data {
+      id
+    }
+  }
+}
