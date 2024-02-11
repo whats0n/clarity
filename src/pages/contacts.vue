@@ -2,6 +2,8 @@
   <div :class="$style.page">
     <div :class="$style.main">
       <div :class="['container', $style.container]">
+        <div :class="['dots', $style.dotsBlue]" />
+        <div :class="['dots', $style.dotsWhite]" />
         <h1 :class="['title-lg', $style.title]">
           {{ contacts.contactsPage?.data?.attributes?.title }}
         </h1>
@@ -199,7 +201,42 @@ const submit = handleSubmit(async () => {
   background: #e0f4fa;
 }
 
+.dotsBlue {
+  position: absolute;
+  top: 10px;
+  left: 21%;
+  z-index: -1;
+  --dots-x: 4;
+  --dots-y: 2;
+  --dots-color: #00b8d9;
+  --dots-size: 8px;
+  --dots-distance: 15px;
+
+  @include media($to: sm) {
+    top: -50px;
+    left: 30px;
+  }
+}
+
+.dotsWhite {
+  position: absolute;
+  top: -20px;
+  right: 80px;
+  z-index: -1;
+  --dots-x: 6;
+  --dots-y: 12;
+  --dots-color: #fff;
+  --dots-size: 8px;
+  --dots-distance: 15px;
+
+  @include media($to: sm) {
+    display: none;
+  }
+}
+
 .container {
+  position: relative;
+  z-index: 1;
   padding-block: 60px 36px;
 
   @include media($to: sm) {
