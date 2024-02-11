@@ -32,15 +32,13 @@ import type {
   SharedPricingHero,
 } from '~/types'
 
-definePageMeta({
-  title: 'Whole Home Filtration Price',
-})
-
 const { data, error } = await useAsyncQuery<Pick<Query, 'whFiltrationPrice'>>(
   GET_HOME_FILTRATION_PRICE_PAGE,
 )
 
 if (!data.value || error.value) showError({ statusCode: 404 })
+
+useSeo(data.value.whFiltrationPrice?.data?.attributes?.seo)
 
 const heroAdapter = usePricingHeroAdapter()
 const hero = computed<SharedPricingHero | null>(() =>

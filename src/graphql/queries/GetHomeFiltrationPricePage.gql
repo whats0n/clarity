@@ -1,4 +1,5 @@
 #import "../fragments/templates/PricingPage.gql"
+#import "../fragments/shared/Seo.gql"
 
 query GetHomeFiltrationPricePage {
   whFiltrationPrice {
@@ -6,6 +7,10 @@ query GetHomeFiltrationPricePage {
       attributes {
         pricing_page_template {
           ...PricingPageTemplate
+        }
+
+        seo {
+          ...SharedSeo
         }
       }
     }

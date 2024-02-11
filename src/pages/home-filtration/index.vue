@@ -46,15 +46,13 @@ import type {
 import GET_HOME_FILTRATION_PAGE from '~/graphql/queries/GetHomeFiltrationPage.gql'
 import type { Query } from '~/graphql/types'
 
-definePageMeta({
-  title: 'Reverse-Osmosis',
-})
-
 const { data, error } = await useAsyncQuery<Pick<Query, 'whFiltration'>>(
   GET_HOME_FILTRATION_PAGE,
 )
 
 if (!data.value || error.value) showError({ statusCode: 404 })
+
+useSeo(data.value.whFiltration?.data?.attributes?.seo)
 
 const heroAdapter = useInnerHeroAdapter()
 const hero = computed<SharedInnerHero | null>(() => {

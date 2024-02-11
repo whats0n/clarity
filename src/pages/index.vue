@@ -45,14 +45,12 @@ import type {
   SharedSteps,
 } from '~/types'
 
-definePageMeta({
-  title: 'Home',
-})
-
 const { data, error } =
   await useAsyncQuery<Pick<Query, 'homePage'>>(GET_HOME_PAGE)
 
 if (!data.value || error.value) showError({ statusCode: 404 })
+
+useSeo(data.value.homePage?.data?.attributes?.seo)
 
 const homeHeroAdapter = useHomeHeroAdapter()
 const hero = computed<SharedHomeHero | null>(() => {

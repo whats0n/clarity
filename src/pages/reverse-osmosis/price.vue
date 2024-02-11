@@ -32,15 +32,13 @@ import type {
   SharedPricingHero,
 } from '~/types'
 
-definePageMeta({
-  title: 'Reverse Osmosis Price',
-})
-
 const { data, error } = await useAsyncQuery<Pick<Query, 'reverseOsmosisPrice'>>(
   GET_REVERSE_OSMOSIS_PRICE_PAGE,
 )
 
 if (!data.value || error.value) showError({ statusCode: 404 })
+
+useSeo(data.value.reverseOsmosisPrice?.data?.attributes?.seo)
 
 const heroAdapter = usePricingHeroAdapter()
 const hero = computed<SharedPricingHero | null>(() =>

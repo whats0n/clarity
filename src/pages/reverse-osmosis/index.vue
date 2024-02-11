@@ -56,6 +56,8 @@ const { data, error } = await useAsyncQuery<Pick<Query, 'reverseOsmosis'>>(
 
 if (!data.value || error.value) showError({ statusCode: 404 })
 
+useSeo(data.value.reverseOsmosis?.data?.attributes?.seo)
+
 const heroAdapter = useInnerHeroAdapter()
 const hero = computed<SharedInnerHero | null>(() => {
   return heroAdapter(

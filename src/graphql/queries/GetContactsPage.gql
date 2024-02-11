@@ -1,3 +1,5 @@
+#import "../fragments/shared/Seo.gql"
+
 query GetContactsPage {
   contactsPage {
     data {
@@ -7,6 +9,10 @@ query GetContactsPage {
         interest {
           id
           text
+        }
+
+        seo {
+          ...SharedSeo
         }
       }
     }

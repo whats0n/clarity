@@ -1,0 +1,9 @@
+#import "../ui/Image.gql"
+
+fragment SharedSeo on ComponentSharedSeo {
+  metaTitle
+  metaDescription
+  shareImage {
+    ...UiImage
+  }
+}

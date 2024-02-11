@@ -2,6 +2,7 @@
 #import "../fragments/sections/HomeHero.gql"
 #import "../fragments/sections/Blog.gql"
 #import "../fragments/sections/Steps.gql"
+#import "../fragments/shared/Seo.gql"
 
 query GetHomePage {
   homePage {
@@ -21,6 +22,10 @@ query GetHomePage {
 
         steps_section {
           ...StepsSection
+        }
+
+        seo {
+          ...SharedSeo
         }
       }
     }

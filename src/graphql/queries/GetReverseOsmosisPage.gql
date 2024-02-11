@@ -2,6 +2,7 @@
 #import "../fragments/sections/Content.gql"
 #import "../fragments/sections/Blog.gql"
 #import "../fragments/sections/InnerFeatures.gql"
+#import "../fragments/shared/Seo.gql"
 
 query GetReverseOsmosisPage {
   reverseOsmosis {
@@ -21,6 +22,10 @@ query GetReverseOsmosisPage {
 
         inner_features_section {
           ...InnerFeaturesSection
+        }
+
+        seo {
+          ...SharedSeo
         }
       }
     }

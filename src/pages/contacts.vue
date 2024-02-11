@@ -105,10 +105,14 @@ definePageMeta({
   layout: 'contacts',
 })
 
-const [{ data }, { data: contacts }] = await Promise.all([
+const [{ data }, { data: contacts, error }] = await Promise.all([
   useAsyncQuery<Pick<Query, 'contactsSection'>>(GET_CONTACTS_SECTION),
   useAsyncQuery<Pick<Query, 'contactsPage'>>(GET_CONTACTS_PAGE),
 ])
+
+if (!contacts.value || error.value) showError({ statusCode: 404 })
+
+useSeo(contacts.value.contactsPage?.data?.attributes?.seo)
 
 const source = computed<Maybe<ContactsSection> | undefined>(
   () => data.value?.contactsSection?.data?.attributes,
