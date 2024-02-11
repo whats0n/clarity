@@ -23,21 +23,21 @@ export const usePricingHeroAdapter = () => {
               title: variant.attributes.title,
               description: variant.attributes.description,
               icon: variant.attributes.icon.name,
-              plans: (variant.attributes.items || []).reduce<
+              plans: (variant.attributes.pricing_plans?.data || []).reduce<
                 SharedPricingPlan[]
               >((plans, plan) => {
-                if (plan)
+                if (plan.attributes && plan.id)
                   plans.push({
                     id: plan.id,
-                    name: plan.name,
-                    price: plan.price,
-                    installation: plan.installation,
+                    name: plan.attributes.name,
+                    price: plan.attributes.price,
+                    installation: plan.attributes.installation,
                     button: {
-                      href: plan.get_started_href || '',
-                      color: plan.get_started_color,
-                      external: plan.get_started_external,
+                      href: `/checkout/${plan.id}`,
+                      color: plan.attributes.type,
+                      external: false,
                     },
-                    list: listAdapter(plan.list),
+                    list: listAdapter(plan.attributes.list),
                   })
 
                 return plans

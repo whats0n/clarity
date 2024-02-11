@@ -15,17 +15,19 @@ fragment PricingHeroSection on PricingHeroSectionEntityResponse {
             icon {
               ...UiIcon
             }
-            items {
-              id
-              name
-              price
-              installation
-              list {
-                ...UiListItem
+            pricing_plans {
+              data {
+                id
+                attributes {
+                  name
+                  price
+                  installation
+                  type
+                  list {
+                    ...UiListItem
+                  }
+                }
               }
-              get_started_color
-              get_started_external
-              get_started_href
             }
           }
         }
