@@ -65,7 +65,7 @@
         </div>
 
         <aside :class="$style.sidebar">
-          <ClientOnly v-if="true">
+          <ClientOnly v-if="false">
             <SharedPaymentForm :amount="deposit" />
           </ClientOnly>
           <div v-else :class="$style.details">
