@@ -7,10 +7,13 @@ export default defineNuxtConfig({
   srcDir: 'src',
 
   runtimeConfig: {
+    stripeSk: '',
+
     public: {
       strapiApiToken: '',
       strapiApiUrl: '',
       strapiUrl: '',
+      stripePk: '',
     },
   },
 

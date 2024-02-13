@@ -1,0 +1,29 @@
+#import "../fragments/ui/Image.gql"
+
+query GetCheckoutPage($id: ID) {
+  pricingPlan(id: $id) {
+    data {
+      attributes {
+        name
+        type
+        deposit
+        products {
+          data {
+            id
+            attributes {
+              name
+              meta
+              label
+              preview_object_fit
+              preview {
+                ...UiImage
+              }
+              price
+              discount
+            }
+          }
+        }
+      }
+    }
+  }
+}

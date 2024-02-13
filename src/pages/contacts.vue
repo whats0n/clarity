@@ -103,7 +103,6 @@ import {
 } from '~/graphql/types'
 
 definePageMeta({
-  title: 'Contacts',
   layout: 'contacts',
 })
 

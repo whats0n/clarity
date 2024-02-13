@@ -847,6 +847,11 @@ export enum Enum_Pricingplan_Type {
   Tertiary = 'tertiary'
 }
 
+export enum Enum_Product_Preview_Object_Fit {
+  Contain = 'contain',
+  Cover = 'cover'
+}
+
 export type FaqSection = {
   __typename?: 'FaqSection';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
@@ -2066,6 +2071,7 @@ export type PricingPageTemplateRelationResponseCollection = {
 export type PricingPlan = {
   __typename?: 'PricingPlan';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  deposit: Scalars['Float']['output'];
   installation: Scalars['Boolean']['output'];
   list?: Maybe<Array<Maybe<ComponentUiListItem>>>;
   name: Scalars['String']['output'];
@@ -2117,6 +2123,7 @@ export type PricingPlanEntityResponseCollection = {
 export type PricingPlanFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<PricingPlanFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
+  deposit?: InputMaybe<FloatFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   installation?: InputMaybe<BooleanFilterInput>;
   list?: InputMaybe<ComponentUiListItemFiltersInput>;
@@ -2131,6 +2138,7 @@ export type PricingPlanFiltersInput = {
 };
 
 export type PricingPlanInput = {
+  deposit?: InputMaybe<Scalars['Float']['input']>;
   installation?: InputMaybe<Scalars['Boolean']['input']>;
   list?: InputMaybe<Array<InputMaybe<ComponentUiListItemInput>>>;
   name?: InputMaybe<Scalars['String']['input']>;
@@ -2217,11 +2225,13 @@ export type PricingVariantSectionRelationResponseCollection = {
 export type Product = {
   __typename?: 'Product';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  discount?: Maybe<Scalars['Float']['output']>;
+  label: Scalars['String']['output'];
   meta?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
   preview: UploadFileEntityResponse;
+  preview_object_fit: Enum_Product_Preview_Object_Fit;
   price: Scalars['Float']['output'];
-  price_with_discount?: Maybe<Scalars['Float']['output']>;
   pricing_plans?: Maybe<PricingPlanRelationResponseCollection>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
@@ -2253,23 +2263,27 @@ export type ProductEntityResponseCollection = {
 export type ProductFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<ProductFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
+  discount?: InputMaybe<FloatFilterInput>;
   id?: InputMaybe<IdFilterInput>;
+  label?: InputMaybe<StringFilterInput>;
   meta?: InputMaybe<StringFilterInput>;
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<ProductFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<ProductFiltersInput>>>;
+  preview_object_fit?: InputMaybe<StringFilterInput>;
   price?: InputMaybe<FloatFilterInput>;
-  price_with_discount?: InputMaybe<FloatFilterInput>;
   pricing_plans?: InputMaybe<PricingPlanFiltersInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
 export type ProductInput = {
+  discount?: InputMaybe<Scalars['Float']['input']>;
+  label?: InputMaybe<Scalars['String']['input']>;
   meta?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['ID']['input']>;
+  preview_object_fit?: InputMaybe<Enum_Product_Preview_Object_Fit>;
   price?: InputMaybe<Scalars['Float']['input']>;
-  price_with_discount?: InputMaybe<Scalars['Float']['input']>;
   pricing_plans?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
 };
 
