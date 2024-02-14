@@ -1,6 +1,9 @@
 <template>
   <button :type="type" :class="$style.button">
-    <slot />
+    <span v-if="processing" :class="$style.loader" />
+    <span :class="[$style.content, processing && $style.content_invisible]">
+      <slot />
+    </span>
   </button>
 </template>
 
@@ -8,13 +11,15 @@
 withDefaults(
   defineProps<{
     type?: 'button' | 'submit'
+    processing?: boolean
   }>(),
-  { type: 'button' },
+  { type: 'button', processing: false },
 )
 </script>
 
 <style lang="scss" module>
 .button {
+  position: relative;
   padding-inline: 60px;
   height: 56px;
   color: #fff;
@@ -40,6 +45,28 @@ withDefaults(
   &:disabled {
     --color: #ddd7e1;
     cursor: not-allowed;
+  }
+}
+
+.content_invisible {
+  visibility: hidden;
+}
+
+.loader {
+  position: absolute;
+  top: calc(50% - 8px);
+  left: calc(50% - 8px);
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-left-color: transparent;
+  border-radius: 50%;
+  animation: rotate 0.5s linear infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(1turn);
   }
 }
 </style>

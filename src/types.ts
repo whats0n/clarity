@@ -231,3 +231,19 @@ export interface SharedPricingHero {
   description: string
   variants: SharedPricingVariant[]
 }
+
+export interface ApiAddressItem {
+  id: string
+  text: string
+}
+
+export interface ApiAddressDetails {
+  streetNumber: string
+  route: string
+  locality: string
+  region: string
+  postalCode: string
+  url: string
+  formattedAddress: string
+  image: string
+}

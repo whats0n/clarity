@@ -8,6 +8,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     stripeSk: '',
+    googleApiKey: '',
 
     public: {
       strapiApiToken: '',

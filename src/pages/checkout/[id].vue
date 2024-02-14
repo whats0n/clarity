@@ -42,80 +42,114 @@
               <div
                 :class="[
                   $style.item__checkbox,
-                  address.length > 0 && $style.item__checkbox_checked,
+                  !!address.data.details && $style.item__checkbox_checked,
                 ]"
               >
                 <UiFaIcon :icon="['fas', 'check']" :class="$style.item__icon" />
               </div>
               <div :class="$style.item__label">Add Address</div>
               <div :class="$style.item__counter">{{ steps }}/{{ steps }}</div>
-              <div :class="$style.search">
-                <UiFaIcon
-                  :icon="['fas', 'search']"
-                  :class="$style.search__icon"
-                />
-                <input
-                  type="text"
-                  placeholder="Start typing your address"
-                  :class="$style.search__input"
-                />
+              <SharedCheckoutItem
+                v-if="address.data.details"
+                :title="address.data.verifiedAddress.main"
+                :meta="address.data.verifiedAddress.meta"
+                :image="address.data.details.image"
+                no-gradient
+              >
+                <div :class="$style.item__verified">ADDRESS VERIFIED</div>
+              </SharedCheckoutItem>
+              <div v-else :class="$style.address">
+                <div :class="$style.search">
+                  <UiFaIcon
+                    :icon="['fas', 'search']"
+                    :class="$style.search__icon"
+                  />
+                  <input
+                    v-model="address.data.search"
+                    type="text"
+                    placeholder="Start typing your address"
+                    :class="$style.search__input"
+                    @input="address.actions.load"
+                    @focus="address.actions.open"
+                    @blur="address.actions.close"
+                  />
+                </div>
+                <div v-if="address.state.opened" :class="$style.autocomplete">
+                  <button
+                    v-for="item in address.data.items"
+                    :key="item.id"
+                    type="button"
+                    :class="$style.autocomplete__button"
+                    @focus="address.actions.open"
+                    @blur="address.actions.close"
+                    @click.prevent="address.actions.select(item)"
+                  >
+                    {{ item.text }}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         <aside :class="$style.sidebar">
-          <ClientOnly v-if="false">
+          <ClientOnly v-if="address.data.details">
             <SharedPaymentForm :amount="deposit" />
           </ClientOnly>
-          <div v-else :class="$style.details">
-            <div
-              :class="[
-                $style.details__title,
-                $style[`details__title_${details.type}`],
-              ]"
-            >
-              {{ details.title }}
-            </div>
-            <div :class="$style.details__items">
+          <template v-else>
+            <div :class="$style.details">
               <div
-                v-for="item in items"
-                :key="item.id"
-                :class="$style.details__item"
+                :class="[
+                  $style.details__title,
+                  $style[`details__title_${details.type}`],
+                ]"
               >
-                <div :class="$style.details__row">
-                  <div :class="$style.details__key">
-                    {{ item.name }}
-                  </div>
-                  <div :class="$style.details__value">${{ item.price }}</div>
-                </div>
-                <template v-if="item.discount">
-                  <div :class="$style.details__row">
-                    <div :class="$style.details__key">Discount</div>
-                    <div :class="$style.details__value">
-                      -${{ item.discount.toFixed(2) }}
-                    </div>
-                  </div>
-                  <div :class="$style.details__total">
-                    ${{ item.priceWithDiscount }}
-                  </div>
-                </template>
+                {{ details.title }}
               </div>
-              <div :class="$style.details__item">
-                <div :class="$style.details__row">
-                  <div :class="$style.details__key">Due After Install</div>
-                  <div :class="$style.details__value">${{ total }}</div>
+              <div :class="$style.details__items">
+                <div
+                  v-for="item in items"
+                  :key="item.id"
+                  :class="$style.details__item"
+                >
+                  <div :class="$style.details__row">
+                    <div :class="$style.details__key">
+                      {{ item.name }}
+                    </div>
+                    <div :class="$style.details__value">${{ item.price }}</div>
+                  </div>
+                  <template v-if="item.discount">
+                    <div :class="$style.details__row">
+                      <div :class="$style.details__key">Discount</div>
+                      <div :class="$style.details__value">
+                        -${{ item.discount.toFixed(2) }}
+                      </div>
+                    </div>
+                    <div :class="$style.details__total">
+                      ${{ item.priceWithDiscount }}
+                    </div>
+                  </template>
+                </div>
+                <div :class="$style.details__item">
+                  <div :class="$style.details__row">
+                    <div :class="$style.details__key">Due After Install</div>
+                    <div :class="$style.details__value">${{ total }}</div>
+                  </div>
                 </div>
               </div>
             </div>
             <div :class="$style.deposit">
               <div :class="$style.deposit__price">${{ deposit }}</div>
               <div :class="$style.deposit__label">Due Today</div>
-              <SharedCheckoutButton :disabled="!isAddressAdded">
-                {{ isAddressAdded ? 'Schedule Installation' : 'Add address' }}
+              <SharedCheckoutButton
+                :disabled="!address.data.placeId"
+                :processing="address.state.submitting"
+                @click="address.actions.submit"
+              >
+                Add address
               </SharedCheckoutButton>
             </div>
-          </div>
+          </template>
         </aside>
       </div>
     </div>
@@ -210,8 +244,7 @@ const total = computed<string>(() => {
 
 const steps = computed<number>(() => items.value.length + 1)
 
-const address = ref<string>('')
-const isAddressAdded = ref<boolean>(false)
+const address = await useAddress()
 </script>
 
 <style lang="scss" module>
@@ -310,6 +343,14 @@ const isAddressAdded = ref<boolean>(false)
     line-height: 1;
     letter-spacing: -0.11px;
   }
+
+  &__verified {
+    color: var(--success-color);
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: 0.83px;
+  }
 }
 
 .search {
@@ -351,7 +392,7 @@ const isAddressAdded = ref<boolean>(false)
 }
 
 .details {
-  padding-top: 15px;
+  padding: 15px 22px 21px 13px;
 
   &__title {
     margin-bottom: 52px;
@@ -378,7 +419,6 @@ const isAddressAdded = ref<boolean>(false)
   &__items {
     display: grid;
     gap: 14px;
-    margin-bottom: 21px;
   }
 
   &__item {
@@ -430,6 +470,35 @@ const isAddressAdded = ref<boolean>(false)
     font-size: 15px;
     line-height: 20px;
     letter-spacing: -0.37px;
+  }
+}
+
+.address {
+  position: relative;
+}
+
+.autocomplete {
+  position: absolute;
+  top: calc(100% + 8px);
+  max-height: 200px;
+  overflow: auto;
+  background: #fff;
+  box-shadow: 0 -3px 10px 0 rgba(0, 0, 0, 0.1);
+  inset-inline: 0;
+
+  &__button {
+    width: 100%;
+    padding: 8px 16px;
+    overflow: hidden;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: left;
+    text-overflow: ellipsis;
+
+    @include hover {
+      color: #fff;
+      background: var(--accent-color);
+    }
   }
 }
 </style>

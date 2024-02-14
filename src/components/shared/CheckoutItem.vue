@@ -1,11 +1,21 @@
 <template>
   <div :class="$style.item">
-    <div :class="[$style.figure, $style[`figure_${imageFit}`]]">
+    <div
+      v-if="image"
+      :class="[
+        $style.figure,
+        $style[`figure_${imageFit}`],
+        !noGradient && $style.figure_gradient,
+      ]"
+    >
       <img
         :src="image"
         :class="$style.image"
         :style="{ objectFit: imageFit }"
       />
+    </div>
+    <div v-else :class="$style.figure">
+      <slot name="figure" />
     </div>
     <div :class="$style.content">
       <div v-if="badge" :class="$style.badge">
@@ -27,13 +37,14 @@
 <script lang="ts" setup>
 withDefaults(
   defineProps<{
-    image: string
+    image?: string
     imageFit?: 'contain' | 'cover'
     badge?: string
     title: string
     meta: string
+    noGradient?: boolean
   }>(),
-  { imageFit: 'cover', badge: '' },
+  { image: '', imageFit: 'cover', badge: '', noGradient: false },
 )
 </script>
 
@@ -51,7 +62,7 @@ withDefaults(
   overflow: hidden;
   border-radius: 16px;
 
-  &_cover:before {
+  &_cover.figure_gradient:before {
     position: absolute;
     background-image: linear-gradient(
       180deg,
