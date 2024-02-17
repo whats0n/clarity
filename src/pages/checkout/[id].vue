@@ -94,7 +94,11 @@
 
         <aside :class="$style.sidebar">
           <ClientOnly v-if="address.data.details">
-            <SharedPaymentForm :amount="deposit" />
+            <SharedPaymentForm
+              :address="address.data.details.formattedAddress"
+              :plan-id="details.id"
+              :amount="deposit"
+            />
           </ClientOnly>
           <template v-else>
             <div :class="$style.details">
@@ -218,10 +222,12 @@ const items = computed(() =>
 const details = computed<{
   title: string
   type: string
+  id: string
 }>(() => {
   return {
     title: data.value.pricingPlan?.data?.attributes?.name || '',
     type: data.value.pricingPlan?.data?.attributes?.type || '',
+    id: data.value.pricingPlan?.data?.id || '',
   }
 })
 

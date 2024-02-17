@@ -1,8 +1,17 @@
 <template>
   <form :class="$style.container" @submit.prevent="onSubmit">
     <div ref="elementRef"></div>
-    <div v-if="errorMessage" :class="$style.error">{{ errorMessage }}</div>
-    <SharedCheckoutButton type="submit" :class="$style.button">
+    <div
+      v-if="errorMessage || creationError || publishError"
+      :class="$style.error"
+    >
+      {{ errorMessage || creationError?.message || publishError?.message }}
+    </div>
+    <SharedCheckoutButton
+      type="submit"
+      :processing="processing"
+      :class="$style.button"
+    >
       Deposit ${{ amount.toFixed(2) }}
     </SharedCheckoutButton>
   </form>
@@ -10,8 +19,13 @@
 
 <script lang="ts" setup>
 import { loadStripe } from '@stripe/stripe-js'
+import CREATE_ORDER from '~/graphql/mutations/CreateOrder.gql'
+import PUBLISH_ORDER from '~/graphql/mutations/PublishOrder.gql'
+import type { Mutation } from '~/graphql/types'
 
-const props = defineProps<{ amount: number }>()
+const props = defineProps<{ address: string; planId: string; amount: number }>()
+
+const router = useRouter()
 
 const runtimeConfig = useRuntimeConfig()
 
@@ -45,23 +59,64 @@ const processing = ref<boolean>(false)
 
 const errorMessage = ref<string>('')
 
+const { mutate: createOrder, error: creationError } =
+  useMutation<Pick<Mutation, 'createOrder'>>(CREATE_ORDER)
+
+const { mutate: updateOrder, error: publishError } =
+  useMutation<Pick<Mutation, 'updateOrder'>>(PUBLISH_ORDER)
+
+const orderId = ref<string>('')
+
 const onSubmit = async () => {
-  if (!stripe || !elements.value || processing.value) return
+  if (
+    !stripe ||
+    !elements.value ||
+    processing.value ||
+    !data.value?.clientSecret
+  )
+    return
 
   processing.value = true
 
-  const { error } = await stripe.confirmPayment({
-    elements: elements.value,
-    // confirmParams: {
-    //   return_url: '',
-    // },
-    redirect: 'if_required',
-  })
+  errorMessage.value = ''
 
-  if (error?.type === 'card_error' || error?.type === 'validation_error') {
-    errorMessage.value = error.message || 'Something went wrong.'
-  } else {
-    errorMessage.value = 'Something went wrong.'
+  try {
+    if (!orderId.value) {
+      const creationResponse = await createOrder({
+        address: props.address,
+        payment_id: data.value.clientSecret.split('_secret_')[0] || '',
+        pricing_plan: props.planId,
+      })
+
+      const id = creationResponse?.data?.createOrder?.data?.id || ''
+
+      if (!id) {
+        processing.value = false
+        return
+      }
+
+      orderId.value = id
+    }
+
+    const { paymentIntent, error } = await stripe.confirmPayment({
+      elements: elements.value,
+      redirect: 'if_required',
+    })
+
+    if (error?.type === 'card_error' || error?.type === 'validation_error') {
+      errorMessage.value = error.message || 'Something went wrong'
+    } else if (paymentIntent?.status === 'succeeded') {
+      await updateOrder({
+        id: orderId.value,
+        publishedAt: new Date().toISOString(),
+      })
+      await router.push('/')
+    } else if (paymentIntent?.status === 'canceled') {
+      errorMessage.value = 'Payment was canceled'
+    }
+  } catch (error) {
+    errorMessage.value =
+      error instanceof Error ? error.message : 'Something went wrong'
   }
 
   processing.value = false

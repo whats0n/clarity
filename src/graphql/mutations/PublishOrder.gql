@@ -1,0 +1,10 @@
+mutation UpdateOrder($id: ID!, $publishedAt: DateTime!) {
+  updateOrder(id: $id, data: { publishedAt: $publishedAt }) {
+    data {
+      id
+      attributes {
+        publishedAt
+      }
+    }
+  }
+}

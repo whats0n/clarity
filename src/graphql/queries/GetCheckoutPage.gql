@@ -3,6 +3,7 @@
 query GetCheckoutPage($id: ID) {
   pricingPlan(id: $id) {
     data {
+      id
       attributes {
         name
         type

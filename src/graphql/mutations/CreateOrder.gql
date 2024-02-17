@@ -1,0 +1,17 @@
+mutation CreateOrder(
+  $address: String!
+  $payment_id: String!
+  $pricing_plan: ID!
+) {
+  createOrder(
+    data: {
+      address: $address
+      payment_id: $payment_id
+      pricing_plan: $pricing_plan
+    }
+  ) {
+    data {
+      id
+    }
+  }
+}
