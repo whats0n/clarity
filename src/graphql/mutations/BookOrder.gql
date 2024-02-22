@@ -1,0 +1,7 @@
+mutation BookOrder($id: ID!, $calendly_booked: Boolean!) {
+  updateOrder(id: $id, data: { calendly_booked: $calendly_booked }) {
+    data {
+      id
+    }
+  }
+}

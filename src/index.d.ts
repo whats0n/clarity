@@ -5,5 +5,16 @@ declare module 'nuxt/schema' {
   }
 }
 
+declare global {
+  interface Window {
+    Calendly?: {
+      initPopupWidget: (options: {
+        url: string
+        prefill: { customAnswers?: Record<string, string> }
+      }) => void
+    }
+  }
+}
+
 // It is always important to ensure you import/export something when augmenting a type
 export {}

@@ -161,7 +161,7 @@
 </template>
 
 <script lang="ts" setup>
-import GetCheckoutPage from '~/graphql/queries/GetCheckoutPage.gql'
+import GET_CHECKOUT_PAGE from '~/graphql/queries/GetCheckoutPage.gql'
 import type { Query } from '~/graphql/types'
 
 definePageMeta({
@@ -175,7 +175,7 @@ const id: string =
   typeof route.params.id === 'string' ? route.params.id : route.params.id[0]
 
 const { data, error } = await useAsyncQuery<Pick<Query, 'pricingPlan'>>(
-  GetCheckoutPage,
+  GET_CHECKOUT_PAGE,
   { id: +id },
 )
 

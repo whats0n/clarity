@@ -4,6 +4,7 @@
     :type="component === 'button' ? type : undefined"
     :to="to"
     :external="external"
+    :target="external ? '_blank' : undefined"
     :class="[
       $style.button,
       $style[`button_ui-${ui}`],

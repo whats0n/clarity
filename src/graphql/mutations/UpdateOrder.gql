@@ -1,0 +1,7 @@
+mutation UpdateOrder($id: ID!, $pricing_plans: [ID]!) {
+  updateOrder(id: $id, data: { pricing_plans: $pricing_plans }) {
+    data {
+      id
+    }
+  }
+}

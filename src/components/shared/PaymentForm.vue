@@ -85,7 +85,7 @@ const onSubmit = async () => {
       const creationResponse = await createOrder({
         address: props.address,
         payment_id: data.value.clientSecret.split('_secret_')[0] || '',
-        pricing_plan: props.planId,
+        pricing_plans: [props.planId],
       })
 
       const id = creationResponse?.data?.createOrder?.data?.id || ''
@@ -110,7 +110,9 @@ const onSubmit = async () => {
         id: orderId.value,
         publishedAt: new Date().toISOString(),
       })
-      await router.push('/')
+      await router.push(
+        `/checkout/${props.planId}/success?orderId=${orderId.value}`,
+      )
     } else if (paymentIntent?.status === 'canceled') {
       errorMessage.value = 'Payment was canceled'
     }

@@ -15,6 +15,7 @@ export default defineNuxtConfig({
       strapiApiUrl: '',
       strapiUrl: '',
       stripePk: '',
+      calendlyUrl: '',
     },
   },
 
@@ -68,7 +69,15 @@ export default defineNuxtConfig({
     layoutTransition: { name: 'page', mode: 'out-in' },
 
     head: {
+      script: [
+        { src: 'https://assets.calendly.com/assets/external/widget.js' },
+      ],
+
       link: [
+        {
+          rel: 'stylesheet',
+          href: 'https://assets.calendly.com/assets/external/widget.css',
+        },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         {
           rel: 'preconnect',

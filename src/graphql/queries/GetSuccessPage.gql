@@ -1,0 +1,43 @@
+#import "../fragments/ui/Image.gql"
+
+query GetSuccessPage($id: ID) {
+  order(id: $id) {
+    data {
+      id
+      attributes {
+        calendly_booked
+        pricing_plans {
+          data {
+            id
+            attributes {
+              how_to_href
+              opposite_service {
+                data {
+                  id
+                  attributes {
+                    success_service_name
+                    success_service_label
+                    success_service_image {
+                      ...UiImage
+                    }
+                    installation
+                    installation_accessories
+                    products {
+                      data {
+                        id
+                        attributes {
+                          price
+                          discount
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

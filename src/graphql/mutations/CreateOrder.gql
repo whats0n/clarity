@@ -1,13 +1,13 @@
 mutation CreateOrder(
   $address: String!
   $payment_id: String!
-  $pricing_plan: ID!
+  $pricing_plans: [ID]!
 ) {
   createOrder(
     data: {
       address: $address
       payment_id: $payment_id
-      pricing_plan: $pricing_plan
+      pricing_plans: $pricing_plans
     }
   ) {
     data {

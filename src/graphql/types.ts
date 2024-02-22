@@ -1899,11 +1899,19 @@ export type MutationUploadArgs = {
 export type Order = {
   __typename?: 'Order';
   address: Scalars['String']['output'];
+  calendly_booked?: Maybe<Scalars['Boolean']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   payment_id: Scalars['String']['output'];
-  pricing_plan?: Maybe<PricingPlanEntityResponse>;
+  pricing_plans?: Maybe<PricingPlanRelationResponseCollection>;
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type OrderPricing_PlansArgs = {
+  filters?: InputMaybe<PricingPlanFiltersInput>;
+  pagination?: InputMaybe<PaginationArg>;
+  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type OrderEntity = {
@@ -1926,20 +1934,22 @@ export type OrderEntityResponseCollection = {
 export type OrderFiltersInput = {
   address?: InputMaybe<StringFilterInput>;
   and?: InputMaybe<Array<InputMaybe<OrderFiltersInput>>>;
+  calendly_booked?: InputMaybe<BooleanFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   not?: InputMaybe<OrderFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<OrderFiltersInput>>>;
   payment_id?: InputMaybe<StringFilterInput>;
-  pricing_plan?: InputMaybe<PricingPlanFiltersInput>;
+  pricing_plans?: InputMaybe<PricingPlanFiltersInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
 export type OrderInput = {
   address?: InputMaybe<Scalars['String']['input']>;
+  calendly_booked?: InputMaybe<Scalars['Boolean']['input']>;
   payment_id?: InputMaybe<Scalars['String']['input']>;
-  pricing_plan?: InputMaybe<Scalars['ID']['input']>;
+  pricing_plans?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
@@ -2143,13 +2153,19 @@ export type PricingPlan = {
   __typename?: 'PricingPlan';
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   deposit: Scalars['Float']['output'];
+  how_to_href?: Maybe<Scalars['String']['output']>;
   installation: Scalars['Boolean']['output'];
+  installation_accessories: Scalars['Boolean']['output'];
   list?: Maybe<Array<Maybe<ComponentUiListItem>>>;
   name: Scalars['String']['output'];
+  opposite_service?: Maybe<PricingPlanEntityResponse>;
   orders?: Maybe<OrderRelationResponseCollection>;
   price: Scalars['Float']['output'];
   pricing_variant_sections?: Maybe<PricingVariantSectionRelationResponseCollection>;
   products?: Maybe<ProductRelationResponseCollection>;
+  success_service_image: UploadFileEntityResponse;
+  success_service_label: Scalars['String']['output'];
+  success_service_name?: Maybe<Scalars['String']['output']>;
   type: Enum_Pricingplan_Type;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
@@ -2204,29 +2220,40 @@ export type PricingPlanFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<PricingPlanFiltersInput>>>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   deposit?: InputMaybe<FloatFilterInput>;
+  how_to_href?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   installation?: InputMaybe<BooleanFilterInput>;
+  installation_accessories?: InputMaybe<BooleanFilterInput>;
   list?: InputMaybe<ComponentUiListItemFiltersInput>;
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<PricingPlanFiltersInput>;
+  opposite_service?: InputMaybe<PricingPlanFiltersInput>;
   or?: InputMaybe<Array<InputMaybe<PricingPlanFiltersInput>>>;
   orders?: InputMaybe<OrderFiltersInput>;
   price?: InputMaybe<FloatFilterInput>;
   pricing_variant_sections?: InputMaybe<PricingVariantSectionFiltersInput>;
   products?: InputMaybe<ProductFiltersInput>;
+  success_service_label?: InputMaybe<StringFilterInput>;
+  success_service_name?: InputMaybe<StringFilterInput>;
   type?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
 export type PricingPlanInput = {
   deposit?: InputMaybe<Scalars['Float']['input']>;
+  how_to_href?: InputMaybe<Scalars['String']['input']>;
   installation?: InputMaybe<Scalars['Boolean']['input']>;
+  installation_accessories?: InputMaybe<Scalars['Boolean']['input']>;
   list?: InputMaybe<Array<InputMaybe<ComponentUiListItemInput>>>;
   name?: InputMaybe<Scalars['String']['input']>;
+  opposite_service?: InputMaybe<Scalars['ID']['input']>;
   orders?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   price?: InputMaybe<Scalars['Float']['input']>;
   pricing_variant_sections?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   products?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  success_service_image?: InputMaybe<Scalars['ID']['input']>;
+  success_service_label?: InputMaybe<Scalars['String']['input']>;
+  success_service_name?: InputMaybe<Scalars['String']['input']>;
   type?: InputMaybe<Enum_Pricingplan_Type>;
 };
 
