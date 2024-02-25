@@ -1904,6 +1904,7 @@ export type Order = {
   payment_id: Scalars['String']['output'];
   pricing_plans?: Maybe<PricingPlanRelationResponseCollection>;
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
+  token: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
@@ -1942,6 +1943,7 @@ export type OrderFiltersInput = {
   payment_id?: InputMaybe<StringFilterInput>;
   pricing_plans?: InputMaybe<PricingPlanFiltersInput>;
   publishedAt?: InputMaybe<DateTimeFilterInput>;
+  token?: InputMaybe<StringFilterInput>;
   updatedAt?: InputMaybe<DateTimeFilterInput>;
 };
 
@@ -1951,6 +1953,7 @@ export type OrderInput = {
   payment_id?: InputMaybe<Scalars['String']['input']>;
   pricing_plans?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  token?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type OrderRelationResponseCollection = {

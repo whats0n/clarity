@@ -60,6 +60,11 @@ definePageMeta({
 const calendly = useCalendly()
 const route = useRoute()
 const toast = useToast()
+const orderToken = useOrderToken()
+
+const token = orderToken.get()
+
+if (!token) showError({ statusCode: 404 })
 
 const orderId: string =
   typeof route.query.orderId === 'string'
@@ -78,7 +83,12 @@ const { data, error, pending, refresh } = await useAsyncQuery<
   cache: false,
 })
 
-if (!data.value?.order || error.value) showError({ statusCode: 404 })
+if (
+  !data.value?.order ||
+  data.value.order.data?.attributes?.token !== token ||
+  error.value
+)
+  showError({ statusCode: 404 })
 
 const imageSrc = useImageSrc()
 

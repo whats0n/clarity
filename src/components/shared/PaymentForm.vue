@@ -19,6 +19,7 @@
 
 <script lang="ts" setup>
 import { loadStripe } from '@stripe/stripe-js'
+import { useOrderToken } from '~/composables/useOrderToken'
 import CREATE_ORDER from '~/graphql/mutations/CreateOrder.gql'
 import PUBLISH_ORDER from '~/graphql/mutations/PublishOrder.gql'
 import type { Mutation } from '~/graphql/types'
@@ -67,6 +68,8 @@ const { mutate: updateOrder, error: publishError } =
 
 const orderId = ref<string>('')
 
+const orderToken = useOrderToken()
+
 const onSubmit = async () => {
   if (
     !stripe ||
@@ -82,11 +85,16 @@ const onSubmit = async () => {
 
   try {
     if (!orderId.value) {
+      const token = orderToken.generate()
+
       const creationResponse = await createOrder({
         address: props.address,
         payment_id: data.value.clientSecret.split('_secret_')[0] || '',
         pricing_plans: [props.planId],
+        token,
       })
+
+      orderToken.set(token)
 
       const id = creationResponse?.data?.createOrder?.data?.id || ''
 

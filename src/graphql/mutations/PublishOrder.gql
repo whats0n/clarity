@@ -1,4 +1,4 @@
-mutation UpdateOrder($id: ID!, $publishedAt: DateTime!) {
+mutation PublishOrder($id: ID!, $publishedAt: DateTime!) {
   updateOrder(id: $id, data: { publishedAt: $publishedAt }) {
     data {
       id

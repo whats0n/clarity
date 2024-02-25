@@ -1,12 +1,14 @@
 mutation CreateOrder(
   $address: String!
   $payment_id: String!
+  $token: String!
   $pricing_plans: [ID]!
 ) {
   createOrder(
     data: {
       address: $address
       payment_id: $payment_id
+      token: $token
       pricing_plans: $pricing_plans
     }
   ) {

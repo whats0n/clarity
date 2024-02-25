@@ -6,6 +6,7 @@ query GetSuccessPage($id: ID) {
       id
       attributes {
         calendly_booked
+        token
         pricing_plans {
           data {
             id
