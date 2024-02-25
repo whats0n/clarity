@@ -9,5 +9,6 @@ export const useLinks = () => {
     leakDetection: '/leak-detection',
     contacts: '/contacts',
     quiz: 'https://4c1l5fjfk5j.typeform.com/to/Fp5uxxP8',
+    knowledgeBase: 'https://docs.clarityatl.com/',
   }
 }

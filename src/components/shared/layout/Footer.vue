@@ -42,7 +42,7 @@
             <h4 :class="$style.nav__title">Resources</h4>
             <ul>
               <li>
-                <NuxtLink to="/">Water Quiz</NuxtLink>
+                <NuxtLink :to="links.quiz">Water Quiz</NuxtLink>
               </li>
               <li>
                 <NuxtLink to="/">Water Score</NuxtLink>

@@ -94,7 +94,9 @@
                 </div>
               </UiCollapsable>
             </div>
-            <NuxtLink to="/" :class="$style.link"> Water Quiz </NuxtLink>
+            <NuxtLink :to="links.quiz" :class="$style.link">
+              Water Quiz
+            </NuxtLink>
             <NuxtLink :to="links.reverseOsmosisPrice" :class="$style.link">
               Pricing
             </NuxtLink>
