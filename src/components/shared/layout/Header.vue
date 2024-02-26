@@ -43,15 +43,27 @@
                 </div>
               </div>
             </div>
-            <NuxtLink :to="links.quiz" :class="$style.link">
-              Water Quiz
-            </NuxtLink>
             <NuxtLink :to="links.reverseOsmosisPrice" :class="$style.link">
               Pricing
             </NuxtLink>
-            <NuxtLink :to="links.contacts" :class="$style.link">
-              Contact
-            </NuxtLink>
+            <SharedLayoutDropdownMenu :class="$style.resources">
+              <template #control>
+                <button type="button" :class="$style.link">Resources</button>
+              </template>
+
+              <template #dropdown>
+                <div :class="$style.resources__list">
+                  <SharedLayoutSubLink
+                    v-for="item in resources"
+                    :key="item.id"
+                    :href="item.href"
+                    :text="item.text"
+                    :icon="item.icon"
+                    :external="item.external"
+                  />
+                </div>
+              </template>
+            </SharedLayoutDropdownMenu>
           </nav>
 
           <UiButton
@@ -70,7 +82,7 @@
               <button
                 type="button"
                 :class="$style.link"
-                @click="openedSolutionsMobile = !openedSolutionsMobile"
+                @click="toggleMobileSubmenu('solutions')"
               >
                 Solutions
                 <UiFaIcon
@@ -79,7 +91,7 @@
                 />
               </button>
 
-              <UiCollapsable :opened="openedSolutionsMobile">
+              <UiCollapsable :opened="openedMobileSubmenu === 'solutions'">
                 <div :class="$style.submenu">
                   <SharedLayoutSolutionsItem
                     v-for="item in solutions"
@@ -94,15 +106,35 @@
                 </div>
               </UiCollapsable>
             </div>
-            <NuxtLink :to="links.quiz" :class="$style.link">
-              Water Quiz
-            </NuxtLink>
             <NuxtLink :to="links.reverseOsmosisPrice" :class="$style.link">
               Pricing
             </NuxtLink>
-            <NuxtLink :to="links.contacts" :class="$style.link">
-              Contact
-            </NuxtLink>
+            <div>
+              <button
+                type="button"
+                :class="$style.link"
+                @click="toggleMobileSubmenu('resources')"
+              >
+                Resources
+                <UiFaIcon
+                  :icon="['fas', 'angle-down']"
+                  :class="$style.link__angle"
+                />
+              </button>
+
+              <UiCollapsable :opened="openedMobileSubmenu === 'resources'">
+                <div :class="$style.submenu">
+                  <SharedLayoutSubLink
+                    v-for="item in resources"
+                    :key="item.id"
+                    :href="item.href"
+                    :text="item.text"
+                    :icon="item.icon"
+                    :external="item.external"
+                  />
+                </div>
+              </UiCollapsable>
+            </div>
           </template>
           <template #footer>
             <UiButton
@@ -126,9 +158,23 @@ const bp = useBreakpoints()
 const links = useLinks()
 
 const opened = ref<boolean>(false)
-const openedSolutionsMobile = ref<boolean>(false)
 
-const solutions = [
+const openedMobileSubmenu = ref<string>('')
+const toggleMobileSubmenu = (id: string): void => {
+  openedMobileSubmenu.value = id === openedMobileSubmenu.value ? '' : id
+}
+
+const solutions = computed<
+  Array<{
+    id: number
+    href: string
+    title: string
+    text: string
+    image: string
+    soon?: boolean
+    wifi?: boolean
+  }>
+>(() => [
   {
     id: 1,
     href: links.reverseOsmosis,
@@ -159,7 +205,58 @@ const solutions = [
     title: 'Emergency Monitoring',
     text: 'Monitor water and automatically shutoff in emergency',
   },
-]
+])
+
+const resources = computed<
+  Array<{
+    id: number
+    href: string
+    text: string
+    icon: string
+    external?: boolean
+  }>
+>(() => [
+  {
+    id: 1,
+    href: links.quiz,
+    text: 'Water Quiz',
+    icon: 'menu-drop',
+    external: true,
+  },
+  {
+    id: 2,
+    href: links.contacts,
+    text: 'Contact',
+    icon: 'menu-mail',
+  },
+  {
+    id: 3,
+    href: links.knowledgeBase,
+    text: 'Knowledge Base',
+    icon: 'menu-book',
+    external: true,
+  },
+  {
+    id: 4,
+    href: links.consultation,
+    text: 'Schedule Consultation',
+    icon: 'menu-calendar',
+    external: true,
+  },
+  {
+    id: 5,
+    href: links.blog,
+    text: 'Blog',
+    icon: 'menu-pen',
+    external: true,
+  },
+  {
+    id: 6,
+    href: links.report,
+    text: 'Tap Water Report',
+    icon: 'menu-clipboard',
+  },
+])
 
 const route = useRoute()
 
@@ -167,7 +264,7 @@ watch(
   () => route.name,
   (prev, next) => {
     if (prev !== next) {
-      openedSolutionsMobile.value = false
+      openedMobileSubmenu.value = ''
       opened.value = false
     }
   },
@@ -305,5 +402,16 @@ watch(
   display: grid;
   gap: 16px;
   padding: 16px 16px 16px 48px;
+}
+
+.resources {
+  --menu-width: 532px;
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 29px 27px 42px;
+  }
 }
 </style>
