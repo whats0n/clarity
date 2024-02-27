@@ -43,7 +43,11 @@ export default defineNuxtConfig({
     },
   },
 
-  plugins: ['~/plugins/fontawesome.ts', '~/plugins/apollo.ts'],
+  plugins: [
+    '~/plugins/gtm.ts',
+    '~/plugins/fontawesome.ts',
+    '~/plugins/apollo.ts',
+  ],
 
   css: ['~/scss/index.scss', '@fortawesome/fontawesome-svg-core/styles.css'],
 
