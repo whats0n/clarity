@@ -36,9 +36,7 @@
             {{ item.name }}
           </div>
           <div :class="$style.plan__container">
-            <div :class="$style.plan__price">
-              {{ item.price }}
-            </div>
+            <div :class="$style.plan__price">${{ item.price }}</div>
             <div :class="$style.plan__label">
               {{
                 item.installation
