@@ -10,6 +10,6 @@ export default defineNuxtRouteMiddleware((to) => {
 
     const newUrl = `${protocol.replace(':', '')}://${newHost}${to.fullPath}`
 
-    return navigateTo(newUrl, { redirectCode: 301 })
+    return navigateTo(newUrl, { external: true, redirectCode: 301 })
   }
 })
