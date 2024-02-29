@@ -5,6 +5,10 @@ declare global {
 }
 
 export default defineNuxtPlugin(() => {
+  const gtag = (...args: any[]): void => {
+    window.dataLayer.push(args)
+  }
+
   if (process.client) {
     const script = document.createElement('script')
     script.src = `https://www.googletagmanager.com/gtag/js?id=AW-16461428444`
@@ -13,12 +17,14 @@ export default defineNuxtPlugin(() => {
 
     window.dataLayer = window.dataLayer || []
 
-    function gtag(...args: any[]) {
-      window.dataLayer.push(args)
-    }
-
     gtag('js', new Date())
 
     gtag('config', 'AW-16461428444')
+  }
+
+  return {
+    provide: {
+      gtag,
+    },
   }
 })

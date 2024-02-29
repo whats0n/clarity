@@ -61,6 +61,7 @@ const calendly = useCalendly()
 const route = useRoute()
 const toast = useToast()
 const orderToken = useOrderToken()
+const { $gtag } = useNuxtApp()
 
 const token = orderToken.get()
 
@@ -182,6 +183,10 @@ const onEventScheduled = async (): Promise<void> => {
 
 onMounted(() => {
   calendly.addEventListener('calendly.event_scheduled', onEventScheduled)
+
+  $gtag('event', 'conversion', {
+    send_to: 'AW-16461428444/fgFVCPyJmpUZENzttak9',
+  })
 })
 
 onBeforeUnmount(() => {
