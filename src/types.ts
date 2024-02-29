@@ -210,6 +210,7 @@ export interface SharedPricingPlan {
   name: string
   price: number
   installation: boolean
+  image: string
   button?: {
     href: string
     color: SharedPricingPlanColor

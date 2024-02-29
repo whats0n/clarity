@@ -2157,6 +2157,8 @@ export type PricingPlan = {
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   deposit: Scalars['Float']['output'];
   how_to_href?: Maybe<Scalars['String']['output']>;
+  how_to_text: Scalars['String']['output'];
+  image?: Maybe<UploadFileEntityResponse>;
   installation: Scalars['Boolean']['output'];
   installation_accessories: Scalars['Boolean']['output'];
   list?: Maybe<Array<Maybe<ComponentUiListItem>>>;
@@ -2224,6 +2226,7 @@ export type PricingPlanFiltersInput = {
   createdAt?: InputMaybe<DateTimeFilterInput>;
   deposit?: InputMaybe<FloatFilterInput>;
   how_to_href?: InputMaybe<StringFilterInput>;
+  how_to_text?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
   installation?: InputMaybe<BooleanFilterInput>;
   installation_accessories?: InputMaybe<BooleanFilterInput>;
@@ -2245,6 +2248,8 @@ export type PricingPlanFiltersInput = {
 export type PricingPlanInput = {
   deposit?: InputMaybe<Scalars['Float']['input']>;
   how_to_href?: InputMaybe<Scalars['String']['input']>;
+  how_to_text?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['ID']['input']>;
   installation?: InputMaybe<Scalars['Boolean']['input']>;
   installation_accessories?: InputMaybe<Scalars['Boolean']['input']>;
   list?: InputMaybe<Array<InputMaybe<ComponentUiListItemInput>>>;

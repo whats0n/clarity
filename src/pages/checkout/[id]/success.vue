@@ -30,7 +30,7 @@
           <UiButton
             v-if="pricingPlan?.attributes?.how_to_href"
             external
-            text="How to prepare for RO Install"
+            :text="pricingPlan.attributes.how_to_text || ''"
             :to="pricingPlan.attributes.how_to_href || ''"
             :class="$style.button"
           />

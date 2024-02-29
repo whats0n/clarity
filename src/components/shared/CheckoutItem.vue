@@ -55,6 +55,10 @@ withDefaults(
   gap: 30px;
   align-items: center;
   color: #204f60;
+
+  @include media($to: sm) {
+    grid-template-columns: 85px 1fr;
+  }
 }
 
 .figure {
@@ -75,6 +79,7 @@ withDefaults(
 }
 
 .image {
+  display: block;
   width: 100%;
   aspect-ratio: 1/1;
 }
@@ -106,5 +111,11 @@ withDefaults(
   vertical-align: top;
   background: #cbeeec;
   border-radius: 9px;
+}
+
+.info {
+  @include media($to: sm) {
+    grid-column: 1/3;
+  }
 }
 </style>

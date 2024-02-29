@@ -7,6 +7,7 @@ import type {
 
 export const usePricingHeroAdapter = () => {
   const listAdapter = useListAdapter()
+  const imageSrc = useImageSrc()
 
   return (source?: Maybe<PricingHeroSection>): SharedPricingHero | null => {
     return source
@@ -32,6 +33,7 @@ export const usePricingHeroAdapter = () => {
                     name: plan.attributes.name,
                     price: plan.attributes.price,
                     installation: plan.attributes.installation,
+                    image: imageSrc(plan.attributes.image),
                     button: {
                       href: `/checkout/${plan.id}`,
                       color: plan.attributes.type,

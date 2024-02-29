@@ -12,6 +12,7 @@ query GetSuccessPage($id: ID) {
             id
             attributes {
               how_to_href
+              how_to_text
               opposite_service {
                 data {
                   id

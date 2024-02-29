@@ -256,9 +256,12 @@ const address = await useAddress()
 <style lang="scss" module>
 .container {
   display: grid;
-  grid-template-columns: 1fr 370px;
   gap: 100px;
   align-items: flex-start;
+
+  @include media($from: md) {
+    grid-template-columns: 1fr 370px;
+  }
 }
 
 .title {
@@ -364,10 +367,15 @@ const address = await useAddress()
 
   &__icon {
     position: absolute;
-    top: calc(50% - 9px);
+    top: calc(50% - 0.5em);
     left: 24px;
     color: var(--primary-light-color);
     font-size: 18px;
+
+    @include media($to: sm) {
+      left: 16px;
+      font-size: 16px;
+    }
   }
 
   &__input {
@@ -382,6 +390,12 @@ const address = await useAddress()
     border-radius: 8px;
     box-shadow: 0 -10px 35px 0 rgba(0, 0, 0, 0.03);
     padding-inline: 58px 24px;
+
+    @include media($to: sm) {
+      height: 60px;
+      font-size: 16px;
+      padding-inline: 40px 16px;
+    }
 
     &::placeholder {
       color: var(--primary-light-color);

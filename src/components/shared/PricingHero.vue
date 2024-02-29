@@ -36,6 +36,11 @@
             {{ item.name }}
           </div>
           <div :class="$style.plan__container">
+            <img
+              v-if="item.image"
+              :src="item.image"
+              :class="$style.plan__image"
+            />
             <div :class="$style.plan__price">${{ item.price }}</div>
             <div :class="$style.plan__label">
               {{
@@ -128,6 +133,7 @@ const selectedPlans = computed<SharedPricingPlan[]>(
 
 .toggles {
   display: flex;
+  flex-wrap: wrap;
   gap: 16px;
   justify-content: center;
   max-width: 865px;
@@ -224,6 +230,13 @@ const selectedPlans = computed<SharedPricingPlan[]>(
     background: #ffffff;
     border: 1px solid #e9f2fa;
     border-radius: 12px;
+  }
+
+  &__image {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 8px;
+    object-fit: contain;
   }
 
   &__name {
