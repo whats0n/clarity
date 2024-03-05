@@ -57,7 +57,6 @@ definePageMeta({
   title: 'Success',
 })
 
-const calendly = useCalendly()
 const route = useRoute()
 const toast = useToast()
 const orderToken = useOrderToken()
@@ -99,6 +98,12 @@ const pricingPlans = computed<PricingPlanEntity[]>(
 
 const pricingPlan = computed<PricingPlanEntity | null>(
   () => pricingPlans.value[0],
+)
+
+const calendly = useCalendly(
+  computed<string>(
+    () => pricingPlan.value?.attributes?.calendly_schedule_url || '',
+  ),
 )
 
 const oppositePricingPlan = computed<PricingPlanEntity | null>(

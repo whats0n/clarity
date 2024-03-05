@@ -2154,6 +2154,7 @@ export type PricingPageTemplateRelationResponseCollection = {
 
 export type PricingPlan = {
   __typename?: 'PricingPlan';
+  calendly_schedule_url: Scalars['String']['output'];
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   deposit: Scalars['Float']['output'];
   how_to_href?: Maybe<Scalars['String']['output']>;
@@ -2223,6 +2224,7 @@ export type PricingPlanEntityResponseCollection = {
 
 export type PricingPlanFiltersInput = {
   and?: InputMaybe<Array<InputMaybe<PricingPlanFiltersInput>>>;
+  calendly_schedule_url?: InputMaybe<StringFilterInput>;
   createdAt?: InputMaybe<DateTimeFilterInput>;
   deposit?: InputMaybe<FloatFilterInput>;
   how_to_href?: InputMaybe<StringFilterInput>;
@@ -2246,6 +2248,7 @@ export type PricingPlanFiltersInput = {
 };
 
 export type PricingPlanInput = {
+  calendly_schedule_url?: InputMaybe<Scalars['String']['input']>;
   deposit?: InputMaybe<Scalars['Float']['input']>;
   how_to_href?: InputMaybe<Scalars['String']['input']>;
   how_to_text?: InputMaybe<Scalars['String']['input']>;

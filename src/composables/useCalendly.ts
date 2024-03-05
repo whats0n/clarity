@@ -6,9 +6,7 @@ type CalendlyEvent =
   | 'calendly.date_and_time_selected'
   | 'calendly.event_scheduled'
 
-export const useCalendly = () => {
-  const runtimeConfig = useRuntimeConfig()
-
+export const useCalendly = (url: MaybeRef<string>) => {
   const events: Record<CalendlyEvent, CalendlyListener[]> = {
     'calendly.profile_page_viewed': [],
     'calendly.event_type_viewed': [],
@@ -18,7 +16,7 @@ export const useCalendly = () => {
 
   const open = (customAnswers?: Record<string, string>) =>
     window.Calendly?.initPopupWidget({
-      url: runtimeConfig.public.calendlyUrl,
+      url: unref(url),
       prefill: {
         customAnswers,
       },

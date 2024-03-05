@@ -15,7 +15,6 @@ export default defineNuxtConfig({
       strapiApiUrl: '',
       strapiUrl: '',
       stripePk: '',
-      calendlyUrl: '',
       consultationUrl: '',
     },
   },

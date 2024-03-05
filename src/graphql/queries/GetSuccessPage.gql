@@ -13,6 +13,7 @@ query GetSuccessPage($id: ID) {
             attributes {
               how_to_href
               how_to_text
+              calendly_schedule_url
               opposite_service {
                 data {
                   id
