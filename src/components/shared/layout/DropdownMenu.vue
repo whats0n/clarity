@@ -38,7 +38,7 @@ const left = computed<string>(() => {
 .dropdown {
   position: absolute;
   top: calc(100% - 14px);
-  right: 30px;
+  right: var(--menu-right, 30px);
   width: var(--menu-width);
   padding-top: var(--transparent-space);
   visibility: hidden;

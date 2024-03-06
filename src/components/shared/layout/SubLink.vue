@@ -5,7 +5,7 @@
     :target="external ? '_blank' : undefined"
     :class="$style.link"
   >
-    <UiIcon :name="icon" :class="$style.icon" />
+    <UiIcon v-if="icon" :name="icon" :class="$style.icon" />
     <span :class="$style.text">
       {{ text }}
     </span>
@@ -17,15 +17,13 @@ defineProps<{
   external?: boolean
   href: string
   text: string
-  icon: string
+  icon?: string
 }>()
 </script>
 
 <style lang="scss" module>
 .link {
-  display: inline-grid;
-  grid-template-columns: auto 1fr;
-  gap: 6px;
+  display: inline-block;
   color: #32324d;
   font-weight: 700;
   font-size: 15px;
@@ -35,6 +33,12 @@ defineProps<{
 
   @include hover {
     color: var(--accent-color);
+  }
+
+  &:has(.icon) {
+    display: inline-grid;
+    grid-template-columns: auto 1fr;
+    gap: 6px;
   }
 }
 

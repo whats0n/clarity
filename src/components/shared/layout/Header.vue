@@ -43,9 +43,22 @@
                 </div>
               </div>
             </div>
-            <NuxtLink :to="links.reverseOsmosisPrice" :class="$style.link">
-              Pricing
-            </NuxtLink>
+            <SharedLayoutDropdownMenu :class="$style.pricing">
+              <template #control>
+                <button type="button" :class="$style.link">Pricing</button>
+              </template>
+
+              <template #dropdown>
+                <div :class="$style.pricing__list">
+                  <SharedLayoutSubLink
+                    v-for="item in pricing"
+                    :key="item.id"
+                    :href="item.href"
+                    :text="item.text"
+                  />
+                </div>
+              </template>
+            </SharedLayoutDropdownMenu>
             <SharedLayoutDropdownMenu :class="$style.resources">
               <template #control>
                 <button type="button" :class="$style.link">Resources</button>
@@ -106,9 +119,30 @@
                 </div>
               </UiCollapsable>
             </div>
-            <NuxtLink :to="links.reverseOsmosisPrice" :class="$style.link">
-              Pricing
-            </NuxtLink>
+            <div>
+              <button
+                type="button"
+                :class="$style.link"
+                @click="toggleMobileSubmenu('pricing')"
+              >
+                Pricing
+                <UiFaIcon
+                  :icon="['fas', 'angle-down']"
+                  :class="$style.link__angle"
+                />
+              </button>
+
+              <UiCollapsable :opened="openedMobileSubmenu === 'pricing'">
+                <div :class="$style.submenu">
+                  <SharedLayoutSubLink
+                    v-for="item in pricing"
+                    :key="item.id"
+                    :href="item.href"
+                    :text="item.text"
+                  />
+                </div>
+              </UiCollapsable>
+            </div>
             <div>
               <button
                 type="button"
@@ -179,7 +213,7 @@ const solutions = computed<
     id: 1,
     href: links.reverseOsmosis,
     image: '/images/solutions-01.png',
-    title: 'Under Sink Filtration',
+    title: 'Reverse Osmosis',
     text: 'Maximum filtration for pure and clean drinking water',
   },
   {
@@ -255,6 +289,25 @@ const resources = computed<
     href: links.report,
     text: 'Tap Water Report',
     icon: 'menu-clipboard',
+  },
+])
+
+const pricing = computed<
+  Array<{
+    id: number
+    href: string
+    text: string
+  }>
+>(() => [
+  {
+    id: 1,
+    href: links.reverseOsmosisPrice,
+    text: 'Reverse Osmosis',
+  },
+  {
+    id: 2,
+    href: links.homeFiltrationPrice,
+    text: 'Whole Home Filtration',
   },
 ])
 
@@ -411,7 +464,18 @@ watch(
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
-    padding: 29px 27px 42px;
+    padding: 30px 30px 40px;
+  }
+}
+
+.pricing {
+  --menu-width: 320px;
+  --menu-right: 120px;
+
+  &__list {
+    display: grid;
+    gap: 16px;
+    padding: 30px;
   }
 }
 </style>
