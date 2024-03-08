@@ -309,6 +309,11 @@ const pricing = computed<
     href: links.homeFiltrationPrice,
     text: 'Whole Home Filtration',
   },
+  {
+    id: 3,
+    href: links.installationPrice,
+    text: 'Installation Price',
+  },
 ])
 
 const route = useRoute()

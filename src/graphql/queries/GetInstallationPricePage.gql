@@ -1,0 +1,18 @@
+#import "../fragments/templates/PricingPage.gql"
+#import "../fragments/shared/Seo.gql"
+
+query GetInstallationPricePage {
+  installationPrice {
+    data {
+      attributes {
+        pricing_page_template {
+          ...PricingPageTemplate
+        }
+
+        seo {
+          ...SharedSeo
+        }
+      }
+    }
+  }
+}

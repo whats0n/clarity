@@ -20,6 +20,7 @@ export default defineNuxtConfig({
   },
 
   modules: [
+    '@nuxtjs/sitemap',
     '@nuxtjs/apollo',
     '@vueuse/nuxt',
     [
