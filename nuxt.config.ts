@@ -31,6 +31,10 @@ export default defineNuxtConfig({
     ],
   ],
 
+  site: {
+    trailingSlash: true,
+  },
+
   apollo: {
     autoImports: true,
     authType: 'Bearer',
