@@ -62,7 +62,7 @@
               Get Started Now
             </NuxtLink>
           </div>
-          <div :class="$style.plan__details">
+          <div v-if="item.list?.length" :class="$style.plan__details">
             <div :class="$style.plan__name">
               {{ item.name }}
             </div>
