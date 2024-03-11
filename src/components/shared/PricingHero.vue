@@ -3,7 +3,9 @@
     <div :class="['container', $style.container]">
       <div :class="$style.header">
         <h1 class="title-lg">{{ title }}</h1>
-        <p :class="$style.description">{{ description }}</p>
+        <p v-if="description.trim().length" :class="$style.description">
+          {{ description }}
+        </p>
       </div>
 
       <div :class="$style.toggles">
@@ -218,18 +220,21 @@ const selectedPlans = computed<SharedPricingPlan[]>(
 
 .plan {
   width: calc((100% - var(--gap) * (var(--columns) - 1)) / var(--columns));
-  padding: 25px 10px 55px;
+  padding: 25px 10px 36px;
   background: #f6fafe;
   border: 1px solid #e9f2fa;
   border-radius: 11px;
 
   &__container {
-    margin-bottom: 32px;
     padding: 32px 36px 52px;
     text-align: center;
     background: #ffffff;
     border: 1px solid #e9f2fa;
     border-radius: 12px;
+
+    &:not(:last-child) {
+      margin-bottom: 32px;
+    }
   }
 
   &__image {
@@ -311,6 +316,7 @@ const selectedPlans = computed<SharedPricingPlan[]>(
 
   &__details {
     padding-inline: 15px;
+    padding-bottom: 20px;
   }
 
   &__list {
