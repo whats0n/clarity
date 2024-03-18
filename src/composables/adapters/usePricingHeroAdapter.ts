@@ -32,7 +32,7 @@ export const usePricingHeroAdapter = () => {
                     id: plan.id,
                     name: plan.attributes.name,
                     price: plan.attributes.price,
-                    installation: plan.attributes.installation,
+                    meta: plan.attributes.meta_label,
                     image: imageSrc(plan.attributes.image),
                     button: {
                       href: `/checkout/${plan.id}`,

@@ -20,7 +20,7 @@
             :name="oppositeService.name"
             :image="oppositeService.image"
             :price="oppositeService.price"
-            :installation="oppositeService.installation"
+            :meta="oppositeService.meta"
             :installation-accessories="oppositeService.installationAccessories"
             :class="$style.card"
             :processing="updating"
@@ -129,7 +129,7 @@ const oppositeService = computed(() => {
 
       return result + price - discount
     }, 0),
-    installation: !!oppositePricingPlan.value?.attributes?.installation,
+    meta: oppositePricingPlan.value?.attributes?.meta_label || '',
     installationAccessories:
       !!oppositePricingPlan.value?.attributes?.installation_accessories,
   }

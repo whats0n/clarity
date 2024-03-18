@@ -22,7 +22,7 @@ fragment PricingHeroSection on PricingHeroSectionEntityResponse {
                 attributes {
                   name
                   price
-                  installation
+                  meta_label
                   type
                   list {
                     ...UiListItem

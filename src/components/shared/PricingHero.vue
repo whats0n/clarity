@@ -45,11 +45,7 @@
             />
             <div :class="$style.plan__price">${{ item.price }}</div>
             <div :class="$style.plan__label">
-              {{
-                item.installation
-                  ? 'including installation'
-                  : 'not including installation'
-              }}
+              {{ item.meta }}
             </div>
             <NuxtLink
               v-if="item.button"

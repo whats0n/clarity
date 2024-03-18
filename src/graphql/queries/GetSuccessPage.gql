@@ -23,7 +23,7 @@ query GetSuccessPage($id: ID) {
                     success_service_image {
                       ...UiImage
                     }
-                    installation
+                    meta_label
                     installation_accessories
                     products {
                       data {

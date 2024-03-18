@@ -209,7 +209,7 @@ export interface SharedPricingPlan {
   id: string
   name: string
   price: number
-  installation: boolean
+  meta: string
   image: string
   button?: {
     href: string

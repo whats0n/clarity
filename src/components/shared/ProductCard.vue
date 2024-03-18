@@ -4,7 +4,7 @@
       {{ service }}
     </div>
     <div :class="$style.price">{{ computedPrice }}</div>
-    <div v-if="installation" :class="$style.installation">Includes Install</div>
+    <div v-if="meta" :class="$style.installation">{{ meta }}</div>
     <div :class="$style.name">{{ name }}</div>
     <div v-if="installationAccessories" :class="$style.meta">
       Installation Accessories Included
@@ -28,7 +28,7 @@ const props = defineProps<{
   name: string
   image: string
   price: number
-  installation: boolean
+  meta: string
   installationAccessories: boolean
   processing: boolean
   disabled: boolean

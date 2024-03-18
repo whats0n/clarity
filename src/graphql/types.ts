@@ -266,25 +266,6 @@ export type ComponentItemPricingFeaturesInput = {
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type ComponentItemPricingPlan = {
-  __typename?: 'ComponentItemPricingPlan';
-  get_started_color: Enum_Componentitempricingplan_Get_Started_Color;
-  get_started_external: Scalars['Boolean']['output'];
-  get_started_href?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  installation: Scalars['Boolean']['output'];
-  list: Array<Maybe<ComponentUiListItem>>;
-  name: Scalars['String']['output'];
-  price: Scalars['Float']['output'];
-};
-
-
-export type ComponentItemPricingPlanListArgs = {
-  filters?: InputMaybe<ComponentUiListItemFiltersInput>;
-  pagination?: InputMaybe<PaginationArg>;
-  sort?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
 export type ComponentItemServices = {
   __typename?: 'ComponentItemServices';
   description: Scalars['String']['output'];
@@ -780,12 +761,6 @@ export type DateTimeFilterInput = {
   startsWith?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
-export enum Enum_Componentitempricingplan_Get_Started_Color {
-  Primary = 'primary',
-  Secondary = 'secondary',
-  Tertiary = 'tertiary'
-}
-
 export enum Enum_Componentuibutton_Size {
   Lg = 'lg',
   Md = 'md'
@@ -814,6 +789,8 @@ export enum Enum_Componentuiicon_Name {
   Marker = 'marker',
   PricingNonRo = 'pricing_non_ro',
   PricingRo = 'pricing_ro',
+  PricingUndersink = 'pricing_undersink',
+  PricingWholeHome = 'pricing_whole_home',
   Protection = 'protection',
   Rain = 'rain',
   ShieldProtected = 'shield_protected',
@@ -941,7 +918,7 @@ export type FloatFilterInput = {
   startsWith?: InputMaybe<Scalars['Float']['input']>;
 };
 
-export type GenericMorph = BlogSection | ComponentItemBlog | ComponentItemContactsInterest | ComponentItemContent | ComponentItemFaq | ComponentItemInnerFeatures | ComponentItemInnerHero | ComponentItemPricingFeatures | ComponentItemPricingPlan | ComponentItemServices | ComponentItemSteps | ComponentItemTips | ComponentSharedMedia | ComponentSharedQuote | ComponentSharedRichText | ComponentSharedSeo | ComponentUiButton | ComponentUiIcon | ComponentUiListItem | ComponentUiTipsIcon | Contact | ContactsPage | ContactsSection | ContentReleasesRelease | ContentReleasesReleaseAction | ContentSection | FaqSection | Global | HomeHeroSection | HomePage | I18NLocale | InnerFeaturesSection | InnerHeroSection | InstallationPrice | LeakDetection | Order | PricingFeaturesSection | PricingHeroSection | PricingPageTemplate | PricingPlan | PricingVariantSection | Product | ReverseOsmosis | ReverseOsmosisPrice | ServicesSection | StepsSection | TipsSection | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | WhFiltration | WhFiltrationPrice;
+export type GenericMorph = BlogSection | ComponentItemBlog | ComponentItemContactsInterest | ComponentItemContent | ComponentItemFaq | ComponentItemInnerFeatures | ComponentItemInnerHero | ComponentItemPricingFeatures | ComponentItemServices | ComponentItemSteps | ComponentItemTips | ComponentSharedMedia | ComponentSharedQuote | ComponentSharedRichText | ComponentSharedSeo | ComponentUiButton | ComponentUiIcon | ComponentUiListItem | ComponentUiTipsIcon | Contact | ContactsPage | ContactsSection | ContentReleasesRelease | ContentReleasesReleaseAction | ContentSection | FaqSection | Global | HomeHeroSection | HomePage | I18NLocale | InnerFeaturesSection | InnerHeroSection | InstallationPrice | LeakDetection | Order | PricingFeaturesSection | PricingHeroSection | PricingPageTemplate | PricingPlan | PricingVariantSection | Product | ReverseOsmosis | ReverseOsmosisPrice | ServicesSection | StepsSection | TipsSection | UploadFile | UploadFolder | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser | WhFiltration | WhFiltrationPrice;
 
 export type Global = {
   __typename?: 'Global';
@@ -2191,9 +2168,9 @@ export type PricingPlan = {
   how_to_href?: Maybe<Scalars['String']['output']>;
   how_to_text: Scalars['String']['output'];
   image?: Maybe<UploadFileEntityResponse>;
-  installation: Scalars['Boolean']['output'];
   installation_accessories: Scalars['Boolean']['output'];
   list?: Maybe<Array<Maybe<ComponentUiListItem>>>;
+  meta_label: Scalars['String']['output'];
   name: Scalars['String']['output'];
   opposite_service?: Maybe<PricingPlanEntityResponse>;
   orders?: Maybe<OrderRelationResponseCollection>;
@@ -2261,9 +2238,9 @@ export type PricingPlanFiltersInput = {
   how_to_href?: InputMaybe<StringFilterInput>;
   how_to_text?: InputMaybe<StringFilterInput>;
   id?: InputMaybe<IdFilterInput>;
-  installation?: InputMaybe<BooleanFilterInput>;
   installation_accessories?: InputMaybe<BooleanFilterInput>;
   list?: InputMaybe<ComponentUiListItemFiltersInput>;
+  meta_label?: InputMaybe<StringFilterInput>;
   name?: InputMaybe<StringFilterInput>;
   not?: InputMaybe<PricingPlanFiltersInput>;
   opposite_service?: InputMaybe<PricingPlanFiltersInput>;
@@ -2284,9 +2261,9 @@ export type PricingPlanInput = {
   how_to_href?: InputMaybe<Scalars['String']['input']>;
   how_to_text?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['ID']['input']>;
-  installation?: InputMaybe<Scalars['Boolean']['input']>;
   installation_accessories?: InputMaybe<Scalars['Boolean']['input']>;
   list?: InputMaybe<Array<InputMaybe<ComponentUiListItemInput>>>;
+  meta_label?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   opposite_service?: InputMaybe<Scalars['ID']['input']>;
   orders?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
