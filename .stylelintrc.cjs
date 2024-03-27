@@ -27,6 +27,12 @@ module.exports = {
         ],
       },
     ],
+    'property-no-unknown': [
+      true,
+      {
+        ignoreProperties: ['/^mso-/'],
+      },
+    ],
     'function-no-unknown': null,
     'custom-property-no-missing-var-function': null,
   },

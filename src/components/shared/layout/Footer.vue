@@ -58,6 +58,9 @@
               <li>
                 <NuxtLink to="/">Product Comparison</NuxtLink>
               </li>
+              <li>
+                <NuxtLink :to="links.privacyPolicy">Privacy Policy</NuxtLink>
+              </li>
             </ul>
           </div>
         </div>

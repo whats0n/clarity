@@ -15,5 +15,6 @@ export const useLinks = () => {
     consultation: runtimeConfig.public.consultationUrl,
     blog: '/',
     report: 'https://www.ewg.org/tapwater/',
+    privacyPolicy: '/privacy-policy',
   }
 }
